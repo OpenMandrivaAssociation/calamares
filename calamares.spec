@@ -1,9 +1,14 @@
 %global snapdate 20150112
 
+%define major 0
+%define libname %mklibname %{name} {major}
+%define develname %mklibname %{name} -d
+
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	0.17.0
 Release:	0.%{snapdate}.1
+Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-0.17.0-20150112/ HEAD | xz -vf > calamares-0.17.0-20150112.tar.xz
@@ -64,25 +69,27 @@ Requires:       urpmi
 ExclusiveArch:	%{ix86} x86_64
 
 %description
-Calamares is a distribution-independent installer framework, designed to install
-from a live CD/DVD/USB environment to a hard disk. It includes a graphical
-installation program based on Qt 5.
+Calamares is a distribution-independent installer framework,
+designed to install from a live CD/DVD/USB environment to
+a hard disk. It includes a graphical installation
+program based on Qt 5.
 
-
-%package libs
+%package -n %{libname}
 Summary:	Calamares runtime libraries
+Group:		System/Libraries
 Requires:	%{name} = %{EVRD}
 
-%description libs
+%description -n %{libname}
 Librarief for %{name}.
 
 
-%package devel
+%package -n %{develname}
 Summary:	Development files for %{name}
-Requires:	%{name} = %{EVRD}
+Group:		Development/C 
+Requires:	%{libname} = %{EVRD}
 Requires:	cmake
 
-%description devel
+%description -n %{develname}
 Development files and headers for %{name}.
 
 
@@ -155,13 +162,13 @@ EOF
 %{_libdir}/calamares/*
 %ghost %{_datadir}/calamares/branding/auto/branding.desc
 
-%files libs
-%{_libdir}/libcalamares.so.*
-%{_libdir}/libcalamaresui.so.*
+%files -n %{libname}
+%{_libdir}/libcalamares.so.%{major}*
+%{_libdir}/libcalamaresui.so.%{major}*
 # unversioned library
 %{_libdir}/libcalapm.so
 
-%files devel
+%files -n %{develname}
 %dir %{_includedir}/libcalamares
 %dir %{_libdir}/cmake/Calamares
 %{_includedir}/libcalamares/*
