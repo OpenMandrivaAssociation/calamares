@@ -30,7 +30,7 @@ BuildRequires:	pkgconfig(libparted)
 BuildRequires:	cmake >= 3.0
 BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
-BuildRequires:	qt5-qttools-linguist
+BuildRequires:	qt5-linguist
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5Solid)
