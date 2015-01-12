@@ -1,0 +1,19 @@
+diff -Naur calamares-0.17.0-20150112/calamares.desktop calamares-0.17.0-20150112.tpg/calamares.desktop
+--- calamares-0.17.0-20150112/calamares.desktop	2015-01-11 13:53:23.000000000 +0000
++++ calamares-0.17.0-20150112.tpg/calamares.desktop	2015-01-12 22:20:54.938394302 +0000
+@@ -1,12 +1,11 @@
+ [Desktop Entry]
+ Type=Application
+ Version=1.0
+-Name=Calamares
+-GenericName=System Installer
++Name=Install OpenMandriva Lx
+ TryExec=calamares
+ Exec=pkexec /usr/bin/calamares
+-Comment=Calamares — System Installer
+-Icon=calamares
++Comment=OpenMandriva Lx installer
++Icon=openmandriva.svg
+ Terminal=false
+ StartupNotify=false
+ Categories=Qt;System;
