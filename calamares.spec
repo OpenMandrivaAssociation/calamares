@@ -28,7 +28,7 @@ BuildRequires:	pkgconfig(libatasmart)
 BuildRequires:	pkgconfig(blkid)
 BuildRequires:	pkgconfig(libparted)
 BuildRequires:	cmake >= 3.0
-BuildRequires:	extra-cmake-modules
+BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
 BuildRequires:	qt5-qttools-linguist
 BuildRequires:	cmake(KF5CoreAddons)
