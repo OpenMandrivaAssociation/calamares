@@ -109,7 +109,7 @@ rm -f src/modules/*/*.conf.default-settings
 %make
 
 %install
-%makeinstall_std
+%makeinstall_std -C build
 
 #own the auto branding directory
 mkdir -p %{buildroot}%{_datadir}/calamares/branding/auto
