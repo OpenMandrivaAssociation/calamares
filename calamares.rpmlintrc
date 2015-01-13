@@ -1,2 +1,3 @@
 addFilter("E: non-executable-script")
 addFilter("E: devel-file-in-non-devel-package ")
+addFilter("E: incoherent-version-in-name")
