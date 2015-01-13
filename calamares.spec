@@ -104,7 +104,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
+%cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="OFF" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
 
