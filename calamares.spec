@@ -164,8 +164,6 @@ EOF
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
 %{_libdir}/libcalamaresui.so.%{major}*
-# unversioned library
-%{_libdir}/libcalapm.so
 
 %files -n %{develname}
 %dir %{_includedir}/libcalamares
