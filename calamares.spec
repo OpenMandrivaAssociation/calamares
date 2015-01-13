@@ -13,6 +13,7 @@ License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-0.17.0-20150112/ HEAD | xz -vf > calamares-0.17.0-20150112.tar.xz
 Source0:	calamares-%{version}-%{snapdate}.tar.xz
+Source1:	calamares.rpmlintrc
 Patch0:         calamares-0.17.0-20150112-openmandriva-settings.patch
 Patch1:         calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 BuildRequires:	pkgconfig(Qt5Core)
