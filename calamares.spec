@@ -97,8 +97,6 @@ Development files and headers for %{name}.
 %prep
 %setup -q -n %{name}-%{version}-%{snapdate}
 
-rmdir src/modules/partition/partitionmanager
-
 %patch0 -p1 -b .default-settings
 %patch1 -p1 -b .desktop-file
 
@@ -106,7 +104,7 @@ rmdir src/modules/partition/partitionmanager
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ONFF" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
+%cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
 
