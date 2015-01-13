@@ -27,6 +27,7 @@ BuildRequires:	pkgconfig(Qt5Svg)
 BuildRequires:	pkgconfig(libatasmart)
 BuildRequires:	pkgconfig(blkid)
 BuildRequires:	pkgconfig(libparted)
+BuildRequires:	pkgconfig(polkit-qt5-1)
 BuildRequires:	cmake >= 3.0
 BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
