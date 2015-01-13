@@ -1,7 +1,7 @@
 %global snapdate 20150112
 
 %define major 0
-%define libname %mklibname %{name} {major}
+%define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	Distribution-independent installer framework 
