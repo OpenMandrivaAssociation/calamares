@@ -7,15 +7,16 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	0.17.0
-Release:	0.%{snapdate}.1
+Release:	0.%{snapdate}.2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-0.17.0-20150112/ HEAD | xz -vf > calamares-0.17.0-20150112.tar.xz
 Source0:	calamares-%{version}-%{snapdate}.tar.xz
 Source1:	calamares.rpmlintrc
-Patch0:         calamares-0.17.0-20150112-openmandriva-settings.patch
-Patch1:         calamares-0.17.0-20150112-openmandriva-desktop-file.patch
+Patch0:		calamares-0.17.0-20150112-openmandriva-settings.patch
+Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
+Patch2:		calamares-0.17.0-20150112-urpmi-options.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -97,9 +98,7 @@ Development files and headers for %{name}.
 
 %prep
 %setup -q -n %{name}-%{version}-%{snapdate}
-
-%patch0 -p1 -b .default-settings
-%patch1 -p1 -b .desktop-file
+%apply_patches
 
 #delete backup files
 rm -f src/modules/*/*.conf.default-settings
