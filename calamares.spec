@@ -1,4 +1,5 @@
-%global snapdate 20150112
+%define calamdate 20150120
+%define partdate 20150112
 
 %define major 0
 %define libname %mklibname %{name} %{major}
@@ -7,14 +8,14 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	0.17.0
-Release:	0.%{snapdate}.3
+Release:	0.%{calamdate}.3
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-0.17.0-20150112/ HEAD | xz -vf > calamares-0.17.0-20150112.tar.xz
-Source0:	calamares-%{version}-%{snapdate}.tar.xz
+Source0:	calamares-%{version}-%{calamdate}.tar.xz
 # https://github.com/calamares/partitionmanager
-Source1:	calamares-partitionmanager-%{snapdate}.tar.xz
+Source1:	calamares-partitionmanager-%{partdate}.tar.xz
 Source2:	calamares.rpmlintrc
 Patch0:		calamares-0.17.0-20150112-openmandriva-settings.patch
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -99,9 +100,9 @@ Development files and headers for %{name}.
 
 
 %prep
-%setup -q -n %{name}-%{version}-%{snapdate} -a 1
+%setup -q -n %{name}-%{version}-%{calamdate} -a 1
 rm -rf src/modules/partition/partitionmanager
-mv -f calamares-partitionmanager-%{snapdate} src/modules/partition/partitionmanager
+mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmanager
 
 %apply_patches
 
@@ -172,6 +173,7 @@ EOF
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
 %{_libdir}/libcalamaresui.so.%{major}*
+%{_libdir}/libcalapm.so
 
 %files -n %{develname}
 %dir %{_includedir}/libcalamares
