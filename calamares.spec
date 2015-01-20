@@ -128,6 +128,10 @@ touch %{buildroot}%{_datadir}/calamares/branding/auto/branding.desc
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding
 
+# workaround for install
+mv -f %{buildroot}/calamares/modules/prepare/libcalamares_viewmodule_prepare.so %{_datadir}/
+mv -f %{buildroot}/calamares/modules/prepare/module.desc %{_datadir}/
+
 %post
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
