@@ -130,21 +130,23 @@ mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding
 
 # workaround for install
 %ifarch x86_64
-mv -f %{buildroot}/calamares/modules/prepare/libcalamares_viewmodule_prepare.so %{buildroot}%{_datadir}/
-mv -f %{buildroot}/calamares/modules/prepare/module.desc %{buildroot}%{_datadir}/
+mv -f %{buildroot}/calamares/modules/prepare/libcalamares_viewmodule_prepare.so %{buildroot}%{_datadir}/calamares/modules/prepare/
+mv -f %{buildroot}/calamares/modules/prepare/module.desc %{buildroot}%{_datadir}/calamares/modules/prepare/
+mv -f %{buildroot}/calamares/modules/unpackfs/main.py %{buildroot}%{_datadir}/calamares/modules/unpackfs/
+mv -f %{buildroot}/calamares/modules/unpackfs/module.desc %{buildroot}%{_datadir}/calamares/modules/unpackfs/
 %endif
 %ifarch i586
 mv -f %{buildroot}/calamares/modules/grubcfg/main.py %{buildroot}%{_datadir}/
 mv -f %{buildroot}/calamares/modules/grubcfg/module.desc %{buildroot}%{_datadir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddBrandingSubdirectory.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddLibrary.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddModuleSubdirectory.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddPlugin.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresConfig.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresConfigVersion.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresLibraryDepends-relwithdebinfo.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresLibraryDepends.cmake %{buildroot}%{_libdir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresUse.cmake %{buildroot}%{_libdir}/
+mv -f %{buildroot}/cmake/Calamares/CalamaresAddBrandingSubdirectory.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresAddLibrary.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresAddModuleSubdirectory.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresAddPlugin.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresConfig.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresConfigVersion.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresLibraryDepends-relwithdebinfo.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresLibraryDepends.cmake %{buildroot}%{_libdir}/cmake/Calamares/
+mv -f %{buildroot}/cmake/Calamares/CalamaresUse.cmake %{buildroot}%{_libdir}/cmake/Calamares/
 %endif
 
 %post
