@@ -110,9 +110,6 @@ mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmana
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-export CC=gcc
-export CXX=g++
-
 %cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
@@ -127,27 +124,6 @@ touch %{buildroot}%{_datadir}/calamares/branding/auto/branding.desc
 #own the local settings directories
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding
-
-# workaround for install
-%ifarch x86_64
-mv -f %{buildroot}/calamares/modules/prepare/libcalamares_viewmodule_prepare.so %{buildroot}%{_datadir}/calamares/modules/prepare/
-mv -f %{buildroot}/calamares/modules/prepare/module.desc %{buildroot}%{_datadir}/calamares/modules/prepare/
-mv -f %{buildroot}/calamares/modules/unpackfs/main.py %{buildroot}%{_datadir}/calamares/modules/unpackfs/
-mv -f %{buildroot}/calamares/modules/unpackfs/module.desc %{buildroot}%{_datadir}/calamares/modules/unpackfs/
-%endif
-%ifarch i586
-mv -f %{buildroot}/calamares/modules/grubcfg/main.py %{buildroot}%{_datadir}/
-mv -f %{buildroot}/calamares/modules/grubcfg/module.desc %{buildroot}%{_datadir}/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddBrandingSubdirectory.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddLibrary.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddModuleSubdirectory.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresAddPlugin.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresConfig.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresConfigVersion.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresLibraryDepends-relwithdebinfo.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresLibraryDepends.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-mv -f %{buildroot}/cmake/Calamares/CalamaresUse.cmake %{buildroot}%{_libdir}/cmake/Calamares/
-%endif
 
 %post
 # generate the "auto" branding
