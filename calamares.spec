@@ -110,8 +110,6 @@ mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmana
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%global optflags %{optflags} -I/usr/include/mntent.h
-
 %cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
