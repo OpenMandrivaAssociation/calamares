@@ -99,7 +99,6 @@ Requires:	cmake
 %description -n %{develname}
 Development files and headers for %{name}.
 
-
 %prep
 %setup -q -n %{name}-%{version}-%{calamdate} -a 1
 rm -rf src/modules/partition/partitionmanager
@@ -111,6 +110,8 @@ mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmana
 rm -f src/modules/*/*.conf.default-settings
 
 %build
+%global optflags %{optflags} -I/usr/include/mntent.h
+
 %cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
