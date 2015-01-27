@@ -44,6 +44,7 @@ BuildRequires:	cmake(KF5I18n)
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
+BuildRequires:	boost-python-devel
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
