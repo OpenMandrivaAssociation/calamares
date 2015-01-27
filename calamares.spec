@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	0.17.0
-Release:	0.%{calamdate}.3
+Release:	0.%{calamdate}.4
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -17,6 +17,8 @@ Source0:	calamares-%{version}-%{calamdate}.tar.xz
 # https://github.com/calamares/partitionmanager
 Source1:	calamares-partitionmanager-%{partdate}.tar.xz
 Source2:	calamares.rpmlintrc
+Source3:        %{name}.service
+Source4:        %{name}-install-start
 Patch0:		calamares-0.17.0-20150112-openmandriva-settings.patch
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-0.17.0-20150112-urpmi-options.patch
@@ -125,6 +127,16 @@ touch %{buildroot}%{_datadir}/calamares/branding/auto/branding.desc
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding
 
+# (tpg) service files
+mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
+install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
+install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-install-start
+
+install -d %{buildroot}%{_presetdir}
+cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
+enable %{name}.service
+EOF
+
 %post
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
@@ -157,6 +169,9 @@ EOF
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
 %dir %{_datadir}/calamares/branding/auto
+%{_presetdir}/90-%{name}.preset
+%{_unitdir}/%{name}.service
+%{_sbindir}/%{name}-install-start
 %{_bindir}/calamares
 %{_datadir}/calamares/settings.conf
 %{_datadir}/calamares/branding/default/
