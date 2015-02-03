@@ -1,7 +1,7 @@
 %define calamdate 20150203
 %define partdate 20150112
 
-%define major 0
+%define major 1
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
@@ -205,19 +205,25 @@ EOF
 %dir %{_sysconfdir}/calamares/modules
 %dir %{_sysconfdir}/calamares/branding
 %dir %{_sysconfdir}/calamares/branding/auto
+%dir %{_datadir}/calamares/qml
+%dir %{_datadir}/calamares/qml/calamares
+%dir %{_datadir}/calamares/qml/calamares/slideshow
 %{_presetdir}/90-%{name}.preset
 %{_unitdir}/%{name}.service
 %{_sbindir}/%{name}-install-start
 %{_bindir}/calamares
 %{_datadir}/calamares/settings.conf
 %{_datadir}/calamares/branding/default/
+%{_datadir}/calamares/branding/auto/
 %{_datadir}/calamares/modules/
+%{_datadir}/calamares/qml/calamares/slideshow/*.qml
 %{_datadir}/applications/calamares.desktop
 %{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
 %{_sysconfdir}/calamares/*.conf
 %{_sysconfdir}/calamares/modules/*.conf
 %{_libdir}/calamares/*
 %ghost %{_sysconfdir}/calamares/branding/auto/branding.desc
+
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
