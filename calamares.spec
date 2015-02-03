@@ -210,7 +210,7 @@ EOF
 %{_sbindir}/%{name}-install-start
 %{_bindir}/calamares
 %{_datadir}/calamares/settings.conf
-%{_datadir}/calamares/default/*
+%{_datadir}/calamares/branding/default/*
 %{_datadir}/calamares/modules/
 %{_datadir}/calamares/qml/calamares/slideshow/*.qml
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
