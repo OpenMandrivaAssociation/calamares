@@ -133,13 +133,10 @@ rm -f src/modules/*/*.conf.default-settings
 %install
 %makeinstall_std -C build
 
-#own the auto branding directory
-mkdir -p %{buildroot}%{_datadir}/calamares/branding/auto
-touch %{buildroot}%{_datadir}/calamares/branding/auto/branding.desc
-
 #own the local settings directories
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding/auto
+touch %{buildroot}%{_sysconfdir}/calamares/branding/auto/branding.desc
 
 # (tpg) settings specific for OMV
 install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/calamares/modules/bootloader.conf
@@ -200,11 +197,11 @@ EOF
 %dir %{_libdir}/calamares
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
-%dir %{_datadir}/calamares/branding/auto
+%dir %{_datadir}/calamares/branding/default
 %dir %{_sysconfdir}/calamares
 %dir %{_sysconfdir}/calamares/modules
 %dir %{_sysconfdir}/calamares/branding
-%dir %{_sysconfdir}/calamares/branding
+%dir %{_sysconfdir}/calamares/branding/auto
 %dir %{_datadir}/calamares/qml
 %dir %{_datadir}/calamares/qml/calamares
 %dir %{_datadir}/calamares/qml/calamares/slideshow
@@ -213,7 +210,7 @@ EOF
 %{_sbindir}/%{name}-install-start
 %{_bindir}/calamares
 %{_datadir}/calamares/settings.conf
-%{_datadir}/calamares/branding/default/
+%{_datadir}/calamares/default/
 %{_datadir}/calamares/modules/
 %{_datadir}/calamares/qml/calamares/slideshow/*.qml
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
@@ -223,7 +220,6 @@ EOF
 %{_sysconfdir}/calamares/modules/*.conf
 %{_libdir}/calamares/*
 %ghost %{_sysconfdir}/calamares/branding/auto/branding.desc
-
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
