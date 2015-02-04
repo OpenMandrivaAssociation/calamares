@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.1
+Release:	0.%{calamdate}.2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -126,7 +126,7 @@ mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmana
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
+%cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DWITH_PYTHON:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
 
