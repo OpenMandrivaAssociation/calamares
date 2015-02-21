@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.5
+Release:	0.%{calamdate}.6
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -88,7 +88,8 @@ Requires:	systemd-units
 Requires:	rsync
 Requires:	shadow
 Requires:	polkit
-Requires:       urpmi
+Requires:	urpmi
+Requires:	squashfs-tools
 ExclusiveArch:	%{ix86} x86_64
 
 %description
