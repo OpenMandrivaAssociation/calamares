@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.2
+Release:	0.%{calamdate}.3
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -23,7 +23,6 @@ Source5:	omv-bootloader.conf
 Source6:	omv-displaymanager.conf
 Source7:	omv-finished.conf
 Source8:	omv-fstab.conf
-Source9:	omv-grub.conf
 Source10:	omv-grubcfg.conf
 Source11:	omv-keyboard.conf
 Source12:	omv-locale.conf
@@ -149,7 +148,6 @@ install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/calamares/modules/bootloade
 install -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/calamares/modules/displaymanager.conf
 install -m 644 %{SOURCE7} %{buildroot}%{_sysconfdir}/calamares/modules/finished.conf
 install -m 644 %{SOURCE8} %{buildroot}%{_sysconfdir}/calamares/modules/fstab.conf
-install -m 644 %{SOURCE9} %{buildroot}%{_sysconfdir}/calamares/modules/grub.conf
 install -m 644 %{SOURCE10} %{buildroot}%{_sysconfdir}/calamares/modules/grubcfg.conf
 install -m 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/calamares/modules/keyboard.conf
 install -m 644 %{SOURCE12} %{buildroot}%{_sysconfdir}/calamares/modules/locale.conf
