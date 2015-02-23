@@ -1,4 +1,4 @@
-%define calamdate 20150222
+%define calamdate 20150223
 %define partdate 20150112
 
 %define major 1
@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.3
+Release:	0.%{calamdate}.1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -35,7 +35,7 @@ Source18:	omv-settings.conf
 Source19:	omv-unpackfs.conf
 Source20:	omv-users.conf
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
-Patch2:		calamares-1.0.0-20150203-use-urpme--auto.patch
+Patch3:		calamares-1.0.0-20150203-add-removeUser-functionality.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
