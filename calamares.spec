@@ -1,4 +1,4 @@
-%define calamdate 20150223
+%define calamdate 20150225
 %define partdate 20150112
 
 %define major 1
@@ -35,7 +35,7 @@ Source18:	omv-settings.conf
 Source19:	omv-unpackfs.conf
 Source20:	omv-users.conf
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
-Patch3:		calamares-1.0.0-20150203-add-removeUser-functionality.patch
+#Patch3:		calamares-1.0.0-20150203-add-removeUser-functionality.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
