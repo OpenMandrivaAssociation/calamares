@@ -11,7 +11,7 @@ diff -Naur calamares-1.0.0-20150223/src/modules/users/CreateUserJob.cpp calamare
 +
 +	QString removeUser = gs->value( "removeUser" ).toString();
 +
-+	CalamaresUtils::chrootCall( { "userdel", "-f", "-r"  removeUser } );
++	CalamaresUtils::chrootCall( { "userdel", "-f", "-r",  removeUser } );
 +    }
 +
      return Calamares::JobResult::ok();
