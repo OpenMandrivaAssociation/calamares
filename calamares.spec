@@ -173,7 +173,7 @@ enable %{name}.service
 EOF
 
 # (tpg) install adverts and slideshow
-tar xf - %{SOURCE21} -C %{_sysconfdir}/calamares/branding/auto
+tar xf %{SOURCE21} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 
 %post
 # generate the "auto" branding
