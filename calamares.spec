@@ -35,7 +35,8 @@ Source18:	omv-settings.conf
 Source19:	omv-unpackfs.conf
 Source20:	omv-users.conf
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
-#Patch3:		calamares-1.0.0-20150203-add-removeUser-functionality.patch
+Patch3:		calamares-1.0.0-20150225-upstream-removeUser.patch
+Patch4:		calamares-1.0.0-20150203-upstream-displaymanager-explicitautologin.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -192,8 +193,7 @@ images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
     productIcon:         "%{_iconsdir}/openmandriva.svg"
 
-slideshow:
-    - "%{_iconsdir}/openmandriva.svg"
+slideshow:		"omv-ads.qml"
 EOF
 
 %files
