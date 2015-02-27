@@ -1,4 +1,4 @@
-%define calamdate 20150225
+%define calamdate 20150227
 %define partdate 20150112
 
 %define major 1
@@ -36,8 +36,6 @@ Source19:	omv-unpackfs.conf
 Source20:	omv-users.conf
 Source21:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
-Patch3:		calamares-1.0.0-20150225-upstream-removeUser.patch
-Patch4:		calamares-1.0.0-20150203-upstream-displaymanager-explicitautologin.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
