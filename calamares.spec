@@ -1,4 +1,4 @@
-%define calamdate 20150227
+%define calamdate 20150304
 %define partdate 20150112
 
 %define major 1
@@ -34,7 +34,9 @@ Source17:	omv-services.conf
 Source18:	omv-settings.conf
 Source19:	omv-unpackfs.conf
 Source20:	omv-users.conf
-Source21:	OpenMandriva-adverts.tar.xz
+Source21:	omv-partition.conf
+Source22:	omv-removeuser.conf
+Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
@@ -161,6 +163,8 @@ install -m 644 %{SOURCE17} %{buildroot}%{_sysconfdir}/calamares/modules/services
 install -m 644 %{SOURCE18} %{buildroot}%{_sysconfdir}/calamares/settings.conf
 install -m 644 %{SOURCE19} %{buildroot}%{_sysconfdir}/calamares/modules/unpackfs.conf
 install -m 644 %{SOURCE20} %{buildroot}%{_sysconfdir}/calamares/modules/users.conf
+install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/partition.conf
+install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
 
 # (tpg) service files
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
@@ -173,7 +177,7 @@ enable %{name}.service
 EOF
 
 # (tpg) install adverts and slideshow
-tar xf %{SOURCE21} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
+tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 
 %post
 # generate the "auto" branding
