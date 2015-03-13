@@ -1,4 +1,4 @@
-%define calamdate 20150304
+%define calamdate 20150313
 %define partdate 20150112
 
 %define major 1
@@ -12,7 +12,7 @@ Release:	0.%{calamdate}.2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
-# git archive --format=tar --prefix=calamares-0.17.0-20150112/ HEAD | xz -vf > calamares-0.17.0-20150112.tar.xz
+# git archive --format=tar --prefix=calamares-1.0.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.0.0-$(date +%Y%m%d).tar.xz
 Source0:	calamares-%{version}-%{calamdate}.tar.xz
 # https://github.com/calamares/partitionmanager
 Source1:	calamares-partitionmanager-%{partdate}.tar.xz
