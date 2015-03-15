@@ -4,14 +4,15 @@ DefaultDependencies=no
 After=livesys-late.service systemd-user-sessions.service getty@tty1.service plymouth-quit.service
 Conflicts=getty@tty1.service
 Conflicts=getty@%i.service
+Conflicts=display-manager.serivce
+Before=display-manager.serivce
 Before=getty.target
-
+ConditionKernelCommandLine=|install
 
 [Service]
 Type=idle
 Restart=always
 RestartSec=0
-ConditionKernelCommandLine=|install
 ExecStart=/usr/sbin/calamares-install-start
 ExecReload=/usr/bin/killall X
 ExecStop=/usr/bin/killall X
