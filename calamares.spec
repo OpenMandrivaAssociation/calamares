@@ -1,4 +1,4 @@
-%define calamdate 20150313
+%define calamdate 20150316
 %define partdate 20150112
 
 %define major 1
@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.4
+Release:	0.%{calamdate}.1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -131,10 +131,6 @@ mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmana
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-# workaround for broken LLVM
-export CC=gcc
-export CXX=g++
-
 %cmake_qt5 -DWITH_PARTITIONMANAGER:BOOL="ON" -DWITH_PYTHON:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
