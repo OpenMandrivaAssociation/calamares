@@ -1,4 +1,4 @@
-%define calamdate 20150323
+%define calamdate 20150327
 %define partdate 20150112
 
 %define major 1
@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.2
+Release:	0.%{calamdate}.1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -200,7 +200,7 @@ images:
 slideshow:		"omv-ads.qml"
 
 style:
-	sidebarBackground: "#84BEE2"
+    sidebarBackground: "#84BEE2"
     sidebarText: "#FFFFFF"
     sidebarTextSelect: "#292F34"
 
