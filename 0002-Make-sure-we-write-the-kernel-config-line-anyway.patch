@@ -1,0 +1,33 @@
+From a8b1154470ce543e77a4e2e0d139b5e42a4cb21e Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Wed, 1 Apr 2015 15:50:13 +0200
+Subject: [PATCH] Make sure we write the kernel config line anyway.
+
+---
+ src/modules/grubcfg/main.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/modules/grubcfg/main.py b/src/modules/grubcfg/main.py
+index b6d06d0..eef731b 100644
+--- a/src/modules/grubcfg/main.py
++++ b/src/modules/grubcfg/main.py
+@@ -87,7 +87,7 @@ def modify_grub_default(partitions, root_mount_point, distributor):
+ 
+                 for existing_param in existing_params:
+                     existing_param_name = existing_param.split("=")[0]
+-                    if existing_param_name not in ["quiet", "resume", "splash"]: #the only ones we ever add
++                    if existing_param_name not in ["quiet", "resume", "splash"]:  # the only ones we ever add
+                         kernel_params.append(existing_param)
+ 
+                 kernel_cmd = "GRUB_CMDLINE_LINUX_DEFAULT=\"{!s}\"".format(" ".join(kernel_params))
+@@ -110,6 +110,7 @@ def modify_grub_default(partitions, root_mount_point, distributor):
+                 lines.append("{!s}=\"{!s}\"".format(key, escaped_value))
+ 
+     if not have_kernel_cmd:
++        kernel_cmd = "GRUB_CMDLINE_LINUX_DEFAULT=\"{!s}\"".format(" ".join(kernel_params))
+         lines.append(kernel_cmd)
+ 
+     if not have_distributor_line:
+-- 
+1.9.0
+
