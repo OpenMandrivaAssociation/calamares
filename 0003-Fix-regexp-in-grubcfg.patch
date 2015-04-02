@@ -1,0 +1,35 @@
+From debd4bc352ff81c0b0bb46bad429adf1509429a7 Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Thu, 2 Apr 2015 13:24:47 +0200
+Subject: [PATCH] Fix regexp in grubcfg. CAL-205 #comment Done some fixing,
+ please retest when you can.
+
+---
+ src/modules/grubcfg/main.py | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/src/modules/grubcfg/main.py b/src/modules/grubcfg/main.py
+index eef731b..d34f0c2 100644
+--- a/src/modules/grubcfg/main.py
++++ b/src/modules/grubcfg/main.py
+@@ -77,12 +77,12 @@ def modify_grub_default(partitions, root_mount_point, distributor):
+                 lines[i] = kernel_cmd
+                 have_kernel_cmd = True
+             elif lines[i].startswith("GRUB_CMDLINE_LINUX_DEFAULT"):
+-                regex = re.compile(r"^GRUB_CMDLINE_LINUX_DEFAULT.*=")
++                regex = re.compile(r"^GRUB_CMDLINE_LINUX_DEFAULT\s*=\s*\"")
+                 line = regex.sub("", lines[i])
+-                line.lstrip()
+-                line.lstrip("\"")
+-                line.rstrip()
+-                line.rstrip("\"")
++                line = line.lstrip()
++                line = line.lstrip("\"")
++                line = line.rstrip()
++                line = line.rstrip("\"")
+                 existing_params = line.split()
+ 
+                 for existing_param in existing_params:
+-- 
+1.9.0
+

@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.4
+Release:	0.%{calamdate}.5
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -39,8 +39,9 @@ Source22:	omv-removeuser.conf
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (tpg) potential fix https://issues.openmandriva.org/show_bug.cgi?id=1154
-#Patch2:		0001-Preserve-kernel-parameters-that-aren-t-handled-by-gr.patch
-#Patch3:		0002-Make-sure-we-write-the-kernel-config-line-anyway.patch
+Patch2:		0001-Preserve-kernel-parameters-that-aren-t-handled-by-gr.patch
+Patch3:		0002-Make-sure-we-write-the-kernel-config-line-anyway.patch
+Patch4:		0003-Fix-regexp-in-grubcfg.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
