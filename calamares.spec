@@ -1,4 +1,4 @@
-%define calamdate 20150331
+%define calamdate 20150406
 %define partdate 20150112
 
 %define major 1
@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.5
+Release:	0.%{calamdate}.1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -38,10 +38,6 @@ Source21:	omv-partition.conf
 Source22:	omv-removeuser.conf
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
-# (tpg) potential fix https://issues.openmandriva.org/show_bug.cgi?id=1154
-Patch2:		0001-Preserve-kernel-parameters-that-aren-t-handled-by-gr.patch
-Patch3:		0002-Make-sure-we-write-the-kernel-config-line-anyway.patch
-Patch4:		0003-Fix-regexp-in-grubcfg.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -192,10 +188,14 @@ strings:
     productName:         "$NAME"
     shortProductName:    "$NAME"
     version:             "$VERSION"
-    shortVersion:        "$VERSION_ID"
+    shortVersion:        "$VERSION"
     versionedName:       "$NAME $VERSION"
-    shortVersionedName:  "$NAME $VERSION_ID"
-    bootloaderEntryName: "$NAME"
+    shortVersionedName:  "$NAME $VERSION"
+    bootloaderEntryName: "openmandriva"
+    productUrl:          "$HOME_URL"
+    supportUrl:          "$BUG_REPORT_URL"
+    knownIssuesUrl:      "https://wiki.openmandriva.org/en/Release_3/New"
+    releaseNotesUrl:     "https://wiki.openmandriva.org/en/Release_3/Release_Notes"
 
 images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
