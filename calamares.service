@@ -7,6 +7,7 @@ Conflicts=getty@%i.service
 Conflicts=display-manager.serivce
 Before=display-manager.serivce
 Before=getty.target
+Wants=NetworkManager.service
 ConditionKernelCommandLine=|install
 
 [Service]
@@ -16,11 +17,13 @@ RestartSec=0
 ExecStart=/usr/sbin/calamares-install-start
 ExecReload=/usr/bin/killall X
 ExecStop=/usr/bin/killall X
+Environment=DISPLAY=:0
+WorkingDirectory=/root
 StandardInput=null
-StandardOutput=kmsg+console
+StandardOutput=journal
 StandardError=kmsg+console
 KillMode=process
 RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
