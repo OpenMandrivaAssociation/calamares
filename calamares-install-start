@@ -6,7 +6,7 @@ if grep -q '\binstall\b' /proc/cmdline; then
 
     # ensure plymouth really has stopped
     if pgrep "plymouthd" > /dev/null 2>&1; then
-	/bin/plymouth quit
+	/bin/plymouth quit --retain-splash
     fi
 
     /bin/systemctl stop crond.service &
