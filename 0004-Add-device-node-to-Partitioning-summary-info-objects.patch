@@ -1,0 +1,46 @@
+From 5afc2d75f283d04e517e45a3bf1a1ed3372df7cb Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Thu, 9 Apr 2015 17:47:23 +0200
+Subject: [PATCH 4/6] Add device node to Partitioning summary info objects.
+
+---
+ src/modules/partition/core/PartitionCoreModule.cpp | 1 +
+ src/modules/partition/core/PartitionCoreModule.h   | 3 ++-
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/modules/partition/core/PartitionCoreModule.cpp b/src/modules/partition/core/PartitionCoreModule.cpp
+index 9b7e21b..23736d5 100644
+--- a/src/modules/partition/core/PartitionCoreModule.cpp
++++ b/src/modules/partition/core/PartitionCoreModule.cpp
+@@ -435,6 +435,7 @@ PartitionCoreModule::createSummaryInfo() const
+             continue;
+         SummaryInfo summaryInfo;
+         summaryInfo.deviceName = deviceInfo->device->name();
++        summaryInfo.deviceNode = deviceInfo->device->deviceNode();
+ 
+         Device* deviceBefore = backend->scanDevice( deviceInfo->device->deviceNode() );
+         summaryInfo.partitionModelBefore = new PartitionModel;
+diff --git a/src/modules/partition/core/PartitionCoreModule.h b/src/modules/partition/core/PartitionCoreModule.h
+index 67e446a..6789848 100644
+--- a/src/modules/partition/core/PartitionCoreModule.h
++++ b/src/modules/partition/core/PartitionCoreModule.h
+@@ -1,7 +1,7 @@
+ /* === This file is part of Calamares - <http://github.com/calamares> ===
+  *
+  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
+- *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
++ *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -53,6 +53,7 @@ public:
+     struct SummaryInfo
+     {
+         QString deviceName;
++        QString deviceNode;
+         PartitionModel* partitionModelBefore;
+         PartitionModel* partitionModelAfter;
+     };
+-- 
+1.9.0
+

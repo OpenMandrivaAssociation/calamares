@@ -1,0 +1,57 @@
+From 291cfb385f6fd17d5a5cf0d23ddc4b97c64373fc Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Thu, 9 Apr 2015 15:03:47 +0200
+Subject: [PATCH 1/6] Add optional prettyDescription to Job.
+
+---
+ src/libcalamares/Job.cpp | 9 ++++++++-
+ src/libcalamares/Job.h   | 3 ++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/libcalamares/Job.cpp b/src/libcalamares/Job.cpp
+index 5a63c10..b04acce 100644
+--- a/src/libcalamares/Job.cpp
++++ b/src/libcalamares/Job.cpp
+@@ -1,6 +1,6 @@
+ /* === This file is part of Calamares - <http://github.com/calamares> ===
+  *
+- *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
++ *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -87,4 +87,11 @@ Job::~Job()
+ {}
+ 
+ 
++QString
++Job::prettyDescription() const
++{
++    return QString();
++}
++
++
+ } // namespace Calamares
+diff --git a/src/libcalamares/Job.h b/src/libcalamares/Job.h
+index f6a2f10..4f60360 100644
+--- a/src/libcalamares/Job.h
++++ b/src/libcalamares/Job.h
+@@ -1,6 +1,6 @@
+ /* === This file is part of Calamares - <http://github.com/calamares> ===
+  *
+- *   Copyright 2014, Teo Mrnjavac <teo@kde.org>
++ *   Copyright 2014-2015, Teo Mrnjavac <teo@kde.org>
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -64,6 +64,7 @@ public:
+     virtual ~Job();
+ 
+     virtual QString prettyName() const = 0;
++    virtual QString prettyDescription() const;
+     virtual JobResult exec() = 0;
+ signals:
+     void progress( qreal percent );
+-- 
+1.9.0
+

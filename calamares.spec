@@ -1,4 +1,4 @@
-%define calamdate 20150408
+%define calamdate 20150409
 %define partdate 20150112
 
 %define major 1
@@ -38,6 +38,12 @@ Source21:	omv-partition.conf
 Source22:	omv-removeuser.conf
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
+Patch2:		0001-Add-optional-prettyDescription-to-Job.patch
+Patch3:		0002-Preliminary-implementation-of-a-summary-queue-for-pa.patch
+Patch4:		0003-Add-prettyDescription-to-most-Partitioning-jobs.patch
+Patch5:		0004-Add-device-node-to-Partitioning-summary-info-objects.patch
+Patch6:		0005-Formatting-in-Summary-page.patch
+Patch7:		0006-Make-the-Summary-page-contents-scrollable.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
