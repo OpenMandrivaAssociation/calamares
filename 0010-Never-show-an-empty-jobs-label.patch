@@ -1,0 +1,50 @@
+From 675954ebd517be231eef5d5c6c4d0ba3e41bc56a Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 10 Apr 2015 12:55:08 +0200
+Subject: [PATCH 10/18] Never show an empty jobs label.
+
+---
+ src/modules/partition/gui/PartitionViewStep.cpp | 21 ++++++++++++---------
+ 1 file changed, 12 insertions(+), 9 deletions(-)
+
+diff --git a/src/modules/partition/gui/PartitionViewStep.cpp b/src/modules/partition/gui/PartitionViewStep.cpp
+index 4187707..a221471 100644
+--- a/src/modules/partition/gui/PartitionViewStep.cpp
++++ b/src/modules/partition/gui/PartitionViewStep.cpp
+@@ -201,21 +201,24 @@ PartitionViewStep::createSummaryWidget() const
+         info.partitionModelAfter->setParent( widget );
+         formLayout->addRow( tr( "After:" ), preview );
+     }
+-    QLabel* jobsLabel = new QLabel( widget );
+-    mainLayout->addWidget( jobsLabel );
+     QStringList jobsLines;
+     foreach ( const Calamares::job_ptr& job, jobs() )
+     {
+         if ( !job->prettyDescription().isEmpty() )
+         jobsLines.append( job->prettyDescription() );
+     }
+-    jobsLabel->setText( jobsLines.join( "<br/>" ) );
+-    int m = CalamaresUtils::defaultFontHeight() / 2;
+-    jobsLabel->setMargin( CalamaresUtils::defaultFontHeight() / 2 );
+-    QPalette pal;
+-    pal.setColor( QPalette::Background, pal.background().color().lighter( 108 ) );
+-    jobsLabel->setAutoFillBackground( true );
+-    jobsLabel->setPalette( pal );
++    if ( !jobsLines.isEmpty() )
++    {
++        QLabel* jobsLabel = new QLabel( widget );
++        mainLayout->addWidget( jobsLabel );
++        jobsLabel->setText( jobsLines.join( "<br/>" ) );
++        int m = CalamaresUtils::defaultFontHeight() / 2;
++        jobsLabel->setMargin( CalamaresUtils::defaultFontHeight() / 2 );
++        QPalette pal;
++        pal.setColor( QPalette::Background, pal.background().color().lighter( 108 ) );
++        jobsLabel->setAutoFillBackground( true );
++        jobsLabel->setPalette( pal );
++    }
+     return widget;
+ }
+ 
+-- 
+1.9.0
+

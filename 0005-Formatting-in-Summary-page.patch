@@ -1,7 +1,7 @@
 From 394a7113d28e16a6c49d38c1cbd1b1b061f1ad36 Mon Sep 17 00:00:00 2001
 From: Teo Mrnjavac <teo@kde.org>
 Date: Thu, 9 Apr 2015 17:49:00 +0200
-Subject: [PATCH 5/6] Formatting in Summary page.
+Subject: [PATCH 05/18] Formatting in Summary page.
 
 ---
  src/modules/partition/gui/PartitionViewStep.cpp | 19 +++++++++----

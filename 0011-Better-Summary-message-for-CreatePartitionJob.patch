@@ -1,0 +1,46 @@
+From 7acb8ffb57eaa60e79ad2a469552f83941afb09b Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 10 Apr 2015 13:00:12 +0200
+Subject: [PATCH 11/18] Better Summary message for CreatePartitionJob
+
+---
+ src/modules/partition/jobs/CreatePartitionJob.cpp | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
+
+diff --git a/src/modules/partition/jobs/CreatePartitionJob.cpp b/src/modules/partition/jobs/CreatePartitionJob.cpp
+index 517d238..a5e2ee4 100644
+--- a/src/modules/partition/jobs/CreatePartitionJob.cpp
++++ b/src/modules/partition/jobs/CreatePartitionJob.cpp
+@@ -45,20 +45,23 @@ CreatePartitionJob::CreatePartitionJob( Device* device, Partition* partition )
+ QString
+ CreatePartitionJob::prettyName() const
+ {
+-    return tr( "Create new <b>%2MB</b> partition on <b>%3</b> with file system %1." )
++    return tr( "Create new %2MB partition on %4 (%3) with file system %1." )
+             .arg( m_partition->fileSystem().name() )
+             .arg( m_partition->capacity() / 1024 / 1024 )
+-            .arg( m_device->name() );
++            .arg( m_device->name() )
++            .arg( m_device->deviceNode() );
+ }
+ 
+ 
+ QString
+ CreatePartitionJob::prettyDescription() const
+ {
+-    return tr( "Create new <b>%2MB</b> partition on <b>%3</b> with file system %1." )
+-                .arg( m_partition->fileSystem().name() )
+-                .arg( m_partition->capacity() / 1024 / 1024 )
+-                .arg( m_device->name() );
++    return tr( "Create new <strong>%2MB</strong> partition on <strong>%4</strong> "
++               "(%3) with file system <strong>%1</strong>." )
++            .arg( m_partition->fileSystem().name() )
++            .arg( m_partition->capacity() / 1024 / 1024 )
++            .arg( m_device->name() )
++            .arg( m_device->deviceNode() );
+ }
+ 
+ Calamares::JobResult
+-- 
+1.9.0
+

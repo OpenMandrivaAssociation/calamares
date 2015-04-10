@@ -1,0 +1,217 @@
+From 8f07c6de81726465e299cd4f9ed31feeff85e4aa Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 10 Apr 2015 13:31:49 +0200
+Subject: [PATCH 16/18] Use <strong> instead of <b> in all instances.
+
+---
+ src/modules/greeting/GreetingPage.cpp           |  4 ++--
+ src/modules/locale/LCLocaleDialog.cpp           |  2 +-
+ src/modules/partition/gui/AlongsidePage.cpp     |  2 +-
+ src/modules/partition/gui/ChoicePage.cpp        | 30 ++++++++++++-------------
+ src/modules/partition/gui/PartitionViewStep.cpp |  2 +-
+ src/modules/partition/gui/ReplacePage.cpp       |  4 ++--
+ 6 files changed, 22 insertions(+), 22 deletions(-)
+
+diff --git a/src/modules/greeting/GreetingPage.cpp b/src/modules/greeting/GreetingPage.cpp
+index 277628b..201019a 100644
+--- a/src/modules/greeting/GreetingPage.cpp
++++ b/src/modules/greeting/GreetingPage.cpp
+@@ -144,8 +144,8 @@ GreetingPage::GreetingPage( QWidget* parent )
+                                 .arg( CALAMARES_APPLICATION_NAME ),
+                             tr(
+                                 "<h1>%1</h1><br/>"
+-                                "<b>%2<br/>"
+-                                "for %3</b><br/><br/>"
++                                "<strong>%2<br/>"
++                                "for %3</strong><br/><br/>"
+                                 "Copyright 2014 Teo Mrnjavac &lt;teo@kde.org&gt;<br/>"
+                                 "Thanks to: Anke Boersma, Aurélien Gâteau, Kevin Kofler, Philip Müller, "
+                                 "Pier Luigi Fiorini and Rohan Garg.<br/><br/>"
+diff --git a/src/modules/locale/LCLocaleDialog.cpp b/src/modules/locale/LCLocaleDialog.cpp
+index f97a289..55b03f7 100644
+--- a/src/modules/locale/LCLocaleDialog.cpp
++++ b/src/modules/locale/LCLocaleDialog.cpp
+@@ -39,7 +39,7 @@ LCLocaleDialog::LCLocaleDialog( const QString& guessedLCLocale,
+     upperText->setWordWrap( true );
+     upperText->setText( tr( "The system locale setting affects the language and character "
+                             "set for some command line user interface elements.<br/>"
+-                            "The current setting is <b>%1</b>." )
++                            "The current setting is <strong>%1</strong>." )
+                             .arg( guessedLCLocale ) );
+     mainLayout->addWidget( upperText );
+     setMinimumWidth( upperText->fontMetrics().height() * 24 );
+diff --git a/src/modules/partition/gui/AlongsidePage.cpp b/src/modules/partition/gui/AlongsidePage.cpp
+index 3904e0c..ee8772f 100644
+--- a/src/modules/partition/gui/AlongsidePage.cpp
++++ b/src/modules/partition/gui/AlongsidePage.cpp
+@@ -164,7 +164,7 @@ AlongsidePage::init( PartitionCoreModule* core , const OsproberEntryList& osprob
+     connect( m_splitterWidget, &PartitionSplitterWidget::partitionResized,
+              this, [ this ]( const QString& path, qint64 size, qint64 sizeNext )
+     {
+-        m_sizeLabel->setText( tr( "With this operation, the partition <b>%1</b> which contains "
++        m_sizeLabel->setText( tr( "With this operation, the partition <strong>%1</strong> which contains "
+                                   "%4 will be shrunk "
+                                   "to %2MB and a new %3MB partition will be created for %5." )
+                               .arg( path )
+diff --git a/src/modules/partition/gui/ChoicePage.cpp b/src/modules/partition/gui/ChoicePage.cpp
+index 0b4a5b3..849c929 100644
+--- a/src/modules/partition/gui/ChoicePage.cpp
++++ b/src/modules/partition/gui/ChoicePage.cpp
+@@ -116,13 +116,13 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                                          "What would you like to do?" ) );
+ 
+             if ( core->deviceModel()->rowCount() < 2 )
+-                eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                           "<font color=\"red\">Warning: </font>This will delete all of your programs, "
+                                           "documents, photos, music, and any other files." )
+                                         .arg( Calamares::Branding::instance()->
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+             else
+-                eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                           "You will be offered a choice of which disk to erase." )
+                                         .arg( Calamares::Branding::instance()->
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+@@ -142,7 +142,7 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                                              "What would you like to do?" )
+                                             .arg( osName ) );
+ 
+-                alongsideButton->setText( tr( "<b>Install %2 alongside %1</b><br/>"
++                alongsideButton->setText( tr( "<strong>Install %2 alongside %1</strong><br/>"
+                                               "The installer will shrink the %1 volume to make room for %2. "
+                                               "You can choose which operating system you want each time the "
+                                               "computer starts up." )
+@@ -151,7 +151,7 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                                                   string( Calamares::Branding::ShortVersionedName ) ) );
+ 
+                 if ( core->deviceModel()->rowCount() < 2 )
+-                    eraseButton->setText( tr( "<b>Erase entire disk with %1 and install %2</b><br/>"
++                    eraseButton->setText( tr( "<strong>Erase entire disk with %1 and install %2</strong><br/>"
+                                               "<font color=\"red\">Warning: </font>This will erase the whole disk and "
+                                               "delete all of your %1 programs, "
+                                               "documents, photos, music, and any other files." )
+@@ -159,12 +159,12 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                                             .arg( Calamares::Branding::instance()->
+                                                   string( Calamares::Branding::ShortVersionedName ) ) );
+                 else
+-                    eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                    eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                               "You will be offered a choice of which disk to erase." )
+                                             .arg( Calamares::Branding::instance()->
+                                                   string( Calamares::Branding::ShortVersionedName ) ) );
+ 
+-                replaceButton->setText( tr( "<b>Replace a partition with %1</b><br/>"
++                replaceButton->setText( tr( "<strong>Replace a partition with %1</strong><br/>"
+                                             "You will be offered a choice of which partition to erase." )
+                                         .arg( Calamares::Branding::instance()->
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+@@ -176,7 +176,7 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                 m_messageLabel->setText( tr( "This computer already has an operating system on it. "
+                                              "What would you like to do?" ) );
+ 
+-                alongsideButton->setText( tr( "<b>Install %1 alongside your current operating system</b><br/>"
++                alongsideButton->setText( tr( "<strong>Install %1 alongside your current operating system</strong><br/>"
+                                               "The installer will shrink an existing volume to make room for %2. "
+                                               "You can choose which operating system you want each time the "
+                                               "computer starts up." )
+@@ -184,18 +184,18 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                                                   string( Calamares::Branding::ShortVersionedName ) ) );
+ 
+                 if ( core->deviceModel()->rowCount() < 2 )
+-                    eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                    eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                               "<font color=\"red\">Warning: </font>This will delete all of your programs, "
+                                               "documents, photos, music, and any other files." )
+                                             .arg( Calamares::Branding::instance()->
+                                                   string( Calamares::Branding::ShortVersionedName ) ) );
+                 else
+-                    eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                    eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                               "You will be offered a choice of which disk to erase." )
+                                             .arg( Calamares::Branding::instance()->
+                                                   string( Calamares::Branding::ShortVersionedName ) ) );
+ 
+-                replaceButton->setText( tr( "<b>Replace a partition with %1</b><br/>"
++                replaceButton->setText( tr( "<strong>Replace a partition with %1</strong><br/>"
+                                             "You will be offered a choice of which partition to erase." )
+                                         .arg( Calamares::Branding::instance()->
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+@@ -223,7 +223,7 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+             m_messageLabel->setText( tr( "This computer currently has multiple operating systems on it. "
+                                          "What would you like to do?" ) );
+ 
+-            alongsideButton->setText( tr( "<b>Install %1 alongside your current operating systems</b><br/>"
++            alongsideButton->setText( tr( "<strong>Install %1 alongside your current operating systems</strong><br/>"
+                                           "The installer will shrink an existing volume to make room for %2. "
+                                           "You can choose which operating system you want each time the "
+                                           "computer starts up." )
+@@ -231,18 +231,18 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+ 
+             if ( core->deviceModel()->rowCount() < 2 )
+-                eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                           "<font color=\"red\">Warning: </font>This will delete all of your programs, "
+                                           "documents, photos, music, and any other files." )
+                                         .arg( Calamares::Branding::instance()->
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+             else
+-                eraseButton->setText( tr( "<b>Erase disk and install %1</b><br/>"
++                eraseButton->setText( tr( "<strong>Erase disk and install %1</strong><br/>"
+                                           "You will be offered a choice of which disk to erase." )
+                                         .arg( Calamares::Branding::instance()->
+                                               string( Calamares::Branding::ShortVersionedName ) ) );
+ 
+-            replaceButton->setText( tr( "<b>Replace a partition with %1</b><br/>"
++            replaceButton->setText( tr( "<strong>Replace a partition with %1</strong><br/>"
+                                         "You will be offered a choice of which partition to erase." )
+                                     .arg( Calamares::Branding::instance()->
+                                           string( Calamares::Branding::ShortVersionedName ) ) );
+@@ -258,7 +258,7 @@ ChoicePage::init( PartitionCoreModule* core, const OsproberEntryList& osproberEn
+ 
+     PrettyRadioButton* somethingElseButton = new PrettyRadioButton;
+     CALAMARES_RETRANSLATE(
+-        somethingElseButton->setText( tr( "<b>Manual partitioning</b><br/>"
++        somethingElseButton->setText( tr( "<strong>Manual partitioning</strong><br/>"
+                                           "You can create or resize partitions yourself, or choose "
+                                           "multiple partitions for %1." )
+                                         .arg( Calamares::Branding::instance()->
+diff --git a/src/modules/partition/gui/PartitionViewStep.cpp b/src/modules/partition/gui/PartitionViewStep.cpp
+index a221471..d1f1f98 100644
+--- a/src/modules/partition/gui/PartitionViewStep.cpp
++++ b/src/modules/partition/gui/PartitionViewStep.cpp
+@@ -184,7 +184,7 @@ PartitionViewStep::createSummaryWidget() const
+     QList< PartitionCoreModule::SummaryInfo > list = m_core->createSummaryInfo();
+     for ( const auto& info : list )
+     {
+-        QLabel* diskInfoLabel = new QLabel( tr( "Disk <b>%1</b> (%2)" )
++        QLabel* diskInfoLabel = new QLabel( tr( "Disk <strong>%1</strong> (%2)" )
+                                             .arg( info.deviceNode )
+                                             .arg( info.deviceName ) );
+         formLayout->addRow( diskInfoLabel );
+diff --git a/src/modules/partition/gui/ReplacePage.cpp b/src/modules/partition/gui/ReplacePage.cpp
+index 8f42ccc..a6d3a61 100644
+--- a/src/modules/partition/gui/ReplacePage.cpp
++++ b/src/modules/partition/gui/ReplacePage.cpp
+@@ -203,7 +203,7 @@ ReplacePage::onPartitionSelected()
+         if ( partition->capacity() < requiredSpaceB )
+         {
+             updateStatus( CalamaresUtils::Fail,
+-                          tr( "<b>%4</b><br/><br/>"
++                          tr( "<strong>%4</strong><br/><br/>"
+                               "The partition %1 is too small for %2. Please select a partition "
+                               "with capacity at least %3 GiB." )
+                           .arg( partition->partitionPath() )
+@@ -217,7 +217,7 @@ ReplacePage::onPartitionSelected()
+         }
+ 
+         updateStatus( CalamaresUtils::PartitionPartition,
+-                      tr( "<b>%3</b><br/><br/>"
++                      tr( "<strong>%3</strong><br/><br/>"
+                           "%1 will be installed on %2.<br/>"
+                           "<font color=\"red\">Warning: </font>all data on partition"
+                           "%2 will be lost.")
+-- 
+1.9.0
+

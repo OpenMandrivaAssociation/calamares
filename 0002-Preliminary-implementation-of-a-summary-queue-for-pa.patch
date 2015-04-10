@@ -1,7 +1,7 @@
 From 7ec77fcf90635d68aa38d7cadf659cd165fef48b Mon Sep 17 00:00:00 2001
 From: Teo Mrnjavac <teo@kde.org>
 Date: Thu, 9 Apr 2015 15:05:04 +0200
-Subject: [PATCH 2/6] Preliminary implementation of a summary queue for
+Subject: [PATCH 02/18] Preliminary implementation of a summary queue for
  partitioning jobs.
 
 ---

@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.2
+Release:	0.%{calamdate}.3
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -44,6 +44,18 @@ Patch4:		0003-Add-prettyDescription-to-most-Partitioning-jobs.patch
 Patch5:		0004-Add-device-node-to-Partitioning-summary-info-objects.patch
 Patch6:		0005-Formatting-in-Summary-page.patch
 Patch7:		0006-Make-the-Summary-page-contents-scrollable.patch
+Patch8:		0007-Read-a-prompt-install-variable-from-settings.conf.patch
+Patch9:		0008-Add-prompt-install-to-settings.conf.patch
+Patch10:	0009-Show-an-are-you-sure-prompt-before-install-if-prompt.patch
+Patch11:	0010-Never-show-an-empty-jobs-label.patch
+Patch12:	0011-Better-Summary-message-for-CreatePartitionJob.patch
+Patch13:	0012-Better-Summary-message-for-CreatePartitionTableJob.patch
+Patch14:	0013-Better-Summary-message-for-DeletePartitionJob.patch
+Patch15:	0014-Better-Summary-message-in-FormatPartitionJob.patch
+Patch16:	0015-Better-Summary-message-in-ResizePartitionJob.patch
+Patch17:	0016-Use-strong-instead-of-b-in-all-instances.patch
+Patch18:	0017-Copyright-header.patch
+Patch19:	0018-Report-a-prettyDescription-for-FillGlobalStorageJob.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)

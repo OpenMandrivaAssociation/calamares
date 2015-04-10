@@ -1,7 +1,7 @@
 From 5afc2d75f283d04e517e45a3bf1a1ed3372df7cb Mon Sep 17 00:00:00 2001
 From: Teo Mrnjavac <teo@kde.org>
 Date: Thu, 9 Apr 2015 17:47:23 +0200
-Subject: [PATCH 4/6] Add device node to Partitioning summary info objects.
+Subject: [PATCH 04/18] Add device node to Partitioning summary info objects.
 
 ---
  src/modules/partition/core/PartitionCoreModule.cpp | 1 +

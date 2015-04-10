@@ -1,0 +1,59 @@
+From cdd5928131044bfa3396e71aa7e0e3f3041d815a Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 10 Apr 2015 12:41:10 +0200
+Subject: [PATCH 09/18] Show an "are you sure" prompt before install, if
+ prompt-install is true.
+
+---
+ src/libcalamaresui/ViewManager.cpp | 28 ++++++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/src/libcalamaresui/ViewManager.cpp b/src/libcalamaresui/ViewManager.cpp
+index d55403d..eb52531 100644
+--- a/src/libcalamaresui/ViewManager.cpp
++++ b/src/libcalamaresui/ViewManager.cpp
+@@ -24,6 +24,8 @@
+ #include "JobQueue.h"
+ #include "modulesystem/ModuleManager.h"
+ #include "utils/Retranslator.h"
++#include "Branding.h"
++#include "Settings.h"
+ 
+ #include <QApplication>
+ #include <QBoxLayout>
+@@ -238,6 +240,32 @@ ViewManager::next()
+     bool installing = false;
+     if ( step->isAtEnd() )
+     {
++        // Special case when the user clicks next on the very last page in the Prepare phase
++        // and right before switching to the Install phase.
++        // Depending on Calamares::Settings, we show an "are you sure" prompt or not.
++        if ( Calamares::Settings::instance()->showPromptBeforeInstall() &&
++             m_currentStep + 1 < m_steps.count() &&
++             m_steps.at( m_currentStep + 1 ) == m_installationViewStep )
++        {
++            int reply =
++                QMessageBox::question( m_widget,
++                                       tr( "Continue with setup?" ),
++                                       tr( "The %1 installer is about to make changes to your "
++                                           "disk in order to install %2.<br/><strong>You will not be able "
++                                           "to undo these changes.</strong>" )
++                                       .arg( Calamares::Branding::instance()->string(
++                                                Calamares::Branding::ShortProductName ) )
++                                       .arg( Calamares::Branding::instance()->string(
++                                                Calamares::Branding::ShortVersionedName ) ),
++                                       tr( "&Install now" ),
++                                       tr( "Go &back" ),
++                                       QString(),
++                                       0,
++                                       1 );
++            if ( reply == 1 )
++                return;
++        }
++
+         m_currentStep++;
+         m_stack->setCurrentIndex( m_currentStep );
+         step->onLeave();
+-- 
+1.9.0
+

@@ -1,0 +1,25 @@
+From d1be3011985ed023c9daadbb20ff191b70b23bb7 Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 10 Apr 2015 12:38:23 +0200
+Subject: [PATCH 08/18] Add prompt-install to settings.conf.
+
+---
+ settings.conf | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/settings.conf b/settings.conf
+index 457a799..2ae033e 100644
+--- a/settings.conf
++++ b/settings.conf
+@@ -67,3 +67,8 @@ postinstall:
+ # Only the name of the branding component (directory) should be specified here, Calamares
+ # then takes care of finding it and loading the contents.
+ branding: default
++
++# If this is set to true, Calamares will show an "are you sure?" prompt right before the
++# install phase, i.e. at the point of no return. If it's false, no prompt is shown.
++# Default is false.
++prompt-install: false
+-- 
+1.9.0
+

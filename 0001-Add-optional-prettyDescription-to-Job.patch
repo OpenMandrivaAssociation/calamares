@@ -1,7 +1,7 @@
 From 291cfb385f6fd17d5a5cf0d23ddc4b97c64373fc Mon Sep 17 00:00:00 2001
 From: Teo Mrnjavac <teo@kde.org>
 Date: Thu, 9 Apr 2015 15:03:47 +0200
-Subject: [PATCH 1/6] Add optional prettyDescription to Job.
+Subject: [PATCH 01/18] Add optional prettyDescription to Job.
 
 ---
  src/libcalamares/Job.cpp | 9 ++++++++-

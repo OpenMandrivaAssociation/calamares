@@ -1,7 +1,7 @@
 From e81743ecc3bea3c38ec82107a4869947706b7a79 Mon Sep 17 00:00:00 2001
 From: Teo Mrnjavac <teo@kde.org>
 Date: Thu, 9 Apr 2015 18:02:29 +0200
-Subject: [PATCH 6/6] Make the Summary page contents scrollable.
+Subject: [PATCH 06/18] Make the Summary page contents scrollable.
 
 ---
  src/modules/summary/SummaryPage.cpp | 13 +++++++++++--

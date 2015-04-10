@@ -1,0 +1,26 @@
+From 8cb6ea83b1ee888f2e54871cbd6f48b608db9a5f Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 10 Apr 2015 13:08:26 +0200
+Subject: [PATCH 15/18] Better Summary message in ResizePartitionJob.
+
+---
+ src/modules/partition/jobs/ResizePartitionJob.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/src/modules/partition/jobs/ResizePartitionJob.cpp b/src/modules/partition/jobs/ResizePartitionJob.cpp
+index 6fca1fb..837dfba 100644
+--- a/src/modules/partition/jobs/ResizePartitionJob.cpp
++++ b/src/modules/partition/jobs/ResizePartitionJob.cpp
+@@ -191,7 +191,8 @@ ResizePartitionJob::prettyName() const
+ QString
+ ResizePartitionJob::prettyDescription() const
+ {
+-    return tr( "Resize <b>%2MB</b> partition <b>%1</b> to <b>%3MB</b>." )
++    return tr( "Resize <strong>%2MB</strong> partition <strong>%1</strong> to "
++               "<strong>%3MB</strong>." )
+             .arg( partition()->partitionPath() )
+             .arg( partition()->capacity() / 1024 / 1024 )
+             .arg( ( m_newLastSector - m_newFirstSector + 1 ) * partition()->sectorSize() / 1024 / 1024 );
+-- 
+1.9.0
+
