@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.3
+Release:	0.%{calamdate}.4
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -222,7 +222,7 @@ images:
 slideshow:		"omv-ads.qml"
 
 style:
-    sidebarBackground: "#84BEE2"
+    sidebarBackground: "#263039"
     sidebarText: "#FFFFFF"
     sidebarTextSelect: "#292F34"
 
