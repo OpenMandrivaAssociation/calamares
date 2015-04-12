@@ -19,10 +19,11 @@ Source1:	calamares-partitionmanager-%{partdate}.tar.xz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
 Source4:	%{name}-install-start
-Source5:	omv-bootloader.conf
-Source6:	omv-displaymanager.conf
-Source7:	omv-finished.conf
-Source8:	omv-fstab.conf
+Source5:	%{name}-install-setup
+Source6:	omv-bootloader.conf
+Source7:	omv-displaymanager.conf
+Source8:	omv-finished.conf
+Source9:	omv-fstab.conf
 Source10:	omv-grubcfg.conf
 Source11:	omv-keyboard.conf
 Source12:	omv-locale.conf
@@ -113,6 +114,8 @@ Requires:	shadow
 Requires:	polkit
 Requires:	urpmi
 Requires:	squashfs-tools
+# (tpg) needed for calamares-install-setup
+Requires:	openbox
 ExclusiveArch:	%{ix86} x86_64
 
 %description
@@ -163,10 +166,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding/auto
 touch %{buildroot}%{_sysconfdir}/calamares/branding/auto/branding.desc
 
 # (tpg) settings specific for OMV
-install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/calamares/modules/bootloader.conf
-install -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/calamares/modules/displaymanager.conf
-install -m 644 %{SOURCE7} %{buildroot}%{_sysconfdir}/calamares/modules/finished.conf
-install -m 644 %{SOURCE8} %{buildroot}%{_sysconfdir}/calamares/modules/fstab.conf
+install -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/calamares/modules/bootloader.conf
+install -m 644 %{SOURCE7} %{buildroot}%{_sysconfdir}/calamares/modules/displaymanager.conf
+install -m 644 %{SOURCE8} %{buildroot}%{_sysconfdir}/calamares/modules/finished.conf
+install -m 644 %{SOURCE9} %{buildroot}%{_sysconfdir}/calamares/modules/fstab.conf
 install -m 644 %{SOURCE10} %{buildroot}%{_sysconfdir}/calamares/modules/grubcfg.conf
 install -m 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/calamares/modules/keyboard.conf
 install -m 644 %{SOURCE12} %{buildroot}%{_sysconfdir}/calamares/modules/locale.conf
@@ -185,6 +188,7 @@ install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/removeus
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-install-start
+install -m 744 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-stetup
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
@@ -249,6 +253,7 @@ EOF
 %{_presetdir}/90-%{name}.preset
 %{_unitdir}/%{name}.service
 %{_sbindir}/%{name}-install-start
+%{_sbindir}/%{name}-install-setup
 %{_bindir}/calamares
 %{_datadir}/calamares/settings.conf
 %{_datadir}/calamares/branding/default/*

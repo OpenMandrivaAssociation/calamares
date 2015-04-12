@@ -2,32 +2,11 @@
 # tpgxyz@gmail.com
 
 if grep -q '\binstall\b' /proc/cmdline; then
-    . /etc/locale.conf
-
-    # ensure plymouth really has stopped
-    if pgrep "plymouthd" > /dev/null 2>&1; then
-	/bin/plymouth quit --retain-splash
-    fi
-
-    /bin/systemctl stop crond.service &
-
-    xset -dpms
-    xset s off
-
-    if [ -e /usr/bin/startx ] && [ -x /usr/bin/calamares ]; then
-	/usr/bin/startx /usr/bin/calamares $* -- -dpi 96 vt1 -background none
+    if [ -x /usr/bin/startx ] && [ -x /usr/sbin/calamares-install-setup ]; then
+	/usr/bin/startx /usr/sbin/calamares-install-setup $* -- -dpi 96 vt1 -background none
     else
-	echo "calamares-install: critical programs are missing, check your system!"
+	echo "calamares-install-setup: critical programs are missing, check you system!"
+	sleep 30
+	reboot
     fi
-
-    # check if we are booted from cd drom to eject it
-    blkid /dev/sr0 >/dev/null 2>&1
-    if [[ $? -eq 0 ]]; then
-	eject
-	sleep 10
-    fi
-
-    sync
-    reboot
-
 fi
