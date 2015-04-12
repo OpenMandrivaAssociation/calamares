@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework 
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.4
+Release:	0.%{calamdate}.5
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -36,6 +36,7 @@ Source19:	omv-unpackfs.conf
 Source20:	omv-users.conf
 Source21:	omv-partition.conf
 Source22:	omv-removeuser.conf
+Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		0001-Add-optional-prettyDescription-to-Job.patch
@@ -193,6 +194,10 @@ EOF
 # (tpg) install adverts and slideshow
 tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 
+# (tpg) install icon
+mkdir -p %{buildroot}%{_iconsdir}
+install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/openmandriva-install.svg
+
 %post
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
@@ -258,6 +263,7 @@ EOF
 %ghost %{_sysconfdir}/calamares/branding/auto/branding.desc
 %{_sysconfdir}/calamares/branding/auto/*.qml
 %{_sysconfdir}/calamares/branding/auto/*.png
+%{_iconsdir}/openmandriva-install.svg
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
