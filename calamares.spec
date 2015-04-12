@@ -188,7 +188,7 @@ install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/removeus
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
 install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-install-start
-install -m 744 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-stetup
+install -m 744 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-setup
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
