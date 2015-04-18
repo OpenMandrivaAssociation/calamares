@@ -7,7 +7,7 @@ Conflicts=getty@%i.service
 Before=display-manager.service
 Before=getty.target
 Wants=NetworkManager.service
-ConditionKernelCommandLine=|systemd.unit=installer.target
+ConditionKernelCommandLine=|systemd.unit=calamares.target
 
 [Service]
 Type=idle
