@@ -4,11 +4,10 @@ DefaultDependencies=no
 After=livesys-late.service systemd-user-sessions.service getty@tty1.service plymouth-quit.service
 Conflicts=getty@tty1.service
 Conflicts=getty@%i.service
-Conflicts=display-manager.service
 Before=display-manager.service
 Before=getty.target
 Wants=NetworkManager.service
-ConditionKernelCommandLine=|install
+ConditionKernelCommandLine=|systemd.unit=installer.target
 
 [Service]
 Type=idle
@@ -26,4 +25,4 @@ KillMode=process
 RemainAfterExit=yes
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=calamares.target

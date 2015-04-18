@@ -1,7 +1,7 @@
 #!/bin/sh
 # tpgxyz@gmail.com
 
-if grep -q '\binstall\b' /proc/cmdline; then
+if grep -q '\bsystemd.unit=installer.target\b' /proc/cmdline; then
 . /etc/locale.conf
 
 # ensure plymouth really has stopped

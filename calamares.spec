@@ -1,11 +1,11 @@
-%define calamdate 20150415
+%define calamdate 20150418
 %define partdate 20150112
 
 %define major 1
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
-Summary:	Distribution-independent installer framework 
+Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	1.0.0
 Release:	0.%{calamdate}.1
@@ -18,25 +18,26 @@ Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source1:	calamares-partitionmanager-%{partdate}.tar.xz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
-Source4:	%{name}-install-start
-Source5:	%{name}-install-setup
-Source6:	omv-bootloader.conf
-Source7:	omv-displaymanager.conf
-Source8:	omv-finished.conf
-Source9:	omv-fstab.conf
-Source10:	omv-grubcfg.conf
-Source11:	omv-keyboard.conf
-Source12:	omv-locale.conf
-Source13:	omv-machineid.conf
-Source14:	omv-mount.conf
-Source15:	omv-packages.conf
-Source16:	omv-prepare.conf
-Source17:	omv-services.conf
-Source18:	omv-settings.conf
-Source19:	omv-unpackfs.conf
-Source20:	omv-users.conf
-Source21:	omv-partition.conf
-Source22:	omv-removeuser.conf
+Source4:	%{name}.target
+Source5:	%{name}-install-start
+Source6:	%{name}-install-setup
+Source7:	omv-bootloader.conf
+Source8:	omv-displaymanager.conf
+Source9:	omv-finished.conf
+Source10:	omv-fstab.conf
+Source11:	omv-grubcfg.conf
+Source12:	omv-keyboard.conf
+Source13:	omv-locale.conf
+Source14:	omv-machineid.conf
+Source15:	omv-mount.conf
+Source16:	omv-packages.conf
+Source17:	omv-prepare.conf
+Source18:	omv-services.conf
+Source19:	omv-settings.conf
+Source20:	omv-unpackfs.conf
+Source21:	omv-users.conf
+Source22:	omv-partition.conf
+Source23:	omv-removeuser.conf
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -148,29 +149,31 @@ mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding/auto
 touch %{buildroot}%{_sysconfdir}/calamares/branding/auto/branding.desc
 
 # (tpg) settings specific for OMV
-install -m 644 %{SOURCE6} %{buildroot}%{_sysconfdir}/calamares/modules/bootloader.conf
-install -m 644 %{SOURCE7} %{buildroot}%{_sysconfdir}/calamares/modules/displaymanager.conf
-install -m 644 %{SOURCE8} %{buildroot}%{_sysconfdir}/calamares/modules/finished.conf
-install -m 644 %{SOURCE9} %{buildroot}%{_sysconfdir}/calamares/modules/fstab.conf
-install -m 644 %{SOURCE10} %{buildroot}%{_sysconfdir}/calamares/modules/grubcfg.conf
-install -m 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/calamares/modules/keyboard.conf
-install -m 644 %{SOURCE12} %{buildroot}%{_sysconfdir}/calamares/modules/locale.conf
-install -m 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/calamares/modules/machineid.conf
-install -m 644 %{SOURCE14} %{buildroot}%{_sysconfdir}/calamares/modules/mount.conf
-install -m 644 %{SOURCE15} %{buildroot}%{_sysconfdir}/calamares/modules/packages.conf
-install -m 644 %{SOURCE16} %{buildroot}%{_sysconfdir}/calamares/modules/prepare.conf
-install -m 644 %{SOURCE17} %{buildroot}%{_sysconfdir}/calamares/modules/services.conf
-install -m 644 %{SOURCE18} %{buildroot}%{_sysconfdir}/calamares/settings.conf
-install -m 644 %{SOURCE19} %{buildroot}%{_sysconfdir}/calamares/modules/unpackfs.conf
-install -m 644 %{SOURCE20} %{buildroot}%{_sysconfdir}/calamares/modules/users.conf
-install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/partition.conf
-install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
+install -m 644 %{SOURCE7} %{buildroot}%{_sysconfdir}/calamares/modules/bootloader.conf
+install -m 644 %{SOURCE8} %{buildroot}%{_sysconfdir}/calamares/modules/displaymanager.conf
+install -m 644 %{SOURCE9} %{buildroot}%{_sysconfdir}/calamares/modules/finished.conf
+install -m 644 %{SOURCE10} %{buildroot}%{_sysconfdir}/calamares/modules/fstab.conf
+install -m 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/calamares/modules/grubcfg.conf
+install -m 644 %{SOURCE12} %{buildroot}%{_sysconfdir}/calamares/modules/keyboard.conf
+install -m 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/calamares/modules/locale.conf
+install -m 644 %{SOURCE14} %{buildroot}%{_sysconfdir}/calamares/modules/machineid.conf
+install -m 644 %{SOURCE15} %{buildroot}%{_sysconfdir}/calamares/modules/mount.conf
+install -m 644 %{SOURCE16} %{buildroot}%{_sysconfdir}/calamares/modules/packages.conf
+install -m 644 %{SOURCE17} %{buildroot}%{_sysconfdir}/calamares/modules/prepare.conf
+install -m 644 %{SOURCE18} %{buildroot}%{_sysconfdir}/calamares/modules/services.conf
+install -m 644 %{SOURCE19} %{buildroot}%{_sysconfdir}/calamares/settings.conf
+install -m 644 %{SOURCE20} %{buildroot}%{_sysconfdir}/calamares/modules/unpackfs.conf
+install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/users.conf
+install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/partition.conf
+install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
 
 # (tpg) service files
-mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
+mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
-install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-install-start
-install -m 744 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-setup
+install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.target
+install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-start
+install -m 744 %{SOURCE6} %{buildroot}%{_sbindir}/%{name}-install-setup
+ln -sf %{_unitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
@@ -221,6 +224,7 @@ EOF
 
 %files
 %doc LICENSE AUTHORS
+%dir %{_sysconfdir}/systemd/system/calamares.target.wants
 %dir %{_libdir}/calamares
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
@@ -233,7 +237,9 @@ EOF
 %dir %{_datadir}/calamares/qml/calamares
 %dir %{_datadir}/calamares/qml/calamares/slideshow
 %{_presetdir}/90-%{name}.preset
+%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
 %{_unitdir}/%{name}.service
+%{_unitdir}/%{name}.target
 %{_sbindir}/%{name}-install-start
 %{_sbindir}/%{name}-install-setup
 %{_bindir}/calamares
