@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.1
+Release:	0.%{calamdate}.2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -170,7 +170,7 @@ install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeus
 # (tpg) service files
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
-install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.target
+install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.target
 install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-start
 install -m 744 %{SOURCE6} %{buildroot}%{_sbindir}/%{name}-install-setup
 ln -sf %{_unitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
