@@ -1,4 +1,4 @@
-%define calamdate 20150418
+%define calamdate 20150421
 %define partdate 20150112
 
 %define major 1
@@ -8,7 +8,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	1.0.0
-Release:	0.%{calamdate}.2
+Release:	0.%{calamdate}.3
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -82,6 +82,7 @@ Requires:	console-setup
 # x11 stuff
 Requires:	setxkbmap
 Requires:	xkbcomp
+Requires:	xli
 Requires:	NetworkManager
 Requires:	os-prober
 Requires:	e2fsprogs

@@ -24,10 +24,15 @@ fi
 sleep 1
 
     if [ "$(pidof openbox)" ]; then
+	# setup background
+	if [ -e /usr/share/mdk/backgrounds/default.png ] && [ -f /usr/bin/xli ]; then
+	    /usr/bin/xli -onroot -fullscreen /usr/share/mdk/backgrounds/default.png &
+	fi
+
 	/usr/bin/calamares
 	sleep 1
     else
-	echo "Can not start draklive-install. Rebooting..."
+	echo "Can not start calamares. Rebooting..."
 	sleep 5
     fi
 
