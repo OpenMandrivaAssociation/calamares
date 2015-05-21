@@ -1,5 +1,5 @@
-%define calamdate 20150507
-%define partdate 20150112
+%define calamdate 20150521
+%define partdate 20150521
 
 %define major 1
 %define libname %mklibname %{name} %{major}
