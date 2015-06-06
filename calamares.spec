@@ -1,5 +1,5 @@
-%define calamdate 20150523
-%define partdate 20150521
+%define calamdate 20150606
+%define partdate 20150606
 
 %define major 1
 %define libname %mklibname %{name} %{major}
@@ -31,7 +31,7 @@ Source13:	omv-locale.conf
 Source14:	omv-machineid.conf
 Source15:	omv-mount.conf
 Source16:	omv-packages.conf
-Source17:	omv-prepare.conf
+Source17:	omv-welcome.conf
 Source18:	omv-services.conf
 Source19:	omv-settings.conf
 Source20:	omv-unpackfs.conf
@@ -160,7 +160,7 @@ install -m 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/calamares/modules/locale.c
 install -m 644 %{SOURCE14} %{buildroot}%{_sysconfdir}/calamares/modules/machineid.conf
 install -m 644 %{SOURCE15} %{buildroot}%{_sysconfdir}/calamares/modules/mount.conf
 install -m 644 %{SOURCE16} %{buildroot}%{_sysconfdir}/calamares/modules/packages.conf
-install -m 644 %{SOURCE17} %{buildroot}%{_sysconfdir}/calamares/modules/prepare.conf
+install -m 644 %{SOURCE17} %{buildroot}%{_sysconfdir}/calamares/modules/welcome.conf
 install -m 644 %{SOURCE18} %{buildroot}%{_sysconfdir}/calamares/modules/services.conf
 install -m 644 %{SOURCE19} %{buildroot}%{_sysconfdir}/calamares/settings.conf
 install -m 644 %{SOURCE20} %{buildroot}%{_sysconfdir}/calamares/modules/unpackfs.conf
