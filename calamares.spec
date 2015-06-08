@@ -15,6 +15,7 @@ URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-1.0.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.0.0-$(date +%Y%m%d).tar.xz
 Source0:	calamares-%{version}-%{calamdate}.tar.xz
 # https://github.com/calamares/partitionmanager
+# Make sure you package the "calamares" branch, not "master"
 Source1:	calamares-partitionmanager-%{partdate}.tar.xz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
@@ -131,7 +132,6 @@ Development files and headers for %{name}.
 %setup -q -n %{name}-%{version}-%{calamdate} -a 1
 rm -rf src/modules/partition/partitionmanager
 mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmanager
-
 %apply_patches
 
 #delete backup files
