@@ -1,4 +1,4 @@
-%define calamdate 20150606
+%define calamdate 20150609
 %define partdate 20150606
 
 %define major 1
