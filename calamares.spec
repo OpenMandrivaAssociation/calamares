@@ -1,4 +1,4 @@
-%define calamdate 20150609
+%define calamdate 20150610
 %define partdate 20150606
 
 %define major 1
@@ -7,12 +7,12 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	1.0.0
+Version:	1.1.0
 Release:	0.%{calamdate}.1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
-# git archive --format=tar --prefix=calamares-1.0.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.0.0-$(date +%Y%m%d).tar.xz
+# git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 Source0:	calamares-%{version}-%{calamdate}.tar.xz
 # https://github.com/calamares/partitionmanager
 # Make sure you package the "calamares" branch, not "master"
@@ -73,7 +73,9 @@ BuildRequires:	boost-python3-devel
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
+Requires:	gawk
 Requires:	util-linux
+Requires:	gptfdisk
 Requires:	dracut
 Requires:	grub2
 %ifarch x86_64
@@ -100,6 +102,7 @@ Requires:	shadow
 Requires:	polkit
 Requires:	urpmi
 Requires:	squashfs-tools
+Requires:	dmidecode
 # (tpg) needed for calamares-install-setup
 Requires:	openbox
 ExclusiveArch:	%{ix86} x86_64
