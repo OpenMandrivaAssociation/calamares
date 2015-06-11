@@ -1,4 +1,4 @@
-%define calamdate 20150610
+%define calamdate 20150611
 %define partdate 20150606
 
 %define major 1
@@ -76,6 +76,7 @@ Requires:	coreutils
 Requires:	gawk
 Requires:	util-linux
 Requires:	gptfdisk
+Requires:	lvm2
 Requires:	dracut
 Requires:	grub2
 %ifarch x86_64
