@@ -1,5 +1,5 @@
-%define calamdate 20150614
-%define partdate 20150606
+%define calamdate 20150617
+%define partdate 20150617
 
 %define major 1
 %define libname %mklibname %{name} %{major}
@@ -16,6 +16,7 @@ URL:		http://calamares.io/
 Source0:	calamares-%{version}-%{calamdate}.tar.xz
 # https://github.com/calamares/partitionmanager
 # Make sure you package the "calamares" branch, not "master"
+# git archive --format=tar --prefix=calamares-partitionmanager-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-partitionmanager-$(date +%Y%m%d).tar.xz
 Source1:	calamares-partitionmanager-%{partdate}.tar.xz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
