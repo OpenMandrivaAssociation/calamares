@@ -7,13 +7,14 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	1.1.0
-Release:	0.%{calamdate}.1
+Version:	1.1
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
-Source0:	calamares-%{version}-%{calamdate}.tar.xz
+#Source0:	calamares-%{version}-%{calamdate}.tar.xz
+Source0:	calamares-%{version}.tar.gz
 # https://github.com/calamares/partitionmanager
 # Make sure you package the "calamares" branch, not "master"
 # git archive --format=tar --prefix=calamares-partitionmanager-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-partitionmanager-$(date +%Y%m%d).tar.xz
@@ -134,7 +135,8 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}-%{calamdate} -a 1
+#%setup -q -n %{name}-%{version}-%{calamdate} -a 1
+%setup -q -n %{name}-%{version} -a 1
 rm -rf src/modules/partition/partitionmanager
 mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmanager
 %apply_patches
