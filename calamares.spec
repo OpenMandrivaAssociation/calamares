@@ -1,3 +1,4 @@
+%define _disable_lto 1
 %define calamdate 20150617
 %define partdate 20150617
 
