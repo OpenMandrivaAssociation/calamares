@@ -8,8 +8,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	1.1.1
-Release:	3
+Version:	1.1.2
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -73,6 +73,7 @@ BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
 BuildRequires:	boost-python3-devel
+BuildRequires:	pkgconfig(libcrypto)
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
@@ -136,10 +137,13 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
+%setup -q
+
 #%setup -q -n %{name}-%{version}-%{calamdate} -a 1
-%setup -q -n %{name}-%{version} -a 1
-rm -rf src/modules/partition/partitionmanager
-mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmanager
+#%setup -q -n %{name}-%{version} -a 1
+#rm -rf src/modules/partition/partitionmanager
+#mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmanager
+
 %apply_patches
 
 #delete backup files
