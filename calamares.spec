@@ -8,8 +8,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	1.1.2
-Release:	3
+Version:	1.1.4.1
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -42,6 +42,7 @@ Source20:	omv-unpackfs.conf
 Source21:	omv-users.conf
 Source22:	omv-partition.conf
 Source23:	omv-removeuser.conf
+Source24:	omv-webview.conf
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -52,6 +53,8 @@ BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(Qt5Network)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5Widgets)
+BuildRequires:	pkgconfig(Qt5WebKit)
+BuildRequires:	pkgconfig(Qt5WebKitWidgets)
 BuildRequires:	pkgconfig(Qt5Test)
 BuildRequires:	pkgconfig(Qt5Concurrent)
 BuildRequires:	pkgconfig(Qt5Svg)
@@ -180,6 +183,7 @@ install -m 644 %{SOURCE20} %{buildroot}%{_sysconfdir}/calamares/modules/unpackfs
 install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/users.conf
 install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/partition.conf
 install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
+install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
 
 # (tpg) service files
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
