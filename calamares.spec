@@ -1,4 +1,3 @@
-%define _disable_lto 1
 %define calamdate 20150617
 %define partdate 20150617
 
@@ -8,8 +7,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	1.1.4.1
-Release:	2
+Version:	1.1.4.2
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
