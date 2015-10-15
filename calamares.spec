@@ -9,7 +9,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	1.1.4.2
-Release:	1
+Release:	2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -47,6 +47,8 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+Patch3:		0001-Make-sure-the-FullName-is-not-empty.patch
+Patch4:		0002-do-not-use-users-group.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)

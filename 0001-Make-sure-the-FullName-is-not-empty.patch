@@ -1,0 +1,27 @@
+From 27b5fa4d5baeed5d90a5f93e5b2119d963d5d24f Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Thu, 15 Oct 2015 13:24:07 +0200
+Subject: [PATCH] Make sure the FullName is not empty.
+
+---
+ src/modules/users/UsersPage.cpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/modules/users/UsersPage.cpp b/src/modules/users/UsersPage.cpp
+index e1f85cd..aeb7c76 100644
+--- a/src/modules/users/UsersPage.cpp
++++ b/src/modules/users/UsersPage.cpp
+@@ -102,7 +102,9 @@ UsersPage::createJobs( const QString& defaultUserGroup, const QStringList& defau
+ 
+     Calamares::Job* j;
+     j = new CreateUserJob( ui->textBoxUsername->text(),
+-                           QString(),
++                           ui->textBoxFullName->text().isEmpty() ?
++                               ui->textBoxUsername->text() :
++                               ui->textBoxFullName->text(),
+                            ui->checkBoxLoginAuto->isChecked(),
+                            defaultUserGroup,
+                            defaultGroupsList );
+-- 
+1.9.0
+

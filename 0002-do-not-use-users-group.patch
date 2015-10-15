@@ -1,0 +1,14 @@
+diff --git a/src/modules/users/CreateUserJob.cpp b/src/modules/users/CreateUserJob.cpp
+index 72916eb..776fbfa 100644
+--- a/src/modules/users/CreateUserJob.cpp
++++ b/src/modules/users/CreateUserJob.cpp
+@@ -128,8 +128,7 @@ CreateUserJob::exec()
+                                            "-m",
+                                            "-s",
+                                            "/bin/bash",
+-                                           "-g",
+-                                           "users",
++                                           "-U",
+                                            "-G",
+                                            defaultGroups,
+                                            m_userName } );
