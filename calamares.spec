@@ -9,7 +9,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	1.1.4.2
-Release:	3
+Release:	4
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
