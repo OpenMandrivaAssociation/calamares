@@ -8,18 +8,14 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	1.1.4.2
-Release:	5
+Version:	2.0
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
-Source0:	calamares-%{version}.tar.gz
-# https://github.com/calamares/partitionmanager
-# Make sure you package the "calamares" branch, not "master"
-# git archive --format=tar --prefix=calamares-partitionmanager-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-partitionmanager-$(date +%Y%m%d).tar.xz
-Source1:	calamares-partitionmanager-%{partdate}.tar.xz
+Source0:	%{name}-%{version}.tar.gz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
 Source4:	%{name}.target
@@ -74,6 +70,11 @@ BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5Solid)
 BuildRequires:	cmake(KF5I18n)
+BuildRequires:	cmake(KF5IconThemes)
+BuildRequires:	cmake(KF5KIO)
+BuildRequires:	cmake(KF5Service)
+BuildRequires:	cmake(KF5Parts)
+BuildRequires:	cmake(KPMcore)
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -143,12 +144,6 @@ Development files and headers for %{name}.
 
 %prep
 %setup -q
-
-#%setup -q -n %{name}-%{version}-%{calamdate} -a 1
-#%setup -q -n %{name}-%{version} -a 1
-#rm -rf src/modules/partition/partitionmanager
-#mv -f calamares-partitionmanager-%{partdate} src/modules/partition/partitionmanager
-
 %apply_patches
 
 #delete backup files
@@ -232,14 +227,14 @@ strings:
 images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
     productIcon:         "%{_iconsdir}/openmandriva.svg"
+    productWelcome:      "languages.png"
 
-slideshow:		"omv-ads.qml"
+slideshow:               "omv-ads.qml"
 
 style:
-    sidebarBackground: "#263039"
-    sidebarText: "#FFFFFF"
-    sidebarTextSelect: "#292F34"
-
+   sidebarBackground:    "#263039"
+   sidebarText:          "#FFFFFF"
+   sidebarTextSelect:    "#292F34"
 EOF
 
 %files
