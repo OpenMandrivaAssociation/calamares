@@ -1,8 +1,4 @@
-%define _disable_lto 1
-%define calamdate 20150617
-%define partdate 20150617
-
-%define major 1
+%define major 2
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
@@ -270,11 +266,11 @@ EOF
 %{_sysconfdir}/calamares/branding/auto/*.qml
 %{_sysconfdir}/calamares/branding/auto/*.png
 %{_iconsdir}/openmandriva-install.svg
+%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
 %{_libdir}/libcalamaresui.so.%{major}*
-%{_libdir}/libcalapm.so
 
 %files -n %{develname}
 %dir %{_includedir}/libcalamares
