@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.1
-Release:	1
+Release:	2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -79,8 +79,6 @@ Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
 Requires:	gawk
 Requires:	util-linux
-Requires:	gptfdisk
-Requires:	lvm2
 Requires:	dracut
 Requires:	grub2
 %ifarch x86_64
@@ -94,13 +92,9 @@ Requires:	xkbcomp
 Requires:	xli
 Requires:	NetworkManager
 Requires:	os-prober
-Requires:	e2fsprogs
-Requires:	dosfstools
-Requires:	ntfs-3g
 Requires:	gawk
 Requires:	partitionmanager
 Requires:	systemd
-Requires:	systemd-units
 Requires:	rsync
 Requires:	shadow
 Requires:	polkit
