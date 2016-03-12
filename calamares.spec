@@ -93,7 +93,8 @@ Requires:	xli
 Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
-Requires:	partitionmanager
+# (tpg) this requires all the filesystem tools needed to manipulate filesystems
+Requires:	partitionmanager >= 2.1.0-2
 Requires:	systemd
 Requires:	rsync
 Requires:	shadow
