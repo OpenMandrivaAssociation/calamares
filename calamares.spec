@@ -4,8 +4,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	2.1
-Release:	4
+Version:	2.2
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -68,7 +68,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 2.1.0
+BuildRequires:	cmake(KPMcore) >= 2.1.1
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
