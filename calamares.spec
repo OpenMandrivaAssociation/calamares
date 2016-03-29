@@ -138,6 +138,10 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
+# (tpg) build with gcc due to bug https://calamares.io/bugs/browse/CAL-365
+export CC=gcc
+export CXX=g++
+
 %cmake_qt5 -DWITH_PYTHON:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
