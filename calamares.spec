@@ -39,6 +39,7 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+Patch3:		calamares-2.2-fix-build-with-clang.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -138,10 +139,6 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-# (tpg) build with gcc due to bug https://calamares.io/bugs/browse/CAL-365
-export CC=gcc
-export CXX=g++
-
 %cmake_qt5 -DWITH_PYTHON:BOOL="ON" -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"
 
 %make
