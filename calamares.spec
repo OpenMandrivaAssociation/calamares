@@ -4,8 +4,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	2.2
-Release:	2
+Version:	2.2.1
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -46,8 +46,8 @@ BuildRequires:	pkgconfig(Qt5Xml)
 BuildRequires:	pkgconfig(Qt5Network)
 BuildRequires:	pkgconfig(Qt5Gui)
 BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	pkgconfig(Qt5WebKit)
-BuildRequires:	pkgconfig(Qt5WebKitWidgets)
+BuildRequires:	pkgconfig(Qt5WebEngine)
+BuildRequires:	pkgconfig(Qt5WebEngineWidgets)
 BuildRequires:	pkgconfig(Qt5Test)
 BuildRequires:	pkgconfig(Qt5Concurrent)
 BuildRequires:	pkgconfig(Qt5Svg)
@@ -103,6 +103,8 @@ Requires:	polkit
 Requires:	urpmi
 Requires:	squashfs-tools
 Requires:	dmidecode
+# (tpg) needed for webview module
+Requires:   qt5-qtwebengine
 # (tpg) needed for calamares-install-setup
 Requires:	openbox
 ExclusiveArch:	%{ix86} x86_64
