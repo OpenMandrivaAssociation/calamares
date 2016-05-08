@@ -4,7 +4,7 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	2.2.1
+Version:	2.2.2
 Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
