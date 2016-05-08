@@ -249,7 +249,7 @@ EOF
 %{_sbindir}/%{name}-install-start
 %{_sbindir}/%{name}-install-setup
 %{_bindir}/calamares
-%{_libexecdir}/calamares_crash_reporter
+%optional %{_libexecdir}/calamares_crash_reporter
 %{_datadir}/calamares/settings.conf
 %{_datadir}/calamares/branding/default/*
 %{_datadir}/calamares/modules/
