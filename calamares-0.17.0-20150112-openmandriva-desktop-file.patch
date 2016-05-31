@@ -1,6 +1,6 @@
-diff -Naur calamares-0.17.0-20150112/calamares.desktop calamares-0.17.0-20150112.tpg/calamares.desktop
---- calamares-0.17.0-20150112/calamares.desktop	2015-01-11 13:53:23.000000000 +0000
-+++ calamares-0.17.0-20150112.tpg/calamares.desktop	2015-01-12 22:20:54.938394302 +0000
+diff -Naur calamares-2.2.3/calamares.desktop calamares-2.2.3.tpg/calamares.desktop
+--- calamares-2.2.3/calamares.desktop	2016-05-27 15:22:15.000000000 +0000
++++ calamares-2.2.3.tpg/calamares.desktop	2016-05-31 18:55:21.612580822 +0000
 @@ -1,12 +1,11 @@
  [Desktop Entry]
  Type=Application
@@ -15,5 +15,5 @@ diff -Naur calamares-0.17.0-20150112/calamares.desktop calamares-0.17.0-20150112
 +Comment=OpenMandriva Lx installer
 +Icon=/usr/share/icons/openmandriva-install.svg
  Terminal=false
- StartupNotify=false
+ StartupNotify=true
  Categories=Qt;System;
