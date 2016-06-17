@@ -3,10 +3,16 @@
 
 if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
     if [ -x /usr/bin/startx ] && [ -x /usr/sbin/calamares-install-setup ]; then
+# (tpg) start x11-server and then calamares
 	/usr/bin/startx /usr/sbin/calamares-install-setup $* -- -dpi 96 vt1 -background none
+	if [[ $? != 0 ]]; then
+	    echo "startx failed to start calamares. Extining in 30 seconds..."
+	    sleep 30
+	    /bin/systemctl -i reboot
+	fi
     else
 	echo "calamares-install-setup: critical programs are missing, check you system!"
 	sleep 30
-	reboot
+	/bin/systemctl -i reboot
     fi
 fi
