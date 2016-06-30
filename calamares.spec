@@ -1,12 +1,12 @@
 %define major 2
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
-%define beta beta2
+%define beta rc1
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.3
-Release:	0.%{beta}.2
+Release:	0.%{beta}.3
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
