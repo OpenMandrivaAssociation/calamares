@@ -1,49 +1,62 @@
 #!/bin/sh
 # tpgxyz@gmail.com
 
+
+errorCatch() {
+    echo "Something went wrong. Exiting in 30 seconds."
+    sleep 30
+# using -i forces reboot in case of using systemd-inhibit
+    /bin/systemctl -i reboot
+}
+
+trap errorCatch ERR SIGHUP SIGINT SIGTERM
+
 if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
-. /etc/locale.conf
+    . /etc/locale.conf
 
 # ensure plymouth really has stopped
     if pgrep "plymouthd" > /dev/null 2>&1; then
 	/bin/plymouth quit --retain-splash
     fi
 
-/bin/systemctl stop crond.service &
+    /bin/systemctl stop crond.service &
 
-xset -dpms
-xset s off
+    xset -dpms
+    xset s off
 
-if [ -x /usr/bin/openbox ]; then
-    /usr/bin/openbox &
-else
-    echo "openbox not found. Exiting."
-    sleep 30
-    reboot
-fi
-sleep 1
+    if [ -x /usr/bin/openbox ]; then
+	/usr/bin/openbox &
+    else
+	echo "openbox not found. Exiting."
+	sleep 30
+	/bin/systemctl -i reboot
+    fi
+
+    sleep 1
 
     if [ "$(pidof openbox)" ]; then
-	# setup background
+# setup background
 	if [ -e /usr/share/mdk/backgrounds/default.png ] && [ -f /usr/bin/xli ]; then
 	    /usr/bin/xli -onroot -fullscreen /usr/share/mdk/backgrounds/default.png &
 	fi
-
-	/usr/bin/calamares
-	sleep 1
+# use systemd-inhibit to be sure installation process won't be killed by users mistake
+	/bin/systemd-inhibit --why="Running calamares" /usr/bin/calamares
+	if [[ $? != 0 ]]; then
+	    errorCatch
+	fi
     else
-	echo "Can not start calamares. Rebooting..."
+	echo "openbox is not running. Rebooting..."
 	sleep 5
     fi
 
-# check if we are booted from cd drom to eject it
-blkid /dev/sr0 >/dev/null 2>&1
-if [[ $? -eq 0 ]]; then
-    eject
-    sleep 10
-fi
+# check if we are booted from cd/dvd-rom to eject it
+    blkid /dev/sr0 >/dev/null 2>&1
+    if [[ $? -eq 0 ]]; then
+	eject
+	sleep 30
+    fi
 
-sync
-reboot
+    sync
+    systemctl -i reboot
 
 fi
