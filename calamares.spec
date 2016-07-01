@@ -1,18 +1,17 @@
 %define major 2
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
-%define beta rc1
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.3
-Release:	0.%{beta}.3
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
-Source0:	%{name}-%{version}-%{beta}.tar.gz
+Source0:	%{name}-%{version}.tar.gz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
 Source4:	%{name}.target
@@ -134,7 +133,7 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
-%setup -qn %{name}-%{version}-%{beta}
+%setup -qn %{name}-%{version}
 %apply_patches
 
 #delete backup files
