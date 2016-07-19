@@ -1,0 +1,104 @@
+From 45f6e6c55b3bd5eb49379b0ae6ffbe6029c60a54 Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Tue, 19 Jul 2016 13:00:54 +0200
+Subject: [PATCH] Rearrange asynchronous scan in PartitionCoreModule a bit.
+
+---
+ src/modules/partition/core/PartitionCoreModule.cpp | 12 ++++++++++--
+ src/modules/partition/core/PartitionCoreModule.h   |  4 +++-
+ src/modules/partition/gui/PartitionViewStep.cpp    |  7 ++++---
+ 3 files changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/src/modules/partition/core/PartitionCoreModule.cpp b/src/modules/partition/core/PartitionCoreModule.cpp
+index 0a86928..09b9785 100644
+--- a/src/modules/partition/core/PartitionCoreModule.cpp
++++ b/src/modules/partition/core/PartitionCoreModule.cpp
+@@ -105,12 +105,20 @@ PartitionCoreModule::PartitionCoreModule( QObject* parent )
+     if ( !KPMHelpers::initKPMcore() )
+         qFatal( "Failed to initialize KPMcore backend" );
+     FileSystemFactory::init();
+-    init();
+ }
+ 
++
+ void
+ PartitionCoreModule::init()
+ {
++    QMutexLocker locker( &m_revertMutex );
++    doInit();
++}
++
++
++void
++PartitionCoreModule::doInit()
++{
+     CoreBackend* backend = CoreBackendManager::self()->backend();
+     QList< Device* > devices = backend->scanDevices( true );
+ 
+@@ -546,7 +554,7 @@ PartitionCoreModule::revert()
+     QMutexLocker locker( &m_revertMutex );
+     qDeleteAll( m_deviceInfos );
+     m_deviceInfos.clear();
+-    init();
++    doInit();
+     updateIsDirty();
+     emit reverted();
+ }
+diff --git a/src/modules/partition/core/PartitionCoreModule.h b/src/modules/partition/core/PartitionCoreModule.h
+index 75126b2..46f1b7b 100644
+--- a/src/modules/partition/core/PartitionCoreModule.h
++++ b/src/modules/partition/core/PartitionCoreModule.h
+@@ -64,6 +64,8 @@ public:
+     PartitionCoreModule( QObject* parent = nullptr );
+     ~PartitionCoreModule();
+ 
++    void init();
++
+     DeviceModel* deviceModel() const;
+ 
+     PartitionModel* partitionModelForDevice( Device* device ) const;
+@@ -159,7 +161,7 @@ private:
+     bool m_isDirty = false;
+     QString m_bootLoaderInstallPath;
+ 
+-    void init();
++    void doInit();
+     void updateHasRootMountPoint();
+     void updateIsDirty();
+     void scanForEfiSystemPartitions();
+diff --git a/src/modules/partition/gui/PartitionViewStep.cpp b/src/modules/partition/gui/PartitionViewStep.cpp
+index 22f74e3..0362c35 100644
+--- a/src/modules/partition/gui/PartitionViewStep.cpp
++++ b/src/modules/partition/gui/PartitionViewStep.cpp
+@@ -58,8 +58,8 @@
+ 
+ PartitionViewStep::PartitionViewStep( QObject* parent )
+     : Calamares::ViewStep( parent )
+-    , m_widget( new QStackedWidget() )
+     , m_core( nullptr )
++    , m_widget( new QStackedWidget() )
+     , m_choicePage( nullptr )
+     , m_manualPartitionPage( nullptr )
+ {
+@@ -69,6 +69,7 @@ PartitionViewStep::PartitionViewStep( QObject* parent )
+     m_widget->addWidget( m_waitingWidget );
+     CALAMARES_RETRANSLATE( qobject_cast< WaitingWidget* >( m_waitingWidget )->setText( tr( "Gathering system information..." ) ); )
+ 
++    m_core = new PartitionCoreModule( this ); // Unusable before init is complete!
+     // We're not done loading, but we need the configuration map first.
+ }
+ 
+@@ -76,8 +77,8 @@ PartitionViewStep::PartitionViewStep( QObject* parent )
+ void
+ PartitionViewStep::initPartitionCoreModule()
+ {
+-    Q_ASSERT( !m_core );
+-    m_core = new PartitionCoreModule( this );
++    Q_ASSERT( m_core );
++    m_core->init();
+ }
+ 
+ 
+-- 
+2.8.3
+
