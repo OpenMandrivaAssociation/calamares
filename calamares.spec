@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.3
-Release:	5
+Release:	6
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -44,7 +44,8 @@ Patch2:		calamares-libparted-detection.patch
 # until a full solution is found
 #Patch3:		calamares-2.3-revert_async_partition_module_loading.patch
 # (tpg) here is the candidate for a real solution
-Patch4:	0000-Rearrange-asynchronous-scan-in-PartitionCoreModule-a.patch
+Patch4:		0000-Rearrange-asynchronous-scan-in-PartitionCoreModule-a.patch
+Patch5:		0001-Init-filesystems-asynchronously.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
