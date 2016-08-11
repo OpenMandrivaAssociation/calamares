@@ -218,8 +218,8 @@ strings:
     bootloaderEntryName: "openmandriva"
     productUrl:          "$HOME_URL"
     supportUrl:          "$BUG_REPORT_URL"
-    knownIssuesUrl:      "https://wiki.openmandriva.org/en/Release_3/New"
-    releaseNotesUrl:     "https://wiki.openmandriva.org/en/Release_3/Release_Notes"
+    knownIssuesUrl:      "https://wiki.openmandriva.org/en/3.0/New"
+    releaseNotesUrl:     "https://wiki.openmandriva.org/en/3.0/Release_Notes"
 
 images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
