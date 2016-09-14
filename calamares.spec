@@ -42,7 +42,7 @@ Patch2:		calamares-libparted-detection.patch
 # 2.2.2 introduced a change where the partition module loading (including scanning)
 # is run in a separate thread, this causes crashes for us so temporarily reverting
 # until a full solution is found
-Patch3:		calamares-2.3-revert_async_partition_module_loading.patch
+# Patch3:		calamares-2.3-revert_async_partition_module_loading.patch
 # (tpg) here is the candidate for a real solution
 #Patch4:		0000-Rearrange-asynchronous-scan-in-PartitionCoreModule-a.patch
 #Patch5:		0001-Init-filesystems-asynchronously.patch
