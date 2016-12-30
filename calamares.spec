@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.4.5
-Release:	1
+Release:	3
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -101,7 +101,7 @@ Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
 # (tpg) this requires all the filesystem tools needed to manipulate filesystems
-Requires:	partitionmanager >= 2.1.0-2
+Requires:	partitionmanager >= 2.2.0
 Requires:	systemd
 Requires:	rsync
 Requires:	shadow
