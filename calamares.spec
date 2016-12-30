@@ -75,7 +75,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 3.0.0
+BuildRequires:	cmake(KPMcore) >= 2.2.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -101,7 +101,7 @@ Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
 # (tpg) this requires all the filesystem tools needed to manipulate filesystems
-Requires:	partitionmanager >= 3.0.0
+Requires:	partitionmanager >= 2.2.0
 Requires:	systemd
 Requires:	rsync
 Requires:	shadow
