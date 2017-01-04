@@ -1,0 +1,37 @@
+From b4fb2115dca83ce8a33a3eddc7a0f857d38e5c5a Mon Sep 17 00:00:00 2001
+From: Kevin Kofler <kevin.kofler@chello.at>
+Date: Sat, 3 Dec 2016 19:16:24 +0100
+Subject: [PATCH] [displaymanager] set_autologin: Unset autologin for sddm when
+ needed
+
+CAL-423 #close
+---
+ src/modules/displaymanager/main.py | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/src/modules/displaymanager/main.py b/src/modules/displaymanager/main.py
+index 02412ae..57945fa 100644
+--- a/src/modules/displaymanager/main.py
++++ b/src/modules/displaymanager/main.py
+@@ -267,15 +267,13 @@ def set_autologin(username, displaymanagers, default_desktop_environment, root_m
+ 
+         if do_autologin:
+             autologin_section['User'] = username
++        else:
++            del autologin_section['User']
+ 
+         if default_desktop_environment is not None:
+             autologin_section['Session'] = default_desktop_environment.desktop_file
+ 
+-        if autologin_section:
+-            if 'Autologin' in sddm_config:
+-                sddm_config['Autologin'].update(autologin_section)
+-            else:
+-                sddm_config['Autologin'] = autologin_section
++        sddm_config['Autologin'] = autologin_section
+ 
+         with open(sddm_conf_path, 'w') as sddm_config_file:
+             sddm_config.write(sddm_config_file, space_around_delimiters=False)
+-- 
+2.8.3
+

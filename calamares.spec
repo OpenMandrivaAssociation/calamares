@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.4.5
-Release:	3
+Release:	4
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -46,6 +46,9 @@ Patch2:		calamares-libparted-detection.patch
 # (tpg) here is the candidate for a real solution
 #Patch4:		0000-Rearrange-asynchronous-scan-in-PartitionCoreModule-a.patch
 #Patch5:		0001-Init-filesystems-asynchronously.patch
+# (tpg) fixes black screen issue when autologin is unchecked
+# https://calamares.io/bugs/browse/CAL-423
+Patch6:		0003-displaymanager-set_autologin-Unset-autologin-for-sdd.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
