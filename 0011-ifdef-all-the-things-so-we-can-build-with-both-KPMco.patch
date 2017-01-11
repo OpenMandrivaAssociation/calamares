@@ -1,0 +1,284 @@
+From bdda452f66945f067407202313a6e0e39f963e8f Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Wed, 21 Dec 2016 13:59:17 +0100
+Subject: [PATCH 11/16] ifdef all the things so we can build with both KPMcore
+ 3 and 2.2.
+
+---
+ src/modules/partition/core/PartitionActions.cpp    | 29 ++++++++++++++++++++++
+ src/modules/partition/core/PartitionModel.cpp      | 13 ++++++++++
+ src/modules/partition/gui/ChoicePage.cpp           |  5 ++++
+ src/modules/partition/gui/PartitionLabelsView.cpp  |  5 ++++
+ .../partition/gui/PartitionSizeController.cpp      |  9 +++++++
+ .../partition/jobs/FillGlobalStorageJob.cpp        |  5 ++++
+ src/modules/partition/jobs/ResizePartitionJob.cpp  |  5 ++++
+ 7 files changed, 71 insertions(+)
+
+diff --git a/src/modules/partition/core/PartitionActions.cpp b/src/modules/partition/core/PartitionActions.cpp
+index aa9c0af..8f19d5b 100644
+--- a/src/modules/partition/core/PartitionActions.cpp
++++ b/src/modules/partition/core/PartitionActions.cpp
+@@ -26,6 +26,7 @@
+ #include "JobQueue.h"
+ #include "utils/Logger.h"
+ #include "GlobalStorage.h"
++#include "PartitionConfig.h"
+ 
+ #include <kpmcore/core/device.h>
+ #include <kpmcore/core/partition.h>
+@@ -128,11 +129,19 @@ doAutopartition( PartitionCoreModule* core, Device* dev, const QString& luksPass
+         empty_space_size = 1;
+     }
+ 
++#ifdef WITH_KPMCORE3
++    qint64 firstFreeSector = empty_space_size MiB / dev->logicalSize() + 1;
++#else
+     qint64 firstFreeSector = empty_space_size MiB / dev->logicalSectorSize() + 1;
++#endif
+ 
+     if ( isEfi )
+     {
++#ifdef WITH_KPMCORE3
++        qint64 lastSector = firstFreeSector + ( uefisys_part_size MiB / dev->logicalSize() );
++#else
+         qint64 lastSector = firstFreeSector + ( uefisys_part_size MiB / dev->logicalSectorSize() );
++#endif
+         core->createPartitionTable( dev, PartitionTable::gpt );
+         Partition* efiPartition = KPMHelpers::createNewPartition(
+             dev->partitionTable(),
+@@ -157,7 +166,11 @@ doAutopartition( PartitionCoreModule* core, Device* dev, const QString& luksPass
+     }
+ 
+     bool shouldCreateSwap = false;
++#ifdef WITH_KPMCORE3
++    qint64 availableSpaceB = ( dev->totalLogical() - firstFreeSector ) * dev->logicalSize();
++#else
+     qint64 availableSpaceB = ( dev->totalSectors() - firstFreeSector ) * dev->logicalSectorSize();
++#endif
+     qint64 suggestedSwapSizeB = swapSuggestion( availableSpaceB );
+     qint64 requiredSpaceB =
+             ( Calamares::JobQueue::instance()->
+@@ -168,11 +181,19 @@ doAutopartition( PartitionCoreModule* core, Device* dev, const QString& luksPass
+     // If there is enough room for ESP + root + swap, create swap, otherwise don't.
+     shouldCreateSwap = availableSpaceB > requiredSpaceB;
+ 
++#ifdef WITH_KPMCORE3
++    qint64 lastSectorForRoot = dev->totalLogical() - 1; //last sector of the device
++    if ( shouldCreateSwap )
++    {
++        lastSectorForRoot -= suggestedSwapSizeB / dev->logicalSize() + 1;
++    }
++#else
+     qint64 lastSectorForRoot = dev->totalSectors() - 1; //last sector of the device
+     if ( shouldCreateSwap )
+     {
+         lastSectorForRoot -= suggestedSwapSizeB / dev->logicalSectorSize() + 1;
+     }
++#endif
+ 
+     Partition* rootPartition = nullptr;
+     if ( luksPassphrase.isEmpty() )
+@@ -213,7 +234,11 @@ doAutopartition( PartitionCoreModule* core, Device* dev, const QString& luksPass
+                 PartitionRole( PartitionRole::Primary ),
+                 FileSystem::LinuxSwap,
+                 lastSectorForRoot + 1,
++#ifdef WITH_KPMCORE3
++                dev->totalLogical() - 1
++#else
+                 dev->totalSectors() - 1
++#endif
+             );
+         }
+         else
+@@ -224,7 +249,11 @@ doAutopartition( PartitionCoreModule* core, Device* dev, const QString& luksPass
+                 PartitionRole( PartitionRole::Primary ),
+                 FileSystem::LinuxSwap,
+                 lastSectorForRoot + 1,
++#ifdef WITH_KPMCORE3
++                dev->totalLogical() - 1,
++#else
+                 dev->totalSectors() - 1,
++#endif
+                 luksPassphrase
+             );
+         }
+diff --git a/src/modules/partition/core/PartitionModel.cpp b/src/modules/partition/core/PartitionModel.cpp
+index ae15b5c..3011f37 100644
+--- a/src/modules/partition/core/PartitionModel.cpp
++++ b/src/modules/partition/core/PartitionModel.cpp
+@@ -22,6 +22,7 @@
+ #include "core/PartitionInfo.h"
+ #include "core/KPMHelpers.h"
+ #include "utils/Logger.h"
++#include "PartitionConfig.h"
+ 
+ // CalaPM
+ #include <kpmcore/core/device.h>
+@@ -148,7 +149,11 @@ PartitionModel::data( const QModelIndex& index, int role ) const
+             return PartitionInfo::mountPoint( partition );
+         if ( col == SizeColumn )
+         {
++#ifdef WITH_KPMCORE3
++            qint64 size = ( partition->lastSector() - partition->firstSector() + 1 ) * m_device->logicalSize();
++#else
+             qint64 size = ( partition->lastSector() - partition->firstSector() + 1 ) * m_device->logicalSectorSize();
++#endif
+             return KFormat().formatByteSize( size );
+         }
+         cDebug() << "Unknown column" << col;
+@@ -175,12 +180,20 @@ PartitionModel::data( const QModelIndex& index, int role ) const
+             }
+         }
+         QString prettyFileSystem = KPMHelpers::prettyNameForFileSystemType( partition->fileSystem().type() );
++#ifdef WITH_KPMCORE3
++        qint64 size = ( partition->lastSector() - partition->firstSector() + 1 ) * m_device->logicalSize();
++#else
+         qint64 size = ( partition->lastSector() - partition->firstSector() + 1 ) * m_device->logicalSectorSize();
++#endif
+         QString prettySize = KFormat().formatByteSize( size );
+         return QVariant(name + " " + prettyFileSystem + " " + prettySize);
+     }
+     case SizeRole:
++#ifdef WITH_KPMCORE3
++        return ( partition->lastSector() - partition->firstSector() + 1 ) * m_device->logicalSize();
++#else
+         return ( partition->lastSector() - partition->firstSector() + 1 ) * m_device->logicalSectorSize();
++#endif
+     case IsFreeSpaceRole:
+         return KPMHelpers::isPartitionFreeSpace( partition );
+ 
+diff --git a/src/modules/partition/gui/ChoicePage.cpp b/src/modules/partition/gui/ChoicePage.cpp
+index ec1ae5c..8987837 100644
+--- a/src/modules/partition/gui/ChoicePage.cpp
++++ b/src/modules/partition/gui/ChoicePage.cpp
+@@ -35,6 +35,7 @@
+ #include "BootInfoWidget.h"
+ #include "DeviceInfoWidget.h"
+ #include "ScanningDialog.h"
++#include "PartitionConfig.h"
+ 
+ #include "utils/CalamaresUtilsGui.h"
+ #include "utils/Logger.h"
+@@ -594,7 +595,11 @@ ChoicePage::doAlongsideApply()
+             qint64 oldLastSector = candidate->lastSector();
+             qint64 newLastSector = firstSector +
+                                    m_afterPartitionSplitterWidget->splitPartitionSize() /
++#ifdef WITH_KPMCORE3
++                                   dev->logicalSize();
++#else
+                                    dev->logicalSectorSize();
++#endif
+ 
+             m_core->resizePartition( dev, candidate, firstSector, newLastSector );
+             Partition* newPartition = nullptr;
+diff --git a/src/modules/partition/gui/PartitionLabelsView.cpp b/src/modules/partition/gui/PartitionLabelsView.cpp
+index d2629a6..5e58167 100644
+--- a/src/modules/partition/gui/PartitionLabelsView.cpp
++++ b/src/modules/partition/gui/PartitionLabelsView.cpp
+@@ -21,6 +21,7 @@
+ 
+ #include <core/PartitionModel.h>
+ #include <core/ColorUtils.h>
++#include "PartitionConfig.h"
+ 
+ #include <utils/CalamaresUtilsGui.h>
+ #include <utils/Logger.h>
+@@ -47,7 +48,11 @@ QStringList
+ buildUnknownDisklabelTexts( Device* dev )
+ {
+     QStringList texts = { QObject::tr( "Unpartitioned space or unknown partition table" ),
++#ifdef WITH_KPMCORE3
++                          KFormat().formatByteSize( dev->totalLogical() * dev->logicalSize() ) };
++#else
+                           KFormat().formatByteSize( dev->totalSectors() * dev->logicalSectorSize() ) };
++#endif
+     return texts;
+ }
+ 
+diff --git a/src/modules/partition/gui/PartitionSizeController.cpp b/src/modules/partition/gui/PartitionSizeController.cpp
+index c602501..9c68d89 100644
+--- a/src/modules/partition/gui/PartitionSizeController.cpp
++++ b/src/modules/partition/gui/PartitionSizeController.cpp
+@@ -21,6 +21,7 @@
+ 
+ #include "core/ColorUtils.h"
+ #include "core/KPMHelpers.h"
++#include "PartitionConfig.h"
+ 
+ // Qt
+ #include <QSpinBox>
+@@ -135,7 +136,11 @@ PartitionSizeController::updatePartResizerWidget()
+         return;
+ 
+     m_updating = true;
++#ifdef WITH_KPMCORE3
++    qint64 sectorSize = qint64( m_spinBox->value() ) * 1024 * 1024 / m_device->logicalSize();
++#else
+     qint64 sectorSize = qint64( m_spinBox->value() ) * 1024 * 1024 / m_device->logicalSectorSize();
++#endif
+ 
+     qint64 firstSector = m_partition->firstSector();
+     qint64 lastSector = firstSector + sectorSize - 1;
+@@ -185,7 +190,11 @@ PartitionSizeController::doUpdateSpinBox()
+ {
+     if ( !m_spinBox )
+         return;
++#ifdef WITH_KPMCORE3
++    qint64 mbSize = m_partition->length() * m_device->logicalSize() / 1024 / 1024;
++#else
+     qint64 mbSize = m_partition->length() * m_device->logicalSectorSize() / 1024 / 1024;
++#endif
+     m_spinBox->setValue( mbSize );
+     if ( m_currentSpinBoxValue != -1 &&    //if it's not the first time we're setting it
+          m_currentSpinBoxValue != mbSize ) //and the operation changes the SB value
+diff --git a/src/modules/partition/jobs/FillGlobalStorageJob.cpp b/src/modules/partition/jobs/FillGlobalStorageJob.cpp
+index 516d04b..4097a1f 100644
+--- a/src/modules/partition/jobs/FillGlobalStorageJob.cpp
++++ b/src/modules/partition/jobs/FillGlobalStorageJob.cpp
+@@ -26,6 +26,7 @@
+ #include "core/KPMHelpers.h"
+ #include "Branding.h"
+ #include "utils/Logger.h"
++#include "PartitionConfig.h"
+ 
+ // CalaPM
+ #include <kpmcore/core/device.h>
+@@ -98,7 +99,11 @@ mapForPartition( Partition* partition, const QString& uuid )
+         const FS::luks* luksFs = dynamic_cast< const FS::luks* >( &fsRef );
+         if ( luksFs )
+         {
++#ifdef WITH_KPMCORE3
++            map[ "luksMapperName" ] = luksFs->mapperName().split( "/" ).last();
++#else
+             map[ "luksMapperName" ] = luksFs->mapperName( partition->partitionPath() ).split( "/" ).last();
++#endif
+             map[ "luksUuid" ] = getLuksUuid( partition->partitionPath() );
+             map[ "luksPassphrase" ] = luksFs->passphrase();
+             cDebug() << "luksMapperName:" << map[ "luksMapperName" ];
+diff --git a/src/modules/partition/jobs/ResizePartitionJob.cpp b/src/modules/partition/jobs/ResizePartitionJob.cpp
+index 65ee13f..6634bde 100644
+--- a/src/modules/partition/jobs/ResizePartitionJob.cpp
++++ b/src/modules/partition/jobs/ResizePartitionJob.cpp
+@@ -44,6 +44,7 @@
+ #include "jobs/CheckFileSystemJob.h"
+ #include "jobs/MoveFileSystemJob.h"
+ #include "utils/Logger.h"
++#include "PartitionConfig.h"
+ 
+ // KPMcore
+ #include <kpmcore/backend/corebackend.h>
+@@ -93,7 +94,11 @@ public:
+             break;
+         case FileSystem::cmdSupportFileSystem:
+         {
++#ifdef WITH_KPMCORE3
++            qint64 byteLength = m_device->logicalSize() * m_length;
++#else
+             qint64 byteLength = m_device->logicalSectorSize() * m_length;
++#endif
+             bool ok = fs.resize( report, m_partition->partitionPath(), byteLength );
+             if ( !ok )
+                 return Calamares::JobResult::error(
+-- 
+2.8.3
+

@@ -1,0 +1,240 @@
+From 4a50f5ae54aadf52103572a2eb7376298430413e Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Wed, 7 Dec 2016 16:37:29 +0100
+Subject: [PATCH 06/16] Do not LINK_PUBLIC by default.
+
+---
+ src/calamares/CMakeLists.txt                   | 12 ++++++------
+ src/libcalamaresui/CMakeLists.txt              |  5 +++--
+ src/modules/dracutlukscfg/CMakeLists.txt       |  2 +-
+ src/modules/dummycpp/CMakeLists.txt            |  2 +-
+ src/modules/finished/CMakeLists.txt            |  2 +-
+ src/modules/interactiveterminal/CMakeLists.txt |  2 +-
+ src/modules/keyboard/CMakeLists.txt            |  2 +-
+ src/modules/license/CMakeLists.txt             |  2 +-
+ src/modules/locale/CMakeLists.txt              |  4 +++-
+ src/modules/netinstall/CMakeLists.txt          |  4 +++-
+ src/modules/partition/CMakeLists.txt           |  2 +-
+ src/modules/summary/CMakeLists.txt             |  2 +-
+ src/modules/users/CMakeLists.txt               |  2 +-
+ src/modules/webview/CMakeLists.txt             |  2 +-
+ src/modules/welcome/CMakeLists.txt             |  2 +-
+ 15 files changed, 26 insertions(+), 21 deletions(-)
+
+diff --git a/src/calamares/CMakeLists.txt b/src/calamares/CMakeLists.txt
+index 8e032d4..8248de6 100644
+--- a/src/calamares/CMakeLists.txt
++++ b/src/calamares/CMakeLists.txt
+@@ -59,12 +59,12 @@ endif()
+ 
+ qt5_use_modules( calamares_bin Core Widgets )
+ target_link_libraries( calamares_bin
+-    ${CALAMARES_LIBRARIES}
+-    calamaresui
+-    Qt5::Core
+-    Qt5::Widgets
+-    yaml-cpp
+-    ${LINK_LIBRARIES}
++    PRIVATE
++        ${CALAMARES_LIBRARIES}
++        calamaresui
++        Qt5::Core
++        Qt5::Widgets
++        ${LINK_LIBRARIES}
+ )
+ 
+ install( TARGETS calamares_bin
+diff --git a/src/libcalamaresui/CMakeLists.txt b/src/libcalamaresui/CMakeLists.txt
+index 478034b..e626969 100644
+--- a/src/libcalamaresui/CMakeLists.txt
++++ b/src/libcalamaresui/CMakeLists.txt
+@@ -43,10 +43,11 @@ calamares_add_library( ${CALAMARESUI_LIBRARY_TARGET}
+     SOURCES ${${CALAMARESUI_LIBRARY_TARGET}_SOURCES}
+     UI ${${CALAMARESUI_LIBRARY_TARGET}_UI}
+     EXPORT_MACRO UIDLLEXPORT_PRO
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         yaml-cpp
+         Qt5::Svg
+-	Qt5::QuickWidgets
++        Qt5::QuickWidgets
++        ${OPTIONAL_PRIVATE_LIBRARIES}
+     RESOURCES libcalamaresui.qrc
+     EXPORT CalamaresLibraryDepends
+     VERSION ${CALAMARES_VERSION_SHORT}
+diff --git a/src/modules/dracutlukscfg/CMakeLists.txt b/src/modules/dracutlukscfg/CMakeLists.txt
+index a239521..5504136 100644
+--- a/src/modules/dracutlukscfg/CMakeLists.txt
++++ b/src/modules/dracutlukscfg/CMakeLists.txt
+@@ -3,7 +3,7 @@ calamares_add_plugin( dracutlukscfg
+     EXPORT_MACRO PLUGINDLLEXPORT_PRO
+     SOURCES
+         DracutLuksCfgJob.cpp
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamares
+     SHARED_LIB
+ )
+diff --git a/src/modules/dummycpp/CMakeLists.txt b/src/modules/dummycpp/CMakeLists.txt
+index 5b865b5..0841eaa 100644
+--- a/src/modules/dummycpp/CMakeLists.txt
++++ b/src/modules/dummycpp/CMakeLists.txt
+@@ -3,7 +3,7 @@ calamares_add_plugin( dummycpp
+     EXPORT_MACRO PLUGINDLLEXPORT_PRO
+     SOURCES
+         DummyCppJob.cpp
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamares
+     SHARED_LIB
+ )
+diff --git a/src/modules/finished/CMakeLists.txt b/src/modules/finished/CMakeLists.txt
+index ce6cfd1..6549c36 100644
+--- a/src/modules/finished/CMakeLists.txt
++++ b/src/modules/finished/CMakeLists.txt
+@@ -7,7 +7,7 @@ calamares_add_plugin( finished
+         FinishedPage.cpp
+     UI
+         FinishedPage.ui
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+     SHARED_LIB
+ )
+diff --git a/src/modules/interactiveterminal/CMakeLists.txt b/src/modules/interactiveterminal/CMakeLists.txt
+index 4d2fb5f..dc0e90d 100644
+--- a/src/modules/interactiveterminal/CMakeLists.txt
++++ b/src/modules/interactiveterminal/CMakeLists.txt
+@@ -19,7 +19,7 @@ calamares_add_plugin( interactiveterminal
+     SOURCES
+         InteractiveTerminalViewStep.cpp
+         InteractiveTerminalPage.cpp
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+         KF5::Service
+         KF5::Parts
+diff --git a/src/modules/keyboard/CMakeLists.txt b/src/modules/keyboard/CMakeLists.txt
+index fb0a546..c0d8575 100644
+--- a/src/modules/keyboard/CMakeLists.txt
++++ b/src/modules/keyboard/CMakeLists.txt
+@@ -14,7 +14,7 @@ calamares_add_plugin( keyboard
+         KeyboardPage.ui
+     RESOURCES
+         keyboard.qrc
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+     SHARED_LIB
+ )
+diff --git a/src/modules/license/CMakeLists.txt b/src/modules/license/CMakeLists.txt
+index dbafe98..54774de 100644
+--- a/src/modules/license/CMakeLists.txt
++++ b/src/modules/license/CMakeLists.txt
+@@ -15,7 +15,7 @@ set( CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
+         LicensePage.cpp
+     UI
+         LicensePage.ui
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+     SHARED_LIB
+ )
+diff --git a/src/modules/locale/CMakeLists.txt b/src/modules/locale/CMakeLists.txt
+index e40b6e1..61bdfc7 100644
+--- a/src/modules/locale/CMakeLists.txt
++++ b/src/modules/locale/CMakeLists.txt
+@@ -14,7 +14,9 @@ calamares_add_plugin( locale
+     UI
+     RESOURCES
+         locale.qrc
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
++        Qt5::Network
++        yaml-cpp
+     SHARED_LIB
+ )
+diff --git a/src/modules/netinstall/CMakeLists.txt b/src/modules/netinstall/CMakeLists.txt
+index 363c1da..2038a26 100644
+--- a/src/modules/netinstall/CMakeLists.txt
++++ b/src/modules/netinstall/CMakeLists.txt
+@@ -12,7 +12,9 @@ calamares_add_plugin( netinstall
+         widgets/groupselectionwidget.ui
+     RESOURCES
+         netinstall.qrc
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
++        Qt5::Network
++        yaml-cpp
+     SHARED_LIB
+ )
+diff --git a/src/modules/partition/CMakeLists.txt b/src/modules/partition/CMakeLists.txt
+index 5421498..b8e23bf 100644
+--- a/src/modules/partition/CMakeLists.txt
++++ b/src/modules/partition/CMakeLists.txt
+@@ -66,7 +66,7 @@ calamares_add_plugin( partition
+         gui/EncryptWidget.ui
+         gui/PartitionPage.ui
+         gui/ReplaceWidget.ui
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         kpmcore
+         calamaresui
+         KF5::CoreAddons
+diff --git a/src/modules/summary/CMakeLists.txt b/src/modules/summary/CMakeLists.txt
+index c1b208a..64b8d3c 100644
+--- a/src/modules/summary/CMakeLists.txt
++++ b/src/modules/summary/CMakeLists.txt
+@@ -6,7 +6,7 @@ calamares_add_plugin( summary
+         SummaryViewStep.cpp
+         SummaryPage.cpp
+     UI
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+     SHARED_LIB
+ )
+diff --git a/src/modules/users/CMakeLists.txt b/src/modules/users/CMakeLists.txt
+index fc1f26d..b48390e 100644
+--- a/src/modules/users/CMakeLists.txt
++++ b/src/modules/users/CMakeLists.txt
+@@ -16,7 +16,7 @@ calamares_add_plugin( users
+         page_usersetup.ui
+     RESOURCES
+         users.qrc
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+         ${CRYPT_LIBRARIES}
+     SHARED_LIB
+diff --git a/src/modules/webview/CMakeLists.txt b/src/modules/webview/CMakeLists.txt
+index ce4e75f..4cc7278 100644
+--- a/src/modules/webview/CMakeLists.txt
++++ b/src/modules/webview/CMakeLists.txt
+@@ -44,7 +44,7 @@ calamares_add_plugin( webview
+     EXPORT_MACRO PLUGINDLLEXPORT_PRO
+     SOURCES
+         WebViewStep.cpp
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         ${CALA_WEBVIEW_LINK_LIBRARIES}
+     SHARED_LIB
+ )
+diff --git a/src/modules/welcome/CMakeLists.txt b/src/modules/welcome/CMakeLists.txt
+index 5e3a6f0..552ed39 100644
+--- a/src/modules/welcome/CMakeLists.txt
++++ b/src/modules/welcome/CMakeLists.txt
+@@ -26,7 +26,7 @@ calamares_add_plugin( welcome
+         WelcomePage.cpp
+     UI
+         WelcomePage.ui
+-    LINK_LIBRARIES
++    LINK_PRIVATE_LIBRARIES
+         calamaresui
+         ${CHECKER_LINK_LIBRARIES}
+     SHARED_LIB
+-- 
+2.8.3
+
