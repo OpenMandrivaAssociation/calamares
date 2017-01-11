@@ -1,0 +1,44 @@
+From fe75e980f55a23cd5bfd5e0674eed45f8dd27695 Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Wed, 7 Dec 2016 16:36:31 +0100
+Subject: [PATCH 05/16] Add LINK_PRIVATE_LIBRARIES to calamares_add_plugin.
+
+---
+ CalamaresAddPlugin.cmake | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/CalamaresAddPlugin.cmake b/CalamaresAddPlugin.cmake
+index fb9d008..c945133 100644
+--- a/CalamaresAddPlugin.cmake
++++ b/CalamaresAddPlugin.cmake
+@@ -6,7 +6,7 @@ function( calamares_add_plugin )
+     set( NAME ${ARGV0} )
+     set( options NO_INSTALL SHARED_LIB )
+     set( oneValueArgs NAME TYPE EXPORT_MACRO RESOURCES )
+-    set( multiValueArgs SOURCES UI LINK_LIBRARIES COMPILE_DEFINITIONS )
++    set( multiValueArgs SOURCES UI LINK_LIBRARIES LINK_PRIVATE_LIBRARIES COMPILE_DEFINITIONS )
+     cmake_parse_arguments( PLUGIN "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN} )
+     set( PLUGIN_NAME ${NAME} )
+     set( PLUGIN_DESTINATION ${CMAKE_INSTALL_LIBDIR}/calamares/modules/${PLUGIN_NAME} )
+@@ -22,6 +22,7 @@ function( calamares_add_plugin )
+     if( NOT CMAKE_BUILD_TYPE STREQUAL "Release" )
+         message( "   ${Green}TYPE:${ColorReset} ${PLUGIN_TYPE}" )
+         message( "   ${Green}LINK_LIBRARIES:${ColorReset} ${PLUGIN_LINK_LIBRARIES}" )
++        message( "   ${Green}LINK_PRIVATE_LIBRARIES:${ColorReset} ${PLUGIN_LINK_PRIVATE_LIBRARIES}" )
+ #        message( "   ${Green}SOURCES:${ColorReset} ${PLUGIN_SOURCES}" )
+ #        message( "   ${Green}UI:${ColorReset} ${PLUGIN_UI}" )
+ #        message( "   ${Green}EXPORT_MACRO:${ColorReset} ${PLUGIN_EXPORT_MACRO}" )
+@@ -60,6 +61,10 @@ function( calamares_add_plugin )
+         list( APPEND calamares_add_library_args "LINK_LIBRARIES" "${PLUGIN_LINK_LIBRARIES}" )
+     endif()
+ 
++    if( PLUGIN_LINK_PRIVATE_LIBRARIES )
++        list( APPEND calamares_add_library_args "LINK_PRIVATE_LIBRARIES" "${PLUGIN_LINK_PRIVATE_LIBRARIES}" )
++    endif()
++
+     if( PLUGIN_COMPILE_DEFINITIONS )
+         list( APPEND calamares_add_library_args "COMPILE_DEFINITIONS" ${PLUGIN_COMPILE_DEFINITIONS} )
+     endif()
+-- 
+2.8.3
+

@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	2.4.5
-Release:	4
+Release:	5
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -49,6 +49,20 @@ Patch2:		calamares-libparted-detection.patch
 # (tpg) fixes black screen issue when autologin is unchecked
 # https://calamares.io/bugs/browse/CAL-423
 Patch6:		0003-displaymanager-set_autologin-Unset-autologin-for-sdd.patch
+# (tpg) patches from upstream git
+Patch7:		0004-Document-settings-for-services-module.patch
+Patch8:		0005-Add-LINK_PRIVATE_LIBRARIES-to-calamares_add_plugin.patch
+Patch9:		0006-Do-not-LINK_PUBLIC-by-default.patch
+Patch10:	0007-Write-hasInternet-to-GlobalStorage.patch
+Patch11:	0008-Provide-default-for-m_writeEtcDefaultKeyboard-in-Key.patch
+Patch12:	0009-Do-not-dereference-nullptr.patch
+Patch13:	0010-Expose-KPMcore-version-status-to-partition-module.patch
+Patch14:	0011-ifdef-all-the-things-so-we-can-build-with-both-KPMco.patch
+Patch15:	0012-fix-crash-on-loading-webview-page-with-QtWebengine.patch
+Patch16:	0013-Alignment.patch
+Patch17:	0014-Improve-debug-output.patch
+Patch18:	0015-Improve-debug-output.patch
+Patch19:	0016-The-sender-QObject-should-be-in-scope-so-the-bootloa.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -78,7 +92,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 2.2.0
+BuildRequires:	cmake(KPMcore) >= 3.0.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -104,7 +118,7 @@ Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
 # (tpg) this requires all the filesystem tools needed to manipulate filesystems
-Requires:	partitionmanager >= 2.2.0
+Requires:	partitionmanager >= 3.0.0
 Requires:	systemd
 Requires:	rsync
 Requires:	shadow

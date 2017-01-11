@@ -1,0 +1,34 @@
+From 6e2d445888abb22a50d9ec6f8e48601fe327dc36 Mon Sep 17 00:00:00 2001
+From: demmm <anke62@gmail.com>
+Date: Wed, 21 Dec 2016 15:20:05 -0500
+Subject: [PATCH 12/16] fix crash on loading webview page with QtWebengine
+
+---
+ src/modules/webview/WebViewStep.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/modules/webview/WebViewStep.cpp b/src/modules/webview/WebViewStep.cpp
+index b1d50bf..76bee9a 100644
+--- a/src/modules/webview/WebViewStep.cpp
++++ b/src/modules/webview/WebViewStep.cpp
+@@ -25,6 +25,7 @@
+ #include <QWebView>
+ #else
+ #include <QWebEngineView>
++#include <QtWebEngine>
+ #endif
+ 
+ CALAMARES_PLUGIN_FACTORY_DEFINITION( WebViewStepFactory, registerPlugin<WebViewStep>(); )
+@@ -33,6 +34,9 @@ WebViewStep::WebViewStep( QObject* parent )
+     : Calamares::ViewStep( parent )
+ {
+     emit nextStatusChanged( true );
++    #ifdef WEBVIEW_WITH_WEBENGINE
++        QtWebEngine::initialize();
++    #endif
+     m_view = new C_QWEBVIEW();
+ #ifdef WEBVIEW_WITH_WEBKIT
+     m_view->settings()->setFontFamily( QWebSettings::StandardFont,
+-- 
+2.8.3
+

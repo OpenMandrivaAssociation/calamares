@@ -1,0 +1,29 @@
+From a81c8137b2774586caff7d96e8332672e1c49be6 Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Tue, 10 Jan 2017 14:42:36 +0100
+Subject: [PATCH 16/16] The sender QObject should be in scope so the bootloader
+ path is written.
+
+CAL-388
+CAL-417
+CAL-441
+---
+ src/modules/partition/gui/ChoicePage.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/modules/partition/gui/ChoicePage.cpp b/src/modules/partition/gui/ChoicePage.cpp
+index 8987837..693bb84 100644
+--- a/src/modules/partition/gui/ChoicePage.cpp
++++ b/src/modules/partition/gui/ChoicePage.cpp
+@@ -1111,7 +1111,7 @@ ChoicePage::createBootloaderComboBox( QWidget* parent )
+ 
+     // When the chosen bootloader device changes, we update the choice in the PCM
+     connect( bcb, static_cast< void (QComboBox::*)(int) >( &QComboBox::currentIndexChanged ),
+-             [this]( int newIndex )
++             this, [this]( int newIndex )
+     {
+         QComboBox* bcb = qobject_cast< QComboBox* >( sender() );
+         if ( bcb )
+-- 
+2.8.3
+

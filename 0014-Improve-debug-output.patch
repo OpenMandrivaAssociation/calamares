@@ -1,0 +1,38 @@
+From 67bd3306f8eff823bd4857c8087e7fca0fd41746 Mon Sep 17 00:00:00 2001
+From: Teo Mrnjavac <teo@kde.org>
+Date: Fri, 23 Dec 2016 14:03:31 +0100
+Subject: [PATCH 14/16] Improve debug output.
+
+---
+ src/modules/partition/core/PartUtils.cpp | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/src/modules/partition/core/PartUtils.cpp b/src/modules/partition/core/PartUtils.cpp
+index 1193134..28bb8a2 100644
+--- a/src/modules/partition/core/PartUtils.cpp
++++ b/src/modules/partition/core/PartUtils.cpp
+@@ -51,8 +51,9 @@ canBeReplaced( Partition* candidate )
+     qint64 requiredStorageB = ( requiredStorageGB + 0.5 ) * 1024 * 1024 * 1024;
+     cDebug() << "Required  storage B:" << requiredStorageB
+              << QString( "(%1GB)" ).arg( requiredStorageB / 1024 / 1024 / 1024 );
+-    cDebug() << "Available storage B:" << availableStorageB
+-             << QString( "(%1GB)" ).arg( availableStorageB / 1024 / 1024 / 1024 );
++    cDebug() << "Storage capacity  B:" << availableStorageB
++             << QString( "(%1GB)" ).arg( availableStorageB / 1024 / 1024 / 1024 )
++             << "for" << candidate->partitionPath() << "   length:" << candidate->length();
+ 
+     if ( ok &&
+          availableStorageB > requiredStorageB )
+@@ -102,7 +103,8 @@ canBeResized( Partition* candidate )
+     cDebug() << "Required  storage B:" << requiredStorageB
+              << QString( "(%1GB)" ).arg( requiredStorageB / 1024 / 1024 / 1024 );
+     cDebug() << "Available storage B:" << availableStorageB
+-             << QString( "(%1GB)" ).arg( availableStorageB / 1024 / 1024 / 1024 );
++             << QString( "(%1GB)" ).arg( availableStorageB / 1024 / 1024 / 1024 )
++             << "for" << candidate->partitionPath() << "   length:" << candidate->length();
+ 
+     if ( ok &&
+          availableStorageB > requiredStorageB )
+-- 
+2.8.3
+
