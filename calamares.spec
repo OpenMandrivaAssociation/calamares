@@ -4,8 +4,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	2.4.5
-Release:	5
+Version:	2.4.6
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -39,30 +39,6 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
-# 2.2.2 introduced a change where the partition module loading (including scanning)
-# is run in a separate thread, this causes crashes for us so temporarily reverting
-# until a full solution is found
-# Patch3:		calamares-2.3-revert_async_partition_module_loading.patch
-# (tpg) here is the candidate for a real solution
-#Patch4:		0000-Rearrange-asynchronous-scan-in-PartitionCoreModule-a.patch
-#Patch5:		0001-Init-filesystems-asynchronously.patch
-# (tpg) fixes black screen issue when autologin is unchecked
-# https://calamares.io/bugs/browse/CAL-423
-Patch6:		0003-displaymanager-set_autologin-Unset-autologin-for-sdd.patch
-# (tpg) patches from upstream git
-Patch7:		0004-Document-settings-for-services-module.patch
-Patch8:		0005-Add-LINK_PRIVATE_LIBRARIES-to-calamares_add_plugin.patch
-Patch9:		0006-Do-not-LINK_PUBLIC-by-default.patch
-Patch10:	0007-Write-hasInternet-to-GlobalStorage.patch
-Patch11:	0008-Provide-default-for-m_writeEtcDefaultKeyboard-in-Key.patch
-Patch12:	0009-Do-not-dereference-nullptr.patch
-Patch13:	0010-Expose-KPMcore-version-status-to-partition-module.patch
-Patch14:	0011-ifdef-all-the-things-so-we-can-build-with-both-KPMco.patch
-Patch15:	0012-fix-crash-on-loading-webview-page-with-QtWebengine.patch
-Patch16:	0013-Alignment.patch
-Patch17:	0014-Improve-debug-output.patch
-Patch18:	0015-Improve-debug-output.patch
-Patch19:	0016-The-sender-QObject-should-be-in-scope-so-the-bootloa.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
