@@ -1,4 +1,4 @@
-%define major 2
+%define major 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
@@ -140,7 +140,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DWITH_CRASHREPORTER:BOOL="OFF"
+%cmake_qt5 -DWITH_CRASHREPORTER:BOOL="ON"
 
 %make
 
