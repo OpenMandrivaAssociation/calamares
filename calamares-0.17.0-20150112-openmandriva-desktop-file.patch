@@ -1,13 +1,14 @@
-diff -Naur calamares-2.2.3/calamares.desktop calamares-2.2.3.tpg/calamares.desktop
---- calamares-2.2.3/calamares.desktop	2016-05-27 15:22:15.000000000 +0000
-+++ calamares-2.2.3.tpg/calamares.desktop	2016-05-31 18:55:21.612580822 +0000
-@@ -1,12 +1,11 @@
+diff -Naur calamares-3.0/calamares.desktop calamares-3.0.tpg/calamares.desktop
+--- calamares-3.0/calamares.desktop	2017-01-20 15:18:23.000000000 +0000
++++ calamares-3.0.tpg/calamares.desktop	2017-01-23 20:07:09.073333708 +0000
+@@ -1,13 +1,12 @@
  [Desktop Entry]
  Type=Application
  Version=1.0
 -Name=Calamares
 -GenericName=System Installer
 +Name=Install OpenMandriva Lx
+ Keywords=calamares;system;installer
  TryExec=calamares
  Exec=pkexec /usr/bin/calamares
 -Comment=Calamares — System Installer
