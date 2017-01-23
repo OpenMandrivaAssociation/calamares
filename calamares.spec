@@ -1,10 +1,10 @@
-%define major 2
+%define major 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	2.4.6
+Version:	3.0
 Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
@@ -140,7 +140,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DWITH_CRASHREPORTER:BOOL="OFF"
+%cmake_qt5 -DWITH_CRASHREPORTER:BOOL="ON"
 
 %make
 
