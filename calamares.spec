@@ -4,7 +4,7 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.0.1
+Version:	3.1.0
 Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
