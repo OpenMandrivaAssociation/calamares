@@ -32,7 +32,7 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 	/bin/systemctl -i reboot
     fi
 
-    sleep 1
+    sleep 2
 
     if [ "$(pidof openbox)" ]; then
 # setup background
