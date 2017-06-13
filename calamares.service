@@ -1,7 +1,7 @@
 [Unit]
 Description=Calamares installer
 DefaultDependencies=no
-After=livesys-late.service systemd-user-sessions.service getty@tty1.service plymouth-quit.service network-online.service
+After=livesys-late.service systemd-user-sessions.service getty@tty1.service plymouth-quit.service network-online.target
 Conflicts=getty@tty1.service
 Conflicts=getty@%i.service
 Before=display-manager.service
