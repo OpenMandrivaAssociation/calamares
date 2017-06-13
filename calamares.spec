@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.1.0
-Release:	6
+Release:	7
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -39,6 +39,7 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+Patch3:		0000-Reduce-minimum-width-to-800px.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -120,8 +121,7 @@ Group:		System/Libraries
 Requires:	%{name} = %{EVRD}
 
 %description -n %{libname}
-Librarief for %{name}.
-
+Library for %{name}.
 
 %package -n %{develname}
 Summary:	Development files for %{name}
