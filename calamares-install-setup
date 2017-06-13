@@ -41,6 +41,7 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 	fi
 # use systemd-inhibit to be sure installation process won't be killed by users mistake
 	/bin/systemd-inhibit --why="Running calamares" /usr/bin/calamares
+	sleep 2
 	if [[ $? != 0 ]]; then
 	    errorCatch
 	fi
