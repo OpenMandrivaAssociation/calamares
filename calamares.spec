@@ -264,6 +264,7 @@ EOF
 %{_sysconfdir}/calamares/branding/auto/*.png
 %{_iconsdir}/openmandriva-install.svg
 %{_iconsdir}/hicolor/scalable/apps/%{name}.svg
+%{_mandir}/man8/calamares.8.*
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
