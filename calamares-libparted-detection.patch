@@ -1,6 +1,6 @@
---- calamares-1.0.0-20150606/src/modules/welcome/CMakeModules/FindLIBPARTED.cmake.omv~	2015-06-08 16:12:21.899501944 +0200
-+++ calamares-1.0.0-20150606/src/modules/welcome/CMakeModules/FindLIBPARTED.cmake	2015-06-08 16:42:26.016334393 +0200
-@@ -51,7 +51,8 @@ unset(CMAKE_C_FLAGS)
+--- calamares-3.1.3/CMakeModules/FindLIBPARTED.cmake~	2017-08-02 16:27:19.000000000 +0100
++++ calamares-3.1.3/CMakeModules/FindLIBPARTED.cmake	2017-09-04 12:06:59.361668575 +0100
+@@ -51,7 +51,8 @@
  set(CMAKE_REQUIRED_INCLUDES ${LIBPARTED_INCLUDE_DIR})
  set(CMAKE_REQUIRED_LIBRARIES ${LIBPARTED_LIBS})
  
