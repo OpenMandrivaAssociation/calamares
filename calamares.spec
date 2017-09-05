@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.1.3
-Release:	1
+Release:	2
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -146,12 +146,10 @@ rm -f src/modules/*/*.conf.default-settings
 
 %install
 %makeinstall_std -C build
-
 #own the local settings directories
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding/auto
 touch %{buildroot}%{_sysconfdir}/calamares/branding/auto/branding.desc
-
 # (tpg) settings specific for OMV
 install -m 644 %{SOURCE7} %{buildroot}%{_sysconfdir}/calamares/modules/bootloader.conf
 install -m 644 %{SOURCE8} %{buildroot}%{_sysconfdir}/calamares/modules/displaymanager.conf
@@ -191,7 +189,7 @@ tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 # (tpg) install icon
 mkdir -p %{buildroot}%{_iconsdir}
 install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/openmandriva-install.svg
-
+%find_lang %{name} --all-name --with-html
 %post
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
@@ -228,7 +226,7 @@ style:
    sidebarTextSelect:    "#292F34"
 EOF
 
-%files
+%files -f calamares.lang 
 %doc LICENSE AUTHORS
 %dir %{_sysconfdir}/systemd/system/calamares.target.wants
 %dir %{_libdir}/calamares
@@ -257,7 +255,6 @@ EOF
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
 %{_datadir}/applications/calamares.desktop
 %{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
-%{_datadir}/locale/*/*
 %{_sysconfdir}/calamares/*.conf
 %{_sysconfdir}/calamares/modules/*.conf
 %{_libdir}/calamares/*
