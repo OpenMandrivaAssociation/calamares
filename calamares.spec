@@ -4,8 +4,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.1.4
-Release:	2
+Version:	3.1.5
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -139,7 +139,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DWITH_CRASHREPORTER:BOOL="ON"
+%cmake_qt5 -DWITH_CRASHREPORTER:BOOL="OFF"
 
 %make
 
