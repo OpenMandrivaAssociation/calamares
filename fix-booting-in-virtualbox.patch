@@ -1,15 +1,15 @@
---- calamares-3.1.6/src/modules/bootloader/main.py~	2017-10-23 13:22:36.553608348 +0100
-+++ calamares-3.1.6/src/modules/bootloader/main.py	2017-10-23 13:25:34.681893799 +0100
-@@ -262,10 +262,10 @@
-         # Workaround for some UEFI firmwares
-         efi_file_source = {"32": os.path.join(install_efi_directory_firmware,
-                                               efi_bootloader_id,
--                                              "grubia32.efi"),
-+                                              "bootia32.efi"),
+@@ -266,7 +266,13 @@ def install_grub(efi_directory, fw_type):
                             "64": os.path.join(install_efi_directory_firmware,
                                                efi_bootloader_id,
--                                              "grubx64.efi")}
+                                               "grubx64.efi")}
+-        shutil.copy2(efi_file_source[efi_bitness], install_efi_boot_directory)
++
++        efi_file_target = {"32": os.path.join(install_efi_boot_directory,
++                                              "bootia32.efi"),
++                           "64": os.path.join(install_efi_boot_directory,
 +                                              "bootx64.efi")}
-         shutil.copy2(efi_file_source[efi_bitness], install_efi_boot_directory)
++
++        shutil.copy2(efi_file_source[efi_bitness], efi_file_target[efi_bitness])
      else:
          print("Bootloader: grub (bios)")
+         if libcalamares.globalstorage.value("bootLoader") is None:
