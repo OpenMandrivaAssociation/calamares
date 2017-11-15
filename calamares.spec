@@ -4,14 +4,14 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.1.7
-Release:	3
+Version:	3.1.8
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
-Source0:	%{name}-%{version}.tar.gz
+Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
 Source4:	%{name}.target
@@ -68,7 +68,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 3.0.0
+BuildRequires:	cmake(KPMcore) >= 3.2.1
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -94,7 +94,7 @@ Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
 # (tpg) this requires all the filesystem tools needed to manipulate filesystems
-Requires:	partitionmanager >= 3.0.0
+Requires:	partitionmanager >= 3.2.1
 Requires:	systemd
 Requires:	rsync
 Requires:	shadow
