@@ -1,6 +1,4 @@
-removed_sources:
-  calamares-3.1.6.tar.gz: 45c3078cfe04f1c6e6b041687c16709a587b5f5f
 sources:
   OpenMandriva-adverts.tar.xz: d0833604f1ce5bdcc7a1560cc51f4c392a9ed665
-  calamares-3.1.7.tar.gz: 4813ae425014e29f3270d1ae8f70c6e3e4eed9b9
+  calamares-3.1.8.tar.gz: 8bbc8061ab8c1d6a193af6ff3defbd52dc77b7a3
   openmandriva-install.svg: a64c8fd2b0e11766cfdcc0c345664b99c4b108b7
