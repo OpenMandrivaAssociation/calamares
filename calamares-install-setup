@@ -23,6 +23,8 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 
     xset -dpms
     xset s off
+# (tpg) fix VirtualBox screen too small for calamares in install mode 
+    grep -iq "VirtualBox" "/sys/devices/virtual/dmi/id/product_name" && xrandr -s 1024x768
 
     if [ -x /usr/bin/openbox ]; then
 	/usr/bin/openbox &
