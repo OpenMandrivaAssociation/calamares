@@ -26,8 +26,22 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 # (tpg) fix VirtualBox screen too small for calamares in install mode 
     grep -iq "VirtualBox" "/sys/devices/virtual/dmi/id/product_name" && xrandr -s 1024x768
 
+# openbox config file to start clamares window undecorated and maximized in install mode
+    mkdir -p /root/.config/openbox
+    cp -fa /etc/xdg/openbox/rc.xml /etc/xdg/openbox/rc-install.xml
+    sed -i -e '/<\/applications>/ i \
+  <application name="calamares" \
+               class="Calamares" \
+               title="OpenMandriva Lx Installer" \
+               type="normal"> \
+    <decor>no</decor> \
+    <focus>yes</focus> \
+    <fullscreen>yes</fullscreen> \
+    <!--maximized>true</maximized--> \
+  </application>' /etc/xdg/openbox/rc-install.xml
+
     if [ -x /usr/bin/openbox ]; then
-	/usr/bin/openbox &
+	/usr/bin/openbox --config-file /etc/xdg/openbox/rc-install.xml &
     else
 	echo "openbox not found. Exiting."
 	sleep 30
