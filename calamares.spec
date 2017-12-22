@@ -67,6 +67,7 @@ BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
+BuildRequires:	cmake(KF5Plasma)
 BuildRequires:	cmake(KF5Parts)
 BuildRequires:	cmake(KPMcore) >= 3.2.1
 BuildRequires:	yaml-cpp-devel
