@@ -39,6 +39,8 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+Patch100:	calamares-Disable-newPartitionTableButton-for-LVM-device.patch
+Patch101:	calamares-Add-LVM-devices-to-devies-list.patch
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)

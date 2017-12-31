@@ -1,0 +1,43 @@
+From 9017edad920090f601e5a3b9698d9b6b9dff854b Mon Sep 17 00:00:00 2001
+From: Chantara Tith <tith.chantara@gmail.com>
+Date: Mon, 5 Sep 2016 16:05:16 +0700
+Subject: [PATCH] Disable newPartitionTableButton for LVM device.
+
+---
+ src/modules/partition/gui/PartitionPage.cpp | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/src/modules/partition/gui/PartitionPage.cpp b/src/modules/partition/gui/PartitionPage.cpp
+index 2ba0760..fd8b673 100644
+--- a/src/modules/partition/gui/PartitionPage.cpp
++++ b/src/modules/partition/gui/PartitionPage.cpp
+@@ -114,7 +114,7 @@ PartitionPage::~PartitionPage()
+ void
+ PartitionPage::updateButtons()
+ {
+-    bool create = false, edit = false, del = false;
++    bool create = false, createTable = false, edit = false, del = false;
+ 
+     QModelIndex index = m_ui->partitionTreeView->currentIndex();
+     if ( index.isValid() )
+@@ -136,11 +136,18 @@ PartitionPage::updateButtons()
+         edit = !isFree && !isExtended;
+         del = !isFree;
+     }
++
++    if ( m_ui->deviceComboBox->currentIndex() >= 0 )
++    {
++        QModelIndex deviceIndex = m_core->deviceModel()->index( m_ui->deviceComboBox->currentIndex(), 0 );
++        if ( m_core->deviceModel()->deviceForIndex( deviceIndex )->type() != Device::LVM_Device )
++            createTable = true;
++    }
++
+     m_ui->createButton->setEnabled( create );
+     m_ui->editButton->setEnabled( edit );
+     m_ui->deleteButton->setEnabled( del );
+-
+-    m_ui->newPartitionTableButton->setEnabled( m_ui->deviceComboBox->currentIndex() >= 0 );
++    m_ui->newPartitionTableButton->setEnabled( createTable );
+ }
+ 
+ void
