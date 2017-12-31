@@ -19,12 +19,12 @@ index 7733384..6356348 100644
  #include <kpmcore/core/partition.h>
  #include <kpmcore/backend/corebackend.h>
  #include <kpmcore/backend/corebackendmanager.h>
-@@ -154,6 +155,8 @@ PartitionCoreModule::doInit()
+@@ -119,6 +120,8 @@ PartitionCoreModule::doInit()
  
-     CoreBackend* backend = CoreBackendManager::self()->backend();
-     QList< Device* > devices = backend->scanDevices( true );
+     using DeviceList = QList< Device* >;
+     DeviceList devices = PartUtils::getDevices( PartUtils::DeviceType::WritableOnly );
 +    for ( auto dev : LvmDevice::scanSystemLVM() )
 +        devices.append(dev);
  
-     // Remove the device which contains / from the list
-     for ( QList< Device* >::iterator it = devices.begin(); it != devices.end(); )
+     cDebug() << "LIST OF DETECTED DEVICES:";
+     cDebug() << "node\tcapacity\tname\tprettyName";
