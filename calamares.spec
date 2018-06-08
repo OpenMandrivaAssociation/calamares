@@ -73,7 +73,7 @@ BuildRequires:	cmake(KPMcore) >= 3.2.1
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
-BuildRequires:	boost-python3-devel
+BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
@@ -226,7 +226,7 @@ style:
    sidebarTextSelect:    "#292F34"
 EOF
 
-%files -f calamares.lang 
+%files -f calamares.lang
 %doc LICENSE AUTHORS
 %dir %{_sysconfdir}/systemd/system/calamares.target.wants
 %dir %{_libdir}/calamares
