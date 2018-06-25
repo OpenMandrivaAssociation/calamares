@@ -4,7 +4,7 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.0
+Version:	3.2.1
 Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
@@ -76,6 +76,7 @@ BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
 BuildRequires:	boost-python-devel
+BuildRequires:	python-qt5-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 Requires(post):	distro-release-OpenMandriva
@@ -193,6 +194,7 @@ tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 mkdir -p %{buildroot}%{_iconsdir}
 install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/openmandriva-install.svg
 %find_lang %{name} --all-name --with-html
+
 %post
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
