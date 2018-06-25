@@ -39,6 +39,7 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
@@ -62,6 +63,7 @@ BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
+BuildRequires:	cmake(KF5Crash)
 BuildRequires:	cmake(KF5Solid)
 BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5IconThemes)
@@ -75,6 +77,7 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
 BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
+BuildRequires:	pkgconfig(pwquality)
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
