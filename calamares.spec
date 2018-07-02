@@ -76,7 +76,6 @@ BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
 BuildRequires:	boost-python-devel
-BuildRequires:	python-qt5-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 Requires(post):	distro-release-OpenMandriva
