@@ -144,7 +144,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python"
+%cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python37"
 
 %make
 
