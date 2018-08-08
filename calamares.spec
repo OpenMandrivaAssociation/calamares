@@ -85,7 +85,7 @@ Requires:	gawk
 Requires:	util-linux
 Requires:	dracut
 Requires:	grub2
-%ifarch x86_64
+%ifarch %{x86_64}
 # EFI currently only supported on x86_64
 Requires:	grub2-efi
 %endif
@@ -110,7 +110,7 @@ Requires:	dmidecode
 Requires:	qt5-qtwebengine
 # (tpg) needed for calamares-install-setup
 Requires:	openbox
-ExclusiveArch:	%{ix86} x86_64
+ExclusiveArch:	%{ix86} %{x86_64}
 
 %description
 Calamares is a distribution-independent installer framework,
