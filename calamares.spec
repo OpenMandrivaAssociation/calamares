@@ -244,17 +244,16 @@ EOF
 %dir %{_datadir}/calamares/qml
 %dir %{_datadir}/calamares/qml/calamares
 %dir %{_datadir}/calamares/qml/calamares/slideshow
+%config(noreplace) %{_sysconfdir}/calamares/settings.conf
 %{_presetdir}/90-%{name}.preset
 %{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
-%{_unitdir}/%{name}.service
-%{_unitdir}/%{name}.target
+%{_systemunitdir}/%{name}.service
+%{_systemunitdir}/%{name}.target
 %{_sbindir}/%{name}-install-start
 %{_sbindir}/%{name}-install-setup
 %{_bindir}/calamares
-%optional %{_libexecdir}/calamares_crash_reporter
-%{_datadir}/calamares/settings.conf
+%{_sysconfdir}/calamares/modules/*.conf
 %{_datadir}/calamares/branding/default/*
-%{_datadir}/calamares/modules/
 %{_datadir}/calamares/qml/calamares/slideshow/*.qml
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
 %{_datadir}/applications/calamares.desktop
