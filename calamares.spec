@@ -4,8 +4,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.1
-Release:	2
+Version:	3.2.2
+Release:	1
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -103,7 +103,7 @@ Requires:	systemd
 Requires:	rsync
 Requires:	shadow
 Requires:	polkit
-Requires:	urpmi
+Requires:	dnf
 Requires:	squashfs-tools
 Requires:	dmidecode
 # (tpg) needed for webview module
