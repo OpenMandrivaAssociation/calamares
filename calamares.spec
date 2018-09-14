@@ -174,12 +174,12 @@ install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeus
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
 
 # (tpg) service files
-mkdir -p %{buildroot}{%{_systemunitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
-install -m 644 %{SOURCE3} %{buildroot}%{_systemunitdir}/%{name}.service
-install -m 644 %{SOURCE4} %{buildroot}%{_systemunitdir}/%{name}.target
+mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
+install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
+install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.target
 install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-start
 install -m 744 %{SOURCE6} %{buildroot}%{_sbindir}/%{name}-install-setup
-ln -sf %{_systemunitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
+ln -sf %{_unitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
@@ -247,8 +247,8 @@ EOF
 %config(noreplace) %{_sysconfdir}/calamares/settings.conf
 %{_presetdir}/90-%{name}.preset
 %{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
-%{_systemunitdir}/%{name}.service
-%{_systemunitdir}/%{name}.target
+%{_unitdir}/%{name}.service
+%{_unitdir}/%{name}.target
 %{_sbindir}/%{name}-install-start
 %{_sbindir}/%{name}-install-setup
 %{_bindir}/calamares
