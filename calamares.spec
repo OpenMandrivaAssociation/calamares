@@ -143,7 +143,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python37"
+%cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" -DWITH_PYTHONQT="OFF"
 
 %make
 
@@ -174,12 +174,12 @@ install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeus
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
 
 # (tpg) service files
-mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
-install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
-install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.target
+mkdir -p %{buildroot}{%{_systemunitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
+install -m 644 %{SOURCE3} %{buildroot}%{_systemunitdir}/%{name}.service
+install -m 644 %{SOURCE4} %{buildroot}%{_systemunitdir}/%{name}.target
 install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-start
 install -m 744 %{SOURCE6} %{buildroot}%{_sbindir}/%{name}-install-setup
-ln -sf %{_unitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
+ln -sf %{_systemunitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
