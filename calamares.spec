@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
-Release:	3
+Release:	4
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -28,7 +28,7 @@ Source14:	omv-machineid.conf
 Source15:	omv-mount.conf
 Source16:	omv-packages.conf
 Source17:	omv-welcome.conf
-Source18:	omv-services.conf
+Source18:	omv-services-systemd.conf
 Source19:	omv-settings.conf
 Source20:	omv-unpackfs.conf
 Source21:	omv-users.conf
@@ -165,7 +165,7 @@ install -m 644 %{SOURCE14} %{buildroot}%{_sysconfdir}/calamares/modules/machinei
 install -m 644 %{SOURCE15} %{buildroot}%{_sysconfdir}/calamares/modules/mount.conf
 install -m 644 %{SOURCE16} %{buildroot}%{_sysconfdir}/calamares/modules/packages.conf
 install -m 644 %{SOURCE17} %{buildroot}%{_sysconfdir}/calamares/modules/welcome.conf
-install -m 644 %{SOURCE18} %{buildroot}%{_sysconfdir}/calamares/modules/services.conf
+install -m 644 %{SOURCE18} %{buildroot}%{_sysconfdir}/calamares/modules/services-systemd.conf
 install -m 644 %{SOURCE19} %{buildroot}%{_sysconfdir}/calamares/settings.conf
 install -m 644 %{SOURCE20} %{buildroot}%{_sysconfdir}/calamares/modules/unpackfs.conf
 install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/users.conf
