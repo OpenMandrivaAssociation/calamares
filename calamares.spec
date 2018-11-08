@@ -110,7 +110,6 @@ Requires:	dmidecode
 Requires:	qt5-qtwebengine
 # (tpg) needed for calamares-install-setup
 Requires:	openbox
-ExclusiveArch:	%{ix86} %{x86_64}
 
 %description
 Calamares is a distribution-independent installer framework,
