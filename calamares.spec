@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
-Release:	6
+Release:	7
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -93,7 +93,7 @@ Requires:	console-setup
 # x11 stuff
 Requires:	setxkbmap
 Requires:	xkbcomp
-Requires:	xli
+Requires:	xloadimage
 Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
@@ -212,8 +212,8 @@ strings:
     bootloaderEntryName: "openmandriva"
     productUrl:          "$HOME_URL"
     supportUrl:          "$BUG_REPORT_URL"
-    knownIssuesUrl:      "https://wiki.openmandriva.org/en/3.03/New"
-    releaseNotesUrl:     "https://wiki.openmandriva.org/en/3.03/Release_Notes"
+    knownIssuesUrl:      "https://wiki.openmandriva.org/en/4.0/New"
+    releaseNotesUrl:     "https://wiki.openmandriva.org/en/4.0/Release_Notes"
 
 images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
