@@ -52,8 +52,8 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 
     if [ "$(pidof openbox)" ]; then
 # setup background
-	if [ -e /usr/share/mdk/backgrounds/default.png ] && [ -f /usr/bin/xli ]; then
-	    /usr/bin/xli -onroot -fullscreen /usr/share/mdk/backgrounds/default.png &
+	if [ -e /usr/share/mdk/backgrounds/default.png ] && [ -f /usr/bin/xloadimage ]; then
+	    /usr/bin/xloadimage -onroot -fullscreen /usr/share/mdk/backgrounds/default.png &
 	fi
 # use systemd-inhibit to be sure installation process won't be killed by users mistake
 	/bin/systemd-inhibit --why="Running calamares" /usr/bin/calamares
