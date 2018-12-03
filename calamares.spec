@@ -5,7 +5,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
-Release:	8
+Release:	9
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -212,7 +212,7 @@ strings:
     bootloaderEntryName: "openmandriva"
     productUrl:          "$HOME_URL"
     supportUrl:          "$BUG_REPORT_URL"
-    knownIssuesUrl:      "https://wiki.openmandriva.org/en/4.0/New"
+    knownIssuesUrl:      "https://wiki.openmandriva.org/en/4.0/Errata"
     releaseNotesUrl:     "https://wiki.openmandriva.org/en/4.0/Release_Notes"
 
 images:
