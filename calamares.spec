@@ -35,6 +35,7 @@ Source21:	omv-users.conf
 Source22:	omv-partition.conf
 Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
+Source25:	omv-umount.conf
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -171,6 +172,7 @@ install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/users.co
 install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/partition.conf
 install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
+install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.conf
 
 # (tpg) service files
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
