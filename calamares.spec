@@ -38,6 +38,9 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+# (crazy) patches from Frugalware
+Patch3:         0001-Try-to-guess-suggested-hostname-from-dmi.patch
+Patch4:         0001-locale-fixes.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
