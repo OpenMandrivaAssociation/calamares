@@ -1,0 +1,11 @@
+[Unit]
+Description=Locale and Keymap Setup
+After=sysinit.target
+Before=default.target
+
+[Service]
+ExecStart=/usr/bin/calamares-locale-setup
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
