@@ -13,10 +13,6 @@ URL:		http://calamares.io/
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source2:	calamares.rpmlintrc
-Source3:	%{name}.service
-Source4:	%{name}.target
-Source5:	%{name}-install-start
-Source6:	%{name}-install-setup
 Source7:	omv-bootloader.conf
 Source8:	omv-displaymanager.conf
 Source9:	omv-finished.conf
@@ -109,8 +105,6 @@ Requires:	squashfs-tools
 Requires:	dmidecode
 # (tpg) needed for webview module
 Requires:	qt5-qtwebengine
-# (tpg) needed for calamares-install-setup
-Requires:	openbox
 
 %description
 Calamares is a distribution-independent installer framework,
@@ -128,7 +122,7 @@ Library for %{name}.
 
 %package -n %{develname}
 Summary:	Development files for %{name}
-Group:		Development/C 
+Group:		Development/C
 Requires:	%{libname} = %{EVRD}
 Requires:	cmake
 
@@ -173,19 +167,6 @@ install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/partitio
 install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
 install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.conf
-
-# (tpg) service files
-mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
-install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
-install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.target
-install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-start
-install -m 744 %{SOURCE6} %{buildroot}%{_sbindir}/%{name}-install-setup
-ln -sf %{_unitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
-
-install -d %{buildroot}%{_presetdir}
-cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
-enable %{name}.service
-EOF
 
 # (tpg) install adverts and slideshow
 tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
@@ -233,7 +214,6 @@ EOF
 
 %files -f calamares.lang
 %doc LICENSE AUTHORS
-%dir %{_sysconfdir}/systemd/system/calamares.target.wants
 %dir %{_libdir}/calamares
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
@@ -246,12 +226,6 @@ EOF
 %dir %{_datadir}/calamares/qml/calamares
 %dir %{_datadir}/calamares/qml/calamares/slideshow
 %config(noreplace) %{_sysconfdir}/calamares/settings.conf
-%{_presetdir}/90-%{name}.preset
-%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
-%{_unitdir}/%{name}.service
-%{_unitdir}/%{name}.target
-%{_sbindir}/%{name}-install-start
-%{_sbindir}/%{name}-install-setup
 %{_bindir}/calamares
 %{_sysconfdir}/calamares/modules/*.conf
 %{_datadir}/calamares/branding/default/*
