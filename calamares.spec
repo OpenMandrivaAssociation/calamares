@@ -13,6 +13,8 @@ URL:		http://calamares.io/
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source2:	calamares.rpmlintrc
+Source3:        calamares-locale-setup
+Source4:        calamares-locale.service
 Source7:	omv-bootloader.conf
 Source8:	omv-displaymanager.conf
 Source9:	omv-finished.conf
@@ -168,6 +170,15 @@ install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeus
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
 install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.conf
 
+# ( crazy) service and wrapper for language/keyboard stuff in the iso
+install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-locale.service
+install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-locale-setup
+
+install -d %{buildroot}%{_presetdir}
+cat > %{buildroot}%{_presetdir}/90-%{name}-locale.preset << EOF
+enable %{name}-locale.service
+EOF
+
 # (tpg) install adverts and slideshow
 tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 
@@ -226,6 +237,9 @@ EOF
 %dir %{_datadir}/calamares/qml/calamares
 %dir %{_datadir}/calamares/qml/calamares/slideshow
 %config(noreplace) %{_sysconfdir}/calamares/settings.conf
+%{_presetdir}/90-%{name}-locale.preset
+%{_unitdir}/%{name}-locale.service
+%{_sbindir}/%{name}-locale-setup
 %{_bindir}/calamares
 %{_sysconfdir}/calamares/modules/*.conf
 %{_datadir}/calamares/branding/default/*

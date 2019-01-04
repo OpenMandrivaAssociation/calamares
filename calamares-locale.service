@@ -4,7 +4,7 @@ After=sysinit.target
 Before=default.target
 
 [Service]
-ExecStart=/usr/bin/calamares-locale-setup
+ExecStart=/usr/sbin/calamares-locale-setup
 RemainAfterExit=yes
 
 [Install]
