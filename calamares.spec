@@ -34,6 +34,7 @@ Source22:	omv-partition.conf
 Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
 Source25:	omv-umount.conf
+Source26:       omv-shellprocess.conf
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -174,10 +175,12 @@ install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/partitio
 install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
 install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.conf
+install -m 644 %{SOURCE26} %{buildroot}%{_sysconfdir}/calamares/modules/shellprocess.conf
 
 # ( crazy) service and wrapper for language/keyboard stuff in the iso
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-locale.service
 install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-locale-setup
+install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-post-script
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}-locale.preset << EOF
@@ -245,6 +248,7 @@ EOF
 %{_presetdir}/90-%{name}-locale.preset
 %{_unitdir}/%{name}-locale.service
 %{_sbindir}/%{name}-locale-setup
+%{_sbindir}/%{name}-post-script
 %{_bindir}/calamares
 %{_sysconfdir}/calamares/modules/*.conf
 %{_datadir}/calamares/branding/default/*
