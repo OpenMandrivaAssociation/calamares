@@ -36,4 +36,21 @@ wipe_locale()
         fi
 }
 
+wipe_vbox()
+{
+        local dmifile
+
+        dmifile=$(cat /sys/class/dmi/id/product_name)
+        [[ -z $dmifile ]] && echo "Error: DMI entry empty?" && exit 1
+
+        if [[ "$dmifile" != "VirtualBox" ]]; then
+                echo "We are not on VirtualBox , removing virtualbox-guest-additions"
+                dnf remove -y virtualbox-guest-additions
+        else
+                echo "This seems to be VirtualBox , doing nothing"
+        fi
+
+}
+
 wipe_locale
+wipe_vbox
