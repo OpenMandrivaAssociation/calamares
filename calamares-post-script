@@ -1,0 +1,39 @@
+#!/bin/sh
+
+
+wipe_locale()
+{
+        local lang list nosed engb
+
+        lang=$(grep ^LANG= /etc/locale.conf | sed 's/.*=//g' | sed 's/_.*//g')
+
+        [ -z $lang ] && echo "Error: Cannot find locale settings" && exit 1
+
+        case $lang in
+           C*) nosed=1 ;;
+            *) nosed=0 ;;
+        esac
+
+        ## let -en* stuff alway be there , some apps may just have stubs
+        ## or incomplete translation and that always has an failback to en_*
+        list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1'} | sed 's/\(.*-.*\).[a-z].*/\1/' | grep -v locales-en)
+
+        if [[ $lang != "en" ]]; then
+                engb=(libreoffice-l10n-en_GB myspell-en_GB firefox-en_GB)
+                list=(${list[@]} ${engb[@]})
+        fi
+
+        ## now simple run remove
+        if [[ -n ${list[@]} ]]; then
+                echo "Removing not needed language packages.."
+                if [[ $nosed -eq 0 ]]; then
+                        dnf remove -y ${list[@]/locales-$lang}
+                else
+                        dnf remove -y ${list[@]}
+                fi
+        else
+                echo "Nothing to do.."
+        fi
+}
+
+wipe_locale
