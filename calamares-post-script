@@ -52,5 +52,27 @@ wipe_vbox()
 
 }
 
+
+iso_stuff()
+{
+
+	local i
+	echo "Cleaning up.."
+	## for unknow reson firewalld has somewho some script error
+	## and a file '1' is installed into rootfs..
+	if [[ -e /1 ]]; the
+		rm -rf /1
+	fi
+
+	## clean .bak .rpmsave files .. strange to have
+	## an fresh installed system with the on it
+	for i in $(ls /etc/*.{bak,rpmsave})
+	do
+
+		rm -rf $i
+	done
+}
+
 wipe_locale
 wipe_vbox
+iso_stuff
