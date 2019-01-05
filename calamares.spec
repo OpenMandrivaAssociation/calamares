@@ -15,6 +15,7 @@ Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{
 Source2:	calamares.rpmlintrc
 Source3:        calamares-locale-setup
 Source4:        calamares-locale.service
+Source5:        %{name}-post-script
 Source7:	omv-bootloader.conf
 Source8:	omv-displaymanager.conf
 Source9:	omv-finished.conf
@@ -180,7 +181,7 @@ install -m 644 %{SOURCE26} %{buildroot}%{_sysconfdir}/calamares/modules/shellpro
 # ( crazy) service and wrapper for language/keyboard stuff in the iso
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-locale.service
 install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-locale-setup
-install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-post-script
+install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-post-script
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}-locale.preset << EOF
