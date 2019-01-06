@@ -60,7 +60,7 @@ iso_stuff()
 	echo "Cleaning up.."
 	## for unknow reson firewalld has somewho some script error
 	## and a file '1' is installed into rootfs..
-	if [[ -e /1 ]]; the
+	if [[ -e /1 ]]; then
 		rm -rf /1
 	fi
 
