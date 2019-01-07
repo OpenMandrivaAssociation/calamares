@@ -7,7 +7,7 @@ wipe_locale()
 
         lang=$(grep ^LANG= /etc/locale.conf | sed 's/.*=//g' | sed 's/_.*//g')
 
-        [ -z $lang ] && echo "Error: Cannot find locale settings" && exit 1
+        [ -z "$lang" ] && printf '%s\n' "Error: Cannot find locale settings" && exit 1
 
         case $lang in
            C*) nosed=1 ;;
@@ -16,23 +16,23 @@ wipe_locale()
 
         ## let -en* stuff alway be there , some apps may just have stubs
         ## or incomplete translation and that always has an failback to en_*
-        list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1'} | sed 's/\(.*-.*\).[a-z].*/\1/' | grep -v locales-en)
+        list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1}' | sed 's/\(.*-.*\).[a-z].*/\1/' | grep -v locales-en)
 
-        if [[ $lang != "en" ]]; then
+        if [ "$lang" != 'en' ]; then
                 engb=(libreoffice-l10n-en_GB myspell-en_GB firefox-en_GB)
                 list=(${list[@]} ${engb[@]})
         fi
 
         ## now simple run remove
         if [[ -n ${list[@]} ]]; then
-                echo "Removing not needed language packages.."
-                if [[ $nosed -eq 0 ]]; then
+                printf '%s\n' "Removing not needed language packages.."
+                if [ $nosed -eq 0 ]; then
                         dnf remove -y ${list[@]/locales-$lang}
                 else
                         dnf remove -y ${list[@]}
                 fi
         else
-                echo "Nothing to do.."
+                printf '%s\n' "Nothing to do.."
         fi
 }
 
@@ -41,13 +41,13 @@ wipe_vbox()
         local dmifile
 
         dmifile=$(cat /sys/class/dmi/id/product_name)
-        [[ -z $dmifile ]] && echo "Error: DMI entry empty?" && exit 1
+        [ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
 
-        if [[ "$dmifile" != "VirtualBox" ]]; then
-                echo "We are not on VirtualBox , removing virtualbox-guest-additions"
+        if [ "$dmifile" != 'VirtualBox' ]; then
+                printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
                 dnf remove -y virtualbox-guest-additions
         else
-                echo "This seems to be VirtualBox , doing nothing"
+                printf '%s\n' "This seems to be VirtualBox , doing nothing"
         fi
 
 }
@@ -57,10 +57,10 @@ iso_stuff()
 {
 
 	local i
-	echo "Cleaning up.."
+	printf '%s\n' "Cleaning up.."
 	## for unknow reson firewalld has somewho some script error
 	## and a file '1' is installed into rootfs..
-	if [[ -e /1 ]]; then
+	if [ -e /1 ]; then
 		rm -rf /1
 	fi
 
@@ -69,7 +69,7 @@ iso_stuff()
 	for i in $(ls /etc/*.{bak,rpmsave})
 	do
 
-		rm -rf $i
+		rm -rf "$i"
 	done
 }
 
