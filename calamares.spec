@@ -1,17 +1,23 @@
 %define major 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
+%define git 20190106
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
-Release:	10
-Group:		System/Configuration/Other
-License:	GPLv3+
-URL:		http://calamares.io/
+%if "%{git}" != ""
+Release:	1.%{git}.1
+Source0:	calamares-%{version}-%{git}.tar.xz
+%else
+Release:	1
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
+%endif
+Group:		System/Configuration/Other
+License:	GPLv3+
+URL:		http://calamares.io/
 Source2:	calamares.rpmlintrc
 Source3:	%{name}.service
 Source4:	%{name}.target
@@ -39,6 +45,10 @@ Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+# For now -- until it starts working properly
+Patch10:	disable-lvm-ui.patch
+Patch11:	dm-module-do-not-error-out.patch
+Patch12:	revert-some-lvm-code-causing-crashes.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
@@ -135,8 +145,7 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
-%setup -qn %{name}-%{version}
-%apply_patches
+%autosetup -p1 -n %{name}-%{version}%{?git:-%{git}}
 
 #delete backup files
 rm -f src/modules/*/*.conf.default-settings
