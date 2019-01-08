@@ -51,10 +51,10 @@ Patch3:         0001-Try-to-guess-suggested-hostname-from-dmi.patch
 Patch4:         0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
 Patch5:         services-systemd-add-unmask-support.patch
-# For now -- until it starts working properly
-Patch10:	disable-lvm-ui.patch
+Patch10:	revert-some-lvm-code-causing-crashes.patch
 Patch11:	dm-module-do-not-error-out.patch
-Patch12:	revert-some-lvm-code-causing-crashes.patch
+# For now -- until it starts working properly
+Patch12:	disable-lvm-ui.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
