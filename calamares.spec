@@ -19,9 +19,9 @@ Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 Source2:	calamares.rpmlintrc
-Source3:        calamares-locale-setup
-Source4:        calamares-locale.service
-Source5:        %{name}-post-script
+Source3:	calamares-locale-setup
+Source4:	calamares-locale.service
+Source5:	%{name}-post-script
 Source7:	omv-bootloader.conf
 Source8:	omv-displaymanager.conf
 Source9:	omv-finished.conf
@@ -41,16 +41,16 @@ Source22:	omv-partition.conf
 Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
 Source25:	omv-umount.conf
-Source26:       omv-shellprocess.conf
+Source26:	omv-shellprocess.conf
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
 # (crazy) patches from Frugalware
-Patch3:         0001-Try-to-guess-suggested-hostname-from-dmi.patch
-Patch4:         0001-locale-fixes.patch
+Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
+Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
-Patch5:         services-systemd-add-unmask-support.patch
+Patch5:		services-systemd-add-unmask-support.patch
 Patch10:	revert-some-lvm-code-causing-crashes.patch
 Patch11:	dm-module-do-not-error-out.patch
 # For now -- until it starts working properly
@@ -94,6 +94,7 @@ BuildRequires:	boost-devel >= 1.54.0
 BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
+BuildRequires:	systemd-macros
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
@@ -157,10 +158,10 @@ rm -f src/modules/*/*.conf.default-settings
 %build
 %cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" -DWITH_PYTHONQT="OFF"
 
-%make
+%make_build
 
 %install
-%makeinstall_std -C build
+%make_install -C build
 #own the local settings directories
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding/auto
@@ -188,9 +189,9 @@ install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.c
 install -m 644 %{SOURCE26} %{buildroot}%{_sysconfdir}/calamares/modules/shellprocess.conf
 
 # ( crazy) service and wrapper for language/keyboard stuff in the iso
-mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}
-install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-locale.service
-install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-locale-setup
+mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
+install -m 755 %{SOURCE3} %{buildroot}%{_sbindir}/%{name}-locale-setup
+install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}-locale.service
 install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-post-script
 
 install -d %{buildroot}%{_presetdir}
