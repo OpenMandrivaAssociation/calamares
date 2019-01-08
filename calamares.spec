@@ -188,6 +188,7 @@ install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.c
 install -m 644 %{SOURCE26} %{buildroot}%{_sysconfdir}/calamares/modules/shellprocess.conf
 
 # ( crazy) service and wrapper for language/keyboard stuff in the iso
+mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}
 install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-locale.service
 install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-locale-setup
 install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-post-script
