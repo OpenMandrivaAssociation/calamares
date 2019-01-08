@@ -19,10 +19,9 @@ Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
 Source2:	calamares.rpmlintrc
-Source3:	%{name}.service
-Source4:	%{name}.target
-Source5:	%{name}-install-start
-Source6:	%{name}-install-setup
+Source3:        calamares-locale-setup
+Source4:        calamares-locale.service
+Source5:        %{name}-post-script
 Source7:	omv-bootloader.conf
 Source8:	omv-displaymanager.conf
 Source9:	omv-finished.conf
@@ -41,10 +40,17 @@ Source21:	omv-users.conf
 Source22:	omv-partition.conf
 Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
+Source25:	omv-umount.conf
+Source26:       omv-shellprocess.conf
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
+# (crazy) patches from Frugalware
+Patch3:         0001-Try-to-guess-suggested-hostname-from-dmi.patch
+Patch4:         0001-locale-fixes.patch
+# (crazy) we do some strange things in iso repo , here a way to undo
+Patch5:         services-systemd-add-unmask-support.patch
 # For now -- until it starts working properly
 Patch10:	disable-lvm-ui.patch
 Patch11:	dm-module-do-not-error-out.patch
@@ -118,8 +124,6 @@ Requires:	squashfs-tools
 Requires:	dmidecode
 # (tpg) needed for webview module
 Requires:	qt5-qtwebengine
-# (tpg) needed for calamares-install-setup
-Requires:	openbox
 
 %description
 Calamares is a distribution-independent installer framework,
@@ -137,7 +141,7 @@ Library for %{name}.
 
 %package -n %{develname}
 Summary:	Development files for %{name}
-Group:		Development/C 
+Group:		Development/C
 Requires:	%{libname} = %{EVRD}
 Requires:	cmake
 
@@ -180,18 +184,17 @@ install -m 644 %{SOURCE21} %{buildroot}%{_sysconfdir}/calamares/modules/users.co
 install -m 644 %{SOURCE22} %{buildroot}%{_sysconfdir}/calamares/modules/partition.conf
 install -m 644 %{SOURCE23} %{buildroot}%{_sysconfdir}/calamares/modules/removeuser.conf
 install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.conf
+install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.conf
+install -m 644 %{SOURCE26} %{buildroot}%{_sysconfdir}/calamares/modules/shellprocess.conf
 
-# (tpg) service files
-mkdir -p %{buildroot}{%{_unitdir},%{_sbindir},%{_sysconfdir}/systemd/system/calamares.target.wants}
-install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
-install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}.target
-install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-install-start
-install -m 744 %{SOURCE6} %{buildroot}%{_sbindir}/%{name}-install-setup
-ln -sf %{_unitdir}/%{name}.service %{buildroot}%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
+# ( crazy) service and wrapper for language/keyboard stuff in the iso
+install -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}-locale.service
+install -m 755 %{SOURCE4} %{buildroot}%{_sbindir}/%{name}-locale-setup
+install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-post-script
 
 install -d %{buildroot}%{_presetdir}
-cat > %{buildroot}%{_presetdir}/90-%{name}.preset << EOF
-enable %{name}.service
+cat > %{buildroot}%{_presetdir}/90-%{name}-locale.preset << EOF
+enable %{name}-locale.service
 EOF
 
 # (tpg) install adverts and slideshow
@@ -240,7 +243,6 @@ EOF
 
 %files -f calamares.lang
 %doc LICENSE AUTHORS
-%dir %{_sysconfdir}/systemd/system/calamares.target.wants
 %dir %{_libdir}/calamares
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
@@ -253,12 +255,10 @@ EOF
 %dir %{_datadir}/calamares/qml/calamares
 %dir %{_datadir}/calamares/qml/calamares/slideshow
 %config(noreplace) %{_sysconfdir}/calamares/settings.conf
-%{_presetdir}/90-%{name}.preset
-%{_sysconfdir}/systemd/system/calamares.target.wants/%{name}.service
-%{_unitdir}/%{name}.service
-%{_unitdir}/%{name}.target
-%{_sbindir}/%{name}-install-start
-%{_sbindir}/%{name}-install-setup
+%{_presetdir}/90-%{name}-locale.preset
+%{_unitdir}/%{name}-locale.service
+%{_sbindir}/%{name}-locale-setup
+%{_sbindir}/%{name}-post-script
 %{_bindir}/calamares
 %{_sysconfdir}/calamares/modules/*.conf
 %{_datadir}/calamares/branding/default/*
