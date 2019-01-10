@@ -3,8 +3,6 @@
 %define develname %mklibname %{name} -d
 %define git 20190106
 
-%bcond_with clang
-
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
@@ -158,10 +156,7 @@ Development files and headers for %{name}.
 rm -f src/modules/*/*.conf.default-settings
 
 %build
-%if ! %{with clang}
-export CC=gcc
-export CXX=g++
-%endif
+
 %cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" -DWITH_PYTHONQT="OFF"
 
 %make_build
