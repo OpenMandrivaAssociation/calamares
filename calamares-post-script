@@ -47,7 +47,7 @@ wipe_vbox()
                 printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
                 dnf remove -y virtualbox-guest-additions
         else
-                printf '%s\n' "This seems to be VirtualBox , doing nothing"
+                printf '%s\n' "This seems to be VirtualBox , doing nothing."
         fi
 
 }
