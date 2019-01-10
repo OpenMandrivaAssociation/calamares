@@ -55,6 +55,10 @@ Patch10:	revert-some-lvm-code-causing-crashes.patch
 Patch11:	dm-module-do-not-error-out.patch
 # For now -- until it starts working properly
 Patch12:	disable-lvm-ui.patch
+# (crazy) to be removed on next round of snapshots
+Patch13:        bug-1043.patch
+Patch14:        bug-1070.patch
+
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)

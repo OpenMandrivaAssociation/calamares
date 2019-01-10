@@ -1,0 +1,149 @@
+From dfb5412c574dc0a37120a524dc985e96b85ceca5 Mon Sep 17 00:00:00 2001
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Thu, 10 Jan 2019 16:28:05 +0100
+Subject: [PATCH] [partition] Preserve current device when going to manual
+ partitioning
+
+Fixes #1043
+
+Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+---
+ src/modules/partition/gui/ChoicePage.cpp        | 14 ++++++++++++++
+ src/modules/partition/gui/ChoicePage.h          |  4 ++++
+ src/modules/partition/gui/PartitionPage.cpp     | 13 +++++++++++++
+ src/modules/partition/gui/PartitionPage.h       |  4 ++++
+ src/modules/partition/gui/PartitionViewStep.cpp |  5 +++++
+ 5 files changed, 40 insertions(+)
+
+diff --git a/src/modules/partition/gui/ChoicePage.cpp b/src/modules/partition/gui/ChoicePage.cpp
+index ba49bd95d..3aeb4d258 100644
+--- a/src/modules/partition/gui/ChoicePage.cpp
++++ b/src/modules/partition/gui/ChoicePage.cpp
+@@ -2,6 +2,7 @@
+  *
+  *   Copyright 2014-2017, Teo Mrnjavac <teo@kde.org>
+  *   Copyright 2017-2018, Adriaan de Groot <groot@kde.org>
++ *   Copyright 2019, Collabora Ltd
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -1523,3 +1524,16 @@ ChoicePage::updateSwapChoicesTr(QComboBox* box)
+         }
+     }
+ }
++
++int
++ChoicePage::lastSelectedDeviceIndex()
++{
++    return m_lastSelectedDeviceIndex;
++}
++
++void
++ChoicePage::setLastSelectedDeviceIndex( int index )
++{
++    m_lastSelectedDeviceIndex = index;
++    m_drivesCombo->setCurrentIndex( m_lastSelectedDeviceIndex );
++}
+diff --git a/src/modules/partition/gui/ChoicePage.h b/src/modules/partition/gui/ChoicePage.h
+index 07d052c2d..a53f3fff1 100644
+--- a/src/modules/partition/gui/ChoicePage.h
++++ b/src/modules/partition/gui/ChoicePage.h
+@@ -2,6 +2,7 @@
+  *
+  *   Copyright 2014-2016, Teo Mrnjavac <teo@kde.org>
+  *   Copyright 2018, Adriaan de Groot <groot@kde.org>
++ *   Copyright 2019, Collabora Ltd
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -97,6 +98,9 @@ class ChoicePage : public QWidget, private Ui::ChoicePage
+      */
+     void applyActionChoice( ChoicePage::InstallChoice choice );
+ 
++    int lastSelectedDeviceIndex();
++    void setLastSelectedDeviceIndex( int index );
++
+ signals:
+     void nextStatusChanged( bool );
+     void actionChosen();
+diff --git a/src/modules/partition/gui/PartitionPage.cpp b/src/modules/partition/gui/PartitionPage.cpp
+index 9d972c8fd..86de992e6 100644
+--- a/src/modules/partition/gui/PartitionPage.cpp
++++ b/src/modules/partition/gui/PartitionPage.cpp
+@@ -5,6 +5,7 @@
+  *   Copyright 2018, Adriaan de Groot <groot@kde.org>
+  *   Copyright 2018, Andrius Štikonas <andrius@stikonas.eu>
+  *   Copyright 2018, Caio Jordão Carvalho <caiojcarvalho@gmail.com>
++ *   Copyright 2019, Collabora Ltd
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -609,3 +610,15 @@ PartitionPage::getCurrentUsedMountpoints()
+ 
+     return mountPoints;
+ }
++
++int
++PartitionPage::selectedDeviceIndex()
++{
++    return m_ui->deviceComboBox->currentIndex();
++}
++
++void
++PartitionPage::selectDeviceByIndex ( int index )
++{
++        m_ui->deviceComboBox->setCurrentIndex( index );
++}
+diff --git a/src/modules/partition/gui/PartitionPage.h b/src/modules/partition/gui/PartitionPage.h
+index 70d8ccdfb..8289f2cdd 100644
+--- a/src/modules/partition/gui/PartitionPage.h
++++ b/src/modules/partition/gui/PartitionPage.h
+@@ -2,6 +2,7 @@
+  *
+  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
+  *   Copyright 2018, Adriaan de Groot <groot@kde.org>
++ *   Copyright 2019, Collabora Ltd
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -46,6 +47,9 @@ class PartitionPage : public QWidget
+ 
+     void onRevertClicked();
+ 
++    int selectedDeviceIndex();
++    void selectDeviceByIndex( int index );
++
+ private:
+     QScopedPointer< Ui_PartitionPage > m_ui;
+     PartitionCoreModule* m_core;
+diff --git a/src/modules/partition/gui/PartitionViewStep.cpp b/src/modules/partition/gui/PartitionViewStep.cpp
+index 0152f8bec..01dac7c39 100644
+--- a/src/modules/partition/gui/PartitionViewStep.cpp
++++ b/src/modules/partition/gui/PartitionViewStep.cpp
+@@ -3,6 +3,7 @@
+  *   Copyright 2014, Aurélien Gâteau <agateau@kde.org>
+  *   Copyright 2014-2017, Teo Mrnjavac <teo@kde.org>
+  *   Copyright 2018, Adriaan de Groot <groot@kde.org>
++ *   Copyright 2019, Collabora Ltd
+  *
+  *   Calamares is free software: you can redistribute it and/or modify
+  *   it under the terms of the GNU General Public License as published by
+@@ -286,6 +287,7 @@ PartitionViewStep::next()
+         if ( m_choicePage->currentChoice() == ChoicePage::Manual )
+         {
+             m_widget->setCurrentWidget( m_manualPartitionPage );
++            m_manualPartitionPage->selectDeviceByIndex( m_choicePage->lastSelectedDeviceIndex() );
+             if ( m_core->isDirty() )
+                 m_manualPartitionPage->onRevertClicked();
+         }
+@@ -315,7 +317,10 @@ void
+ PartitionViewStep::back()
+ {
+     if ( m_widget->currentWidget() != m_choicePage )
++    {
+         m_widget->setCurrentWidget( m_choicePage );
++        m_choicePage->setLastSelectedDeviceIndex( m_manualPartitionPage->selectedDeviceIndex() );
++    }
+ }
+ 
+ 
