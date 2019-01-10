@@ -1,21 +1,8 @@
-From ba63084c7ec15f8bbd93ecc159816431bd206177 Mon Sep 17 00:00:00 2001
-From: Adriaan de Groot <groot@kde.org>
-Date: Thu, 10 Jan 2019 23:54:57 +0100
-Subject: [PATCH] [partition] Refactor fstype naming
-
- - Use locale "C" for checking filesystem names
- - Also check other possibilities and case-insensitive, to
-   be more forgiving of weird configurations (and localizations)
----
- .../partition/gui/PartitionViewStep.cpp       | 80 +++++++++++++------
- 1 file changed, 56 insertions(+), 24 deletions(-)
-
-diff --git a/src/modules/partition/gui/PartitionViewStep.cpp b/src/modules/partition/gui/PartitionViewStep.cpp
-index 0152f8bec..b4cc43b29 100644
---- a/src/modules/partition/gui/PartitionViewStep.cpp
-+++ b/src/modules/partition/gui/PartitionViewStep.cpp
-@@ -495,6 +495,61 @@ nameToChoice( QString name, bool& ok )
-     return SwapChoice::NoSwap;
+diff -Naur calamares-3.2.2-20190106/src/modules/partition/gui/PartitionViewStep.cpp calamares-3.2.2-20190106-rediff/src/modules/partition/gui/PartitionViewStep.cpp
+--- calamares-3.2.2-20190106/src/modules/partition/gui/PartitionViewStep.cpp	2019-01-06 19:49:04.000000000 +0100
++++ calamares-3.2.2-20190106-rediff/src/modules/partition/gui/PartitionViewStep.cpp	2019-01-11 00:44:36.873822860 +0100
+@@ -470,6 +470,61 @@
+     }
  }
  
 +/** @brief translate @p defaultFS into a recognized name
@@ -76,7 +63,7 @@ index 0152f8bec..b4cc43b29 100644
  
  void
  PartitionViewStep::setConfigurationMap( const QVariantMap& configurationMap )
-@@ -570,30 +625,7 @@ PartitionViewStep::setConfigurationMap( const QVariantMap& configurationMap )
+@@ -546,30 +601,7 @@
      gs->insert( "drawNestedPartitions", CalamaresUtils::getBool( configurationMap, "drawNestedPartitions", false ) );
      gs->insert( "alwaysShowPartitionLabels", CalamaresUtils::getBool( configurationMap, "alwaysShowPartitionLabels", true ) );
      gs->insert( "enableLuksAutomatedPartitioning", CalamaresUtils::getBool( configurationMap, "enableLuksAutomatedPartitioning", true ) );
