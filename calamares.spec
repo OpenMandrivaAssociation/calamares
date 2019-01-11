@@ -7,7 +7,7 @@ Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
 %if "%{git}" != ""
-Release:	1.%{git}.3
+Release:	1.%{git}.4
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
 Release:	12
@@ -18,9 +18,9 @@ Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
-Source2:	calamares.rpmlintrc
-Source3:	calamares-locale-setup
-Source4:	calamares-locale.service
+Source2:	%{name}.rpmlintrc
+Source3:	%{name}-locale-setup
+Source4:	%{name}-locale.service
 Source5:	%{name}-post-script
 Source7:	omv-bootloader.conf
 Source8:	omv-displaymanager.conf
@@ -42,6 +42,8 @@ Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
 Source25:	omv-umount.conf
 Source26:	omv-shellprocess.conf
+Source50:       49-nopasswd_calamares.rules
+Source51:       %{name}-live.sudo
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -193,11 +195,17 @@ install -m 644 %{SOURCE24} %{buildroot}%{_sysconfdir}/calamares/modules/webview.
 install -m 644 %{SOURCE25} %{buildroot}%{_sysconfdir}/calamares/modules/umount.conf
 install -m 644 %{SOURCE26} %{buildroot}%{_sysconfdir}/calamares/modules/shellprocess.conf
 
-# ( crazy) service and wrapper for language/keyboard stuff in the iso
+# (crazy) service and wrapper for language/keyboard stuff in the iso
 mkdir -p %{buildroot}{%{_unitdir},%{_sbindir}}
 install -m 755 %{SOURCE3} %{buildroot}%{_sbindir}/%{name}-locale-setup
 install -m 644 %{SOURCE4} %{buildroot}%{_unitdir}/%{name}-locale.service
 install -m 755 %{SOURCE5} %{buildroot}%{_sbindir}/%{name}-post-script
+
+# (crazy) permission files
+mkdir -p %{buildroot}%{_sysconfdir}/sudoers.d
+mkdir -p %{buildroot}%{_sysconfdir}/polkit-1/rules.d
+install -m 644 %{SOURCE50} %{buildroot}%{_sysconfdir}/polkit-1/rules.d/49-nopasswd_calamares.rules
+install -m 440 %{SOURCE51} %{buildroot}%{_sysconfdir}/sudoers.d/%{name}-live
 
 install -d %{buildroot}%{_presetdir}
 cat > %{buildroot}%{_presetdir}/90-%{name}-locale.preset << EOF
@@ -266,6 +274,8 @@ EOF
 %{_unitdir}/%{name}-locale.service
 %{_sbindir}/%{name}-locale-setup
 %{_sbindir}/%{name}-post-script
+%{_sysconfdir}/polkit-1/rules.d/49-nopasswd_calamares.rules
+%{_sysconfdir}/sudoers.d/%{name}-live
 %{_bindir}/calamares
 %{_sysconfdir}/calamares/modules/*.conf
 %{_datadir}/calamares/branding/default/*
