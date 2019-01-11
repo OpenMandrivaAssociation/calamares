@@ -27,9 +27,9 @@ wipe_locale()
         if [[ -n ${list[@]} ]]; then
                 printf '%s\n' "Removing not needed language packages.."
                 if [ $nosed -eq 0 ]; then
-                        dnf remove -y ${list[@]/locales-$lang}
+                        dnf --disablerepo="*" -C -y remove ${list[@]/locales-$lang}
                 else
-                        dnf remove -y ${list[@]}
+                        dnf --disablerepo="*" -C -y remove  ${list[@]}
                 fi
         else
                 printf '%s\n' "Nothing to do.."
@@ -45,7 +45,7 @@ wipe_vbox()
 
         if [ "$dmifile" != 'VirtualBox' ]; then
                 printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
-                dnf remove -y virtualbox-guest-additions
+                dnf --disablerepo="*" -C -y remove  virtualbox-guest-additions
         else
                 printf '%s\n' "This seems to be VirtualBox , doing nothing."
         fi
