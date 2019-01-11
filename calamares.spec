@@ -295,8 +295,7 @@ EOF
 %ghost %{_sysconfdir}/calamares/branding/auto/branding.desc
 %{_sysconfdir}/calamares/branding/auto/*.qml
 %{_sysconfdir}/calamares/branding/auto/*.png
-%{_iconsdir}/openmandriva-install.svg
-%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
+%{_iconsdir}/hicolor/scalable/apps/*.svg
 %{_mandir}/man8/calamares.8.*
 
 %files -n %{libname}
