@@ -15,7 +15,7 @@ diff -Naur calamares-3.2.0/calamares.desktop calamares-3.2.0.tpg/calamares.deskt
 -Comment=Calamares — System Installer
 -Icon=calamares
 +Comment=OpenMandriva Lx installer
-+Icon=/usr/share/icons/openmandriva-install.svg
++Icon=openmandriva-install
  Terminal=false
  StartupNotify=true
  Categories=Qt;System;
@@ -36,7 +36,7 @@ diff -Naur calamares-3.2.0/calamares.desktop.in calamares-3.2.0.tpg/calamares.de
 -Comment=Calamares — System Installer
 -Icon=calamares
 +Comment=OpenMandriva Lx installer
-+Icon=/usr/share/icons/openmandriva-install.svg
++Icon=openmandriva-install
  Terminal=false
  StartupNotify=true
  Categories=Qt;System;

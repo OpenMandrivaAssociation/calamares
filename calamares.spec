@@ -219,9 +219,11 @@ EOF
 # (tpg) install adverts and slideshow
 tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 
-# (tpg) install icon
-mkdir -p %{buildroot}%{_iconsdir}
-install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/openmandriva-install.svg
+# (crazy) wipe original icon and use symlink to our one
+
+rm -rf %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
+install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/hicolor/scalable/apps/openmandriva-install.svg
+ln -s %{_iconsdir}/hicolor/scalable/apps/openmandriva-install.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
 %find_lang %{name} --all-name --with-html
 
 %post
