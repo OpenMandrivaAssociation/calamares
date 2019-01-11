@@ -47,6 +47,7 @@ Source51:       %{name}-live.sudo
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
+# (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
 # (crazy) patches from Frugalware
 Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
@@ -60,6 +61,9 @@ Patch12:	disable-lvm-ui.patch
 # (crazy) to be removed on next round of snapshots
 Patch13:        bug-1043.patch
 Patch14:        bug-1070.patch
+# (crazy) this really got broken and not needed anyway
+# drop the weird unsorted lsblk output
+Patch15:        0001-CreatePartitionTableJob-drop-lsblk-and-mount-debug-o.patch
 
 
 BuildRequires:	pkgconfig(Qt5Core)
