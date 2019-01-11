@@ -87,6 +87,8 @@ BuildRequires:	cmake >= 3.0
 BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
+# (crazy): fixme need to sort these after unused plasma*
+# and *terminal gone
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5Crash)
@@ -97,7 +99,7 @@ BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Plasma)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 3.2.1
+BuildRequires:	cmake(KPMcore) >= 3.3.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -167,7 +169,15 @@ rm -f src/modules/*/*.conf.default-settings
 
 %build
 
-%cmake_qt5 -DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" -DWITH_PYTHONQT="OFF"
+# (crazy):
+# preservefiles fsresizer could be used once we get OEM mode
+# plasma* one can just set a theme with an external tool right now.
+# the rest cannot be used in OpenMandriva cause these are Gentoo , ArchLinux , Debian/Ubuntu only modules.
+%cmake_qt5 \
+	-DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" \
+	-DWITH_PYTHONQT="OFF" \
+	-DSKIP_MODULES="plasmalnf preservefiles openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal"
+
 
 %make_build
 
