@@ -18,10 +18,13 @@ wipe_locale()
         ## or incomplete translation and that always has an failback to en_*
         list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1}' | sed 's/\(.*-.*\).[a-z].*/\1/' | grep -v locales-en)
 
-        if [ "$lang" != 'en' ]; then
-                engb=(libreoffice-l10n-en_GB myspell-en_GB firefox-en_GB)
-                list=(${list[@]} ${engb[@]})
-        fi
+	# (crazy) disable for now , myspell build changes and now -en packages
+	# provides en_GB so we cannot remove anymore like this
+
+	#if [ "$lang" != 'en' ]; then
+	#        engb=(libreoffice-l10n-en_GB myspell-en_GB firefox-en_GB)
+	#        list=(${list[@]} ${engb[@]})
+	#fi
 
         ## now simple run remove
         if [[ -n ${list[@]} ]]; then
