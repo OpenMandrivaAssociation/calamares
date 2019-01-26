@@ -10,7 +10,7 @@ Version:	3.2.2
 Release:	1.%{git}.6
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	13
+Release:	14
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -53,7 +53,8 @@ Patch2:		calamares-libparted-detection.patch
 Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
 Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
-Patch5:		services-systemd-add-unmask-support.patch
+Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
+# (crazy) LVM disabled for now
 Patch10:	revert-some-lvm-code-causing-crashes.patch
 Patch11:	dm-module-do-not-error-out.patch
 # For now -- until it starts working properly
@@ -271,6 +272,9 @@ style:
    sidebarText:          "#FFFFFF"
    sidebarTextSelect:    "#292F34"
 EOF
+
+#(crazy) we want debug.log
+sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}/applications/calamares.desktop
 
 %files -f calamares.lang
 %doc LICENSE AUTHORS
