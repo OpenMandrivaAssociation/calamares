@@ -231,10 +231,12 @@ EOF
 tar xf %{SOURCE100} -C %{buildroot}%{_sysconfdir}/calamares/branding/auto
 
 # (crazy) wipe original icon and use symlink to our one
-
 rm -rf %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
 install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/hicolor/scalable/apps/openmandriva-install.svg
 ln -s %{_iconsdir}/hicolor/scalable/apps/openmandriva-install.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
+#(crazy) we want debug.log
+sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}/applications/calamares.desktop
+
 %find_lang %{name} --all-name --with-html
 
 %post
@@ -272,9 +274,6 @@ style:
    sidebarText:          "#FFFFFF"
    sidebarTextSelect:    "#292F34"
 EOF
-
-#(crazy) we want debug.log
-sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}/applications/calamares.desktop
 
 %files -f calamares.lang
 %doc LICENSE AUTHORS
