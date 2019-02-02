@@ -7,7 +7,7 @@ Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.2
 %if "%{git}" != ""
-Release:	1.%{git}.9
+Release:	1.%{git}.10
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
 Release:	14

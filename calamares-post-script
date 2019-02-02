@@ -74,6 +74,9 @@ iso_stuff()
 
 		rm -rf "$i"
 	done
+
+	# game requested for Live session
+	dnf --disablerepo="*" -C -y remove kpat
 }
 
 wipe_locale
