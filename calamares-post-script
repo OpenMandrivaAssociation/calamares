@@ -67,6 +67,11 @@ iso_stuff()
 		rm -rf /1
 	fi
 
+	## /root/tmp ?
+	if [ -d /root/tmp ]; then
+		rm -rf /root/tmp
+	fi
+
 	## clean .bak .rpmsave files .. strange to have
 	## an fresh installed system with the on it
 	for i in $(ls /etc/*.{bak,rpmsave})
