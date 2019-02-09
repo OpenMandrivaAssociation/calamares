@@ -50,7 +50,7 @@ wipe_vbox()
                 printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
                 dnf --disablerepo="*" -C -y remove  virtualbox-guest-additions
         else
-                printf '%s\n' "This seems to be VirtualBox , doing nothing."
+                printf '%s\n' "Looks like a VirtualBox VM, keeping virtualbox packages."
         fi
 
 }
