@@ -82,6 +82,10 @@ iso_stuff()
 
 	# game requested for Live session
 	dnf --disablerepo="*" -C -y remove kpat
+
+	chown -R rpm:rpm /var/lib/rpm
+	rm -rf /var/lib/rpm/.dbenv.lock
+	rm -rf /var/lib/rpm/.rpm.lock
 }
 
 wipe_locale
