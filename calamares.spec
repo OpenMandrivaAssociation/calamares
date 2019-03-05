@@ -136,6 +136,7 @@ Requires:	polkit
 Requires:	dnf
 Requires:	squashfs-tools
 Requires:	dmidecode
+Requires:	qca-plugin-openssl-%{_lib}
 # (tpg) needed for webview module
 Requires:	qt5-qtwebengine
 
