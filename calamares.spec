@@ -10,7 +10,7 @@ Version:	3.2.2
 Release:	1.%{git}.10
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	15
+Release:	16
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -136,7 +136,6 @@ Requires:	polkit
 Requires:	dnf
 Requires:	squashfs-tools
 Requires:	dmidecode
-Requires:	qca-plugin-openssl-%{_lib}
 # (tpg) needed for webview module
 Requires:	qt5-qtwebengine
 
