@@ -49,75 +49,15 @@ diff -Naur calamares-3.2.7/src/modules/services-systemd/main.py calamares-3.2.7-
 +    if r is not None:
 +        return r
 +
-     r = systemctl(cfg.get("mask", []), "mask", "")
+     r = systemctl(cfg.get("disable-targets", []), "disable", ".target")
+     if r is not None:
+         return r
+@@ -118,4 +144,8 @@
      if r is not None:
          return r
  
 +    r = systemctl(cfg.get("unmask", []), "unmask", "")
 +    if r is not None:
 +        return r
- 
-     # This could have just been return r
++
      return None
-diff --git a/src/modules/services-systemd/services-systemd.conf b/src/modules/services-systemd/services-systemd.conf
-index 6ff1409bf..e5897e5b6 100644
---- a/src/modules/services-systemd/services-systemd.conf
-+++ b/src/modules/services-systemd/services-systemd.conf
-@@ -43,6 +43,16 @@
- #   - name: "graphical"
- #     mandatory: true
- #
-+# # Enables <name>.socket
-+# sockets:
-+#   - name: "some-socket"
-+#     mandatory: false
-+#
-+# # Enables <name>.timer
-+# timers:
-+#   - name: "some-timer"
-+#     mandatory: true
-+#
- # # Disables <name>.service
- # disable:
- #   - name: "pacman-init"
-@@ -53,6 +63,16 @@
- # disable-targets:
- #   - graphical
- #
-+# # Disables <name>.socket
-+# #     .. this shows how to use just the name
-+# disable-sockets:
-+#   - some-socket
-+#
-+# # Disables <name>.timer
-+# #     .. this shows how to use just the name
-+# disable-timers:
-+#   - some-timer
-+#
- # # Masks (stronger version of disable). This section
- # # is unusual because you **must** include the suffix
- # # (e.g. ".service") as part of the name, so, e.g. to mask
-@@ -61,10 +81,19 @@
- # mask:
- #  - name: "NetworkManager.service"
- #  - mandatory: true
--
-+#
-+# unmask:
-+#  - name: "some.socket"
-+#  - mandatory: true
-+#
- # By default, no changes are made.
- services: []
-+sockets: []
-+timers: []
- targets: []
- disable: []
- disable-targets: []
-+disable-sockets: []
-+disable-timers: []
- mask: []
-+unmask: []
--- 
-2.20.1
-

@@ -53,7 +53,7 @@ Patch2:		calamares-libparted-detection.patch
 Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
 Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
-#Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch ## need re-work
+Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 # (crazy) LVM disabled for now
 #  -- until it starts working properly
 Patch6:		0003-disable-lvm.patch
