@@ -166,11 +166,11 @@ rm -f src/modules/*/*.conf.default-settings
 # preservefiles fsresizer could be used once we get OEM mode
 # plasma* one can just set a theme with an external tool right now.
 # the rest cannot be used in OpenMandriva cause these are Gentoo , ArchLinux , Debian/Ubuntu only modules.
-#	-DBoost_NO_BOOST_CMAKE=ON \
 %cmake_qt5 \
 	-DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" \
 	-DWITH_PYTHONQT="OFF" \
 	-DSKIP_MODULES="plasmalnf preservefiles openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal" \
+	-DBoost_NO_BOOST_CMAKE=ON \
 	-G Ninja
 
 if grep -q "No Python support" CMakeFiles/CMakeOutput.log; then
