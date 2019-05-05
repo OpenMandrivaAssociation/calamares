@@ -1,28 +1,15 @@
-From 81f27f5e041b2aac513e5bceea9f424c991634f1 Mon Sep 17 00:00:00 2001
-From: Gabriel Craciunescu <crazy@frugalware.org>
-Date: Thu, 2 Nov 2017 16:35:53 +0100
-Subject: [PATCH] Try to guess suggested hostname from dmi
-
-- nothing compicated for now , just try to get something
-  from /sys/devices/virtual/dmi/id/product_name and fallback
-  to -pc thigy
----
- src/modules/users/UsersPage.cpp | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
-
-diff --git a/src/modules/users/UsersPage.cpp b/src/modules/users/UsersPage.cpp
-index 04b851cf9..99d2dd175 100644
---- a/src/modules/users/UsersPage.cpp
-+++ b/src/modules/users/UsersPage.cpp
-@@ -33,6 +33,7 @@
- #include "utils/Retranslator.h"
+diff -Naur calamares-3.2.7/src/modules/users/UsersPage.cpp calamares-3.2.7-p/src/modules/users/UsersPage.cpp
+--- calamares-3.2.7/src/modules/users/UsersPage.cpp	2019-04-27 20:12:03.000000000 +0200
++++ calamares-3.2.7-p/src/modules/users/UsersPage.cpp	2019-05-05 20:31:21.081178113 +0200
+@@ -35,6 +35,7 @@
+ #include "Settings.h"
  
  #include <QBoxLayout>
 +#include <QFile>
  #include <QLabel>
  #include <QLineEdit>
  #include <QRegExp>
-@@ -249,7 +250,27 @@ UsersPage::fillSuggestions()
+@@ -272,7 +273,27 @@
      {
          if ( !cleanParts.isEmpty() && !cleanParts.first().isEmpty() )
          {

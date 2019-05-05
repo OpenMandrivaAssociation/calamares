@@ -1,49 +1,31 @@
-From 0153f89751f71d4ee219184721984208390ea559 Mon Sep 17 00:00:00 2001
-From: Gabriel Craciunescu <crazy@frugalware.org>
-Date: Thu, 24 Jan 2019 18:10:12 +0100
-Subject: [PATCH] services-systemd: support sockets/timers and unmask
-
-   Added support to enable/disable timers and sockets
-   Added unmask support too.
-
-   Please NOTE some .service *need* when enabled/disabled
-   enable or disable the socket file too. Some can do that
-   by dependecies in the unit files some cannot ( aliases , dbus ones ),
-   meaning if we disable foo.service but foo.socket , foo.socket can start
-   foo.service again.
-
-   Also timers support and unmask is useful for ISO's with the default
-   rsync method. As example one may want to disable package manager
-   check for updates timer on the installation media while enable on
-   final installation again. Same would be true for some audit and
-   alike noisy services have no meaning on Live and can be masked
-   to speed up boot etc but then unmaksed in final installation.
-
-   With all these added now only 'preset' support is left out.
----
- src/modules/services-systemd/main.py          | 22 ++++++++++++-
- .../services-systemd/services-systemd.conf    | 31 ++++++++++++++++++-
- 2 files changed, 51 insertions(+), 2 deletions(-)
-
-diff --git a/src/modules/services-systemd/main.py b/src/modules/services-systemd/main.py
-index 09263b9f0..291ab3811 100644
---- a/src/modules/services-systemd/main.py
-+++ b/src/modules/services-systemd/main.py
-@@ -7,6 +7,7 @@
- #   Copyright 2014, Teo Mrnjavac <teo@kde.org>
- #   Copyright 2017, Alf Gaida <agaida@siduction.org>
- #   Copyright 2018, Adriaan de Groot <groot@kde.org>
-+#   Copyright 2019, Gabriel Craciunescu <crazy@frugalware.org>
- #
- #   Calamares is free software: you can redistribute it and/or modify
- #   it under the terms of the GNU General Public License as published by
-@@ -71,11 +72,19 @@ def run():
-     # here will work in a chroot; in fact, they are the only systemctl commands
-     # that support that, see:
-     # http://0pointer.de/blog/projects/changing-roots.html
--
-+    # (NOTE: only 'preset' support is left out for now.)
-     r = systemctl(cfg.get("services", []), "enable", ".service")
+diff -Naur calamares-3.2.7/src/modules/services-systemd/main.py calamares-3.2.7-p/src/modules/services-systemd/main.py
+--- calamares-3.2.7/src/modules/services-systemd/main.py	2019-04-27 20:12:03.000000000 +0200
++++ calamares-3.2.7-p/src/modules/services-systemd/main.py	2019-05-05 20:29:14.883410685 +0200
+@@ -72,12 +72,22 @@
+                     description = _("Cannot enable systemd service <code>{name!s}</code>.")
+                 elif command == "enable" and suffix == ".target":
+                     description = _("Cannot enable systemd target <code>{name!s}</code>.")
++                elif command == "enable" and suffix == ".socket":
++                    description = _("Cannot enable systemd socket <code>{name!s}</code>.")
++                elif command == "enable" and suffix == ".timer":
++                    description = _("Cannot enable systemd timer <code>{name!s}</code>.")
+                 elif command == "disable" and suffix == ".service":
+-                    description = _("Cannot enable systemd service <code>{name!s}</code>.")
++                    description = _("Cannot disable systemd service <code>{name!s}</code>.")
+                 elif command == "disable" and suffix == ".target":
+                     description = _("Cannot disable systemd target <code>{name!s}</code>.")
++                elif command == "disable" and suffix == ".socket":
++                    description = _("Cannot disable systemd socket <code>{name!s}</code>.")
++                elif command == "disable" and suffix == ".timer":
++                    description = _("Cannot disable systemd timer <code>{name!s}</code>.")
+                 elif command == "mask":
+                     description = _("Cannot mask systemd unit <code>{name!s}</code>.")
++                elif command == "unmask":
++                    description = _("Cannot unmask systemd unit <code>{name!s}</code>.")
+                 else:
+                     description = _("Unknown systemd commands <code>{command!s}</code> and <code>{suffix!s}</code> for unit {name!s}.")
+ 
+@@ -106,10 +116,26 @@
      if r is not None:
          return r
  
@@ -55,10 +37,7 @@ index 09263b9f0..291ab3811 100644
 +    if r is not None:
 +        return r
 +
-     r = systemctl(cfg.get("targets", []), "enable", ".target")
-     if r is not None:
-         return r
-@@ -88,10 +97,21 @@ def run():
+     r = systemctl(cfg.get("disable", []), "disable", ".service")
      if r is not None:
          return r
  

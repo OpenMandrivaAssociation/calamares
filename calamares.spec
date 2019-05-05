@@ -1,16 +1,16 @@
 %define major 3
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name} -d
-%define git 20190106
+%define git %{nil}
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.2
+Version:	3.2.7
 %if "%{git}" != ""
-Release:	1.%{git}.13
+Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	16
+Release:	1
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -42,8 +42,8 @@ Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
 Source25:	omv-umount.conf
 Source26:	omv-shellprocess.conf
-Source50:       49-nopasswd_calamares.rules
-Source51:       %{name}-live.sudo
+Source50:   49-nopasswd_calamares.rules
+Source51:   %{name}-live.sudo
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
@@ -53,19 +53,11 @@ Patch2:		calamares-libparted-detection.patch
 Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
 Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
-Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
+#Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch ## need re-work
 # (crazy) LVM disabled for now
-Patch10:	revert-some-lvm-code-causing-crashes.patch
-Patch11:	dm-module-do-not-error-out.patch
-# For now -- until it starts working properly
-Patch12:	disable-lvm-ui.patch
-# (crazy) to be removed on next round of snapshots
-Patch13:        bug-1043.patch
-Patch14:        bug-1070.patch
-# (crazy) this really got broken and not needed anyway
-# drop the weird unsorted lsblk output
-Patch15:        0001-CreatePartitionTableJob-drop-lsblk-and-mount-debug-o.patch
-Patch16:	calamares-3.2.2-compile-with-kpmcore-4.patch
+#  -- until it starts working properly
+Patch6:		0003-disable-lvm.patch
+Patch7:		fix-storage-check.patch
 
 
 BuildRequires:	pkgconfig(Qt5Core)
@@ -100,9 +92,8 @@ BuildRequires:	cmake(KF5I18n)
 BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
-BuildRequires:	cmake(KF5Plasma)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 3.3.0
+BuildRequires:	cmake(KPMcore) >= 4.0.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -129,8 +120,6 @@ Requires:	xloadimage
 Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
-# (tpg) this requires all the filesystem tools needed to manipulate filesystems
-Requires:	partitionmanager >= 3.2.1
 Requires:	systemd
 Requires:	rsync
 Requires:	shadow
@@ -165,7 +154,7 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{?git:-%{git}}
+%autosetup -p1
 
 #delete backup files
 rm -f src/modules/*/*.conf.default-settings
@@ -249,6 +238,9 @@ sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}
 %find_lang %{name} --all-name --with-html
 
 %post
+## (crazy) that should not be done here..
+## please look for possible options to brnding there:
+## https://github.com/calamares/calamares/blob/master/src/branding/default/branding.desc
 # generate the "auto" branding
 . %{_sysconfdir}/os-release
 
