@@ -65,6 +65,7 @@ Patch14:        bug-1070.patch
 # (crazy) this really got broken and not needed anyway
 # drop the weird unsorted lsblk output
 Patch15:        0001-CreatePartitionTableJob-drop-lsblk-and-mount-debug-o.patch
+Patch16:	calamares-3.2.2-compile-with-kpmcore-4.patch
 
 
 BuildRequires:	pkgconfig(Qt5Core)
@@ -85,6 +86,7 @@ BuildRequires:	pkgconfig(blkid)
 BuildRequires:	pkgconfig(libparted)
 BuildRequires:	pkgconfig(polkit-qt5-1)
 BuildRequires:	cmake >= 3.0
+BuildRequires:	ninja
 BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
@@ -174,16 +176,23 @@ rm -f src/modules/*/*.conf.default-settings
 # preservefiles fsresizer could be used once we get OEM mode
 # plasma* one can just set a theme with an external tool right now.
 # the rest cannot be used in OpenMandriva cause these are Gentoo , ArchLinux , Debian/Ubuntu only modules.
+#	-DBoost_NO_BOOST_CMAKE=ON \
 %cmake_qt5 \
 	-DCALAMARES_BOOST_PYTHON3_COMPONENT="python37" \
 	-DWITH_PYTHONQT="OFF" \
-	-DSKIP_MODULES="plasmalnf preservefiles openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal"
+	-DSKIP_MODULES="plasmalnf preservefiles openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal" \
+	-G Ninja
 
+if grep -q "No Python support" CMakeFiles/CMakeOutput.log; then
+	echo "Python support is disabled."
+	echo "Probably boost-python libraries weren't detected."
+	exit 1
+fi
 
-%make_build
+%ninja_build
 
 %install
-%make_install -C build
+%ninja_install -C build
 #own the local settings directories
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/modules
 mkdir -p %{buildroot}%{_sysconfdir}/calamares/branding/auto
