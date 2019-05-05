@@ -10,7 +10,7 @@ Version:	3.2.7
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	1
+Release:	2
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -46,6 +46,7 @@ Source50:   49-nopasswd_calamares.rules
 Source51:   %{name}-live.sudo
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
+Patch0:		https://github.com/calamares/calamares/commit/fa9aeb4a5d51882631047369a655fbda35e6ea07.patch
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
