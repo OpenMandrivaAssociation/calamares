@@ -1,0 +1,24 @@
+diff -ur calamares-3.2.7/src/modules/unpackfs/main.py calamares-3.2.7-unpackfs-dev/src/modules/unpackfs/main.py
+--- calamares-3.2.7/src/modules/unpackfs/main.py	2019-04-27 20:12:03.000000000 +0200
++++ calamares-3.2.7-unpackfs-dev/src/modules/unpackfs/main.py	2019-05-06 00:49:55.325039262 +0200
+@@ -252,13 +252,19 @@
+             subprocess.check_call(["mount",
+                                    "--bind", entry.source,
+                                    imgmountdir])
+-        else:
++        elif os.path.isfile(entry.source):
+             subprocess.check_call(["mount",
+                                    entry.source,
+                                    imgmountdir,
+                                    "-t", entry.sourcefs,
+                                    "-o", "loop"
+                                    ])
++        else: # entry.source is a device
++            subprocess.check_call(["mount",
++                                   entry.source,
++                                   imgmountdir,
++                                   "-t", entry.sourcefs
++                                   ])
+ 
+     def unpack_image(self, entry, imgmountdir):
+         """

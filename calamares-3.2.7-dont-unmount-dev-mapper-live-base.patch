@@ -1,0 +1,16 @@
+diff -Nur calamares-3.2.7/src/modules/partition/jobs/ClearMountsJob.cpp calamares-3.2.7-dont-unmount-dev-mapper-live-base/src/modules/partition/jobs/ClearMountsJob.cpp
+--- calamares-3.2.7/src/modules/partition/jobs/ClearMountsJob.cpp	2019-04-27 20:12:03.000000000 +0200
++++ calamares-3.2.7-dont-unmount-dev-mapper-live-base/src/modules/partition/jobs/ClearMountsJob.cpp	2019-05-06 02:33:37.366387934 +0200
+@@ -258,7 +258,11 @@
+     QProcess process;
+     for ( const QFileInfo &fi : fiList )
+     {
+-        if ( fi.baseName() == "control" )
++        QString baseName = fi.baseName();
++        // Fedora live images use /dev/mapper/live-* internally. We must not
++        // unmount those devices, because they are used by the live image and
++        // because we need /dev/mapper/live-base in the unpackfs module.
++        if ( baseName == "control" || baseName.startsWith( "live-" ) )
+             continue;
+         list.append( fi.absoluteFilePath() );
+     }

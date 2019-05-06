@@ -10,7 +10,7 @@ Version:	3.2.7
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	3
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -59,7 +59,8 @@ Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 #  -- until it starts working properly
 Patch6:		0003-disable-lvm.patch
 Patch7:		fix-storage-check.patch
-
+Patch8:		https://src.fedoraproject.org/rpms/calamares/raw/master/f/calamares-3.2.7-unpackfs-dev.patch
+Patch9:		https://src.fedoraproject.org/rpms/calamares/raw/master/f/calamares-3.2.7-dont-unmount-dev-mapper-live-base.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
