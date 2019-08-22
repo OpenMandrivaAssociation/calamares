@@ -1,6 +1,6 @@
-diff -Naur calamares-3.2.0/calamares.desktop calamares-3.2.0.tpg/calamares.desktop
---- calamares-3.2.0/calamares.desktop	2018-05-17 15:13:54.000000000 +0000
-+++ calamares-3.2.0.tpg/calamares.desktop	2018-06-08 16:00:04.559239025 +0000
+diff -up calamares-3.2.12/calamares.desktop.1~ calamares-3.2.12/calamares.desktop
+--- calamares-3.2.12/calamares.desktop.1~	2019-08-22 15:28:36.975064504 +0200
++++ calamares-3.2.12/calamares.desktop	2019-08-22 15:30:12.972355573 +0200
 @@ -1,13 +1,13 @@
  [Desktop Entry]
  Type=Application
@@ -8,34 +8,34 @@ diff -Naur calamares-3.2.0/calamares.desktop calamares-3.2.0.tpg/calamares.deskt
 -Name=Install System
 -GenericName=System Installer
 +Name=Install OpenMandriva Lx
-+GenericName=OpenMandriva installer
- Keywords=calamares;system;installer
++GenericName=OpenMandriva Installer
+ Keywords=calamares;system;installer;
  TryExec=calamares
  Exec=pkexec /usr/bin/calamares
 -Comment=Calamares — System Installer
 -Icon=calamares
-+Comment=OpenMandriva Lx installer
++Comment=OpenMandriva Lx Installer
 +Icon=openmandriva-install
  Terminal=false
  StartupNotify=true
  Categories=Qt;System;
-diff -Naur calamares-3.2.0/calamares.desktop.in calamares-3.2.0.tpg/calamares.desktop.in
---- calamares-3.2.0/calamares.desktop.in	2018-05-17 15:13:54.000000000 +0000
-+++ calamares-3.2.0.tpg/calamares.desktop.in	2018-06-08 15:59:05.825242871 +0000
+diff -up calamares-3.2.12/calamares.desktop.in.1~ calamares-3.2.12/calamares.desktop.in
+--- calamares-3.2.12/calamares.desktop.in.1~	2019-08-22 15:28:36.975064504 +0200
++++ calamares-3.2.12/calamares.desktop.in	2019-08-22 15:30:55.552484597 +0200
 @@ -1,13 +1,13 @@
  [Desktop Entry]
  Type=Application
  Version=1.0
 -Name=Install System
 -GenericName=System Installer
-+Name=Install OpenMandriva Lx
-+GenericName=OpenMandriva installer
- Keywords=calamares;system;installer
++Name=Install OpenMandriva
++GenericName=OpenMandriva Lx Installer
+ Keywords=calamares;system;installer;
  TryExec=calamares
  Exec=pkexec /usr/bin/calamares
 -Comment=Calamares — System Installer
 -Icon=calamares
-+Comment=OpenMandriva Lx installer
++Comment=OpenMandriva Installer
 +Icon=openmandriva-install
  Terminal=false
  StartupNotify=true

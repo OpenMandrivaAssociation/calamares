@@ -1,15 +1,15 @@
-diff -Naur calamares-3.2.7/src/modules/users/UsersPage.cpp calamares-3.2.7-p/src/modules/users/UsersPage.cpp
---- calamares-3.2.7/src/modules/users/UsersPage.cpp	2019-04-27 20:12:03.000000000 +0200
-+++ calamares-3.2.7-p/src/modules/users/UsersPage.cpp	2019-05-05 20:31:21.081178113 +0200
-@@ -35,6 +35,7 @@
- #include "Settings.h"
+diff -up calamares-3.2.12/src/modules/users/UsersPage.cpp.3~ calamares-3.2.12/src/modules/users/UsersPage.cpp
+--- calamares-3.2.12/src/modules/users/UsersPage.cpp.3~	2019-08-07 12:58:22.000000000 +0200
++++ calamares-3.2.12/src/modules/users/UsersPage.cpp	2019-08-22 15:31:35.548605727 +0200
+@@ -40,6 +40,7 @@
+ #include "utils/String.h"
  
  #include <QBoxLayout>
 +#include <QFile>
  #include <QLabel>
  #include <QLineEdit>
  #include <QRegExp>
-@@ -272,7 +273,27 @@
+@@ -277,7 +278,27 @@ UsersPage::fillSuggestions()
      {
          if ( !cleanParts.isEmpty() && !cleanParts.first().isEmpty() )
          {
@@ -38,6 +38,3 @@ diff -Naur calamares-3.2.7/src/modules/users/UsersPage.cpp calamares-3.2.7-p/src
              if ( HOSTNAME_RX.indexIn( hostnameSuggestion ) != -1 )
              {
                  ui->textBoxHostname->setText( hostnameSuggestion );
--- 
-2.19.1
-
