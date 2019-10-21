@@ -10,7 +10,7 @@ Version:	3.2.12
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	3
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -104,6 +104,7 @@ BuildRequires:	systemd-macros
 Requires(post):	distro-release-OpenMandriva
 Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
+Requires:       kpmcore
 Requires:	gawk
 Requires:	util-linux
 Requires:	dracut
