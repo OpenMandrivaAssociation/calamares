@@ -42,8 +42,8 @@ Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
 Source25:	omv-umount.conf
 Source26:	omv-shellprocess.conf
-Source50:   49-nopasswd_calamares.rules
-Source51:   %{name}-live.sudo
+Source50:	49-nopasswd_calamares.rules
+Source51:	%{name}-live.sudo
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
