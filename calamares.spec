@@ -5,12 +5,12 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.12
+Version:	3.2.16
 %if "%{git}" != ""
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	3
+Release:	1
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -42,8 +42,8 @@ Source23:	omv-removeuser.conf
 Source24:	omv-webview.conf
 Source25:	omv-umount.conf
 Source26:	omv-shellprocess.conf
-Source50:   49-nopasswd_calamares.rules
-Source51:   %{name}-live.sudo
+Source50:	49-nopasswd_calamares.rules
+Source51:	%{name}-live.sudo
 Source99:	openmandriva-install.svg
 Source100:	OpenMandriva-adverts.tar.xz
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
