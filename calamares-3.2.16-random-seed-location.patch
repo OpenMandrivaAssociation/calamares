@@ -1,0 +1,12 @@
+diff -up calamares-3.2.16/src/modules/machineid/MachineIdJob.cpp.omv~ calamares-3.2.16/src/modules/machineid/MachineIdJob.cpp
+--- calamares-3.2.16/src/modules/machineid/MachineIdJob.cpp.omv~	2019-11-08 19:48:38.635552205 +0100
++++ calamares-3.2.16/src/modules/machineid/MachineIdJob.cpp	2019-11-08 19:50:47.772021284 +0100
+@@ -66,7 +66,7 @@ MachineIdJob::exec()
+ 
+     QString target_systemd_machineid_file = QStringLiteral( "/etc/machine-id" );
+     QString target_dbus_machineid_file = QStringLiteral( "/var/lib/dbus/machine-id" );
+-    QString target_entropy_file = QStringLiteral( "/var/lib/urandom/random-seed" );
++    QString target_entropy_file = QStringLiteral( "/var/lib/systemd/random-seed" );
+ 
+     // Clear existing files
+     if ( m_entropy )
