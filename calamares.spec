@@ -10,7 +10,7 @@ Version:	3.2.16
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	1
+Release:	2
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -57,6 +57,7 @@ Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 # (crazy) LVM disabled for now
 #  -- until it starts working properly
 Patch6:		0003-disable-lvm.patch
+Patch7:		calamares-3.2.16-random-seed-location.patch
 Patch10:	esp-to-boot-flag.patch
 Patch11:	kpmcore4-api-1.patch
 
