@@ -261,8 +261,8 @@ strings:
     bootloaderEntryName: "openmandriva"
     productUrl:          "$HOME_URL"
     supportUrl:          "$BUG_REPORT_URL"
-    knownIssuesUrl:      "https://wiki.openmandriva.org/en/4.1/Alpha/Errata"
-    releaseNotesUrl:     "https://wiki.openmandriva.org/en/4.1/Alpha/Release_Notes"
+    knownIssuesUrl:      "https://wiki.openmandriva.org/en/${VERSION_ID}/Errata"
+    releaseNotesUrl:     "https://wiki.openmandriva.org/en/${VERSION_ID}/Release_Notes"
 
 images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
