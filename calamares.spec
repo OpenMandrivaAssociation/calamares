@@ -10,7 +10,7 @@ Version:	3.2.16
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	3
+Release:	4
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -261,8 +261,8 @@ strings:
     bootloaderEntryName: "openmandriva"
     productUrl:          "$HOME_URL"
     supportUrl:          "$BUG_REPORT_URL"
-    knownIssuesUrl:      "https://wiki.openmandriva.org/en/4.0/Errata"
-    releaseNotesUrl:     "https://wiki.openmandriva.org/en/4.0/Release_Notes"
+    knownIssuesUrl:      "https://wiki.openmandriva.org/en/4.1/Alpha/Errata"
+    releaseNotesUrl:     "https://wiki.openmandriva.org/en/4.1/Alpha/Release_Notes"
 
 images:
     productLogo:         "%{_iconsdir}/openmandriva.svg"
