@@ -10,7 +10,7 @@ Version:	3.2.17.1
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	1
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -95,6 +95,7 @@ BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
 BuildRequires:	cmake(KPMcore) >= 4.0.0
+BuildRequires:	cmake(AppStreamQt)
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
