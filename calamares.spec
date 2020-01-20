@@ -10,7 +10,7 @@ Version:	3.2.17.1
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	3
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -60,7 +60,9 @@ Patch6:		0003-disable-lvm.patch
 Patch7:		calamares-3.2.16-random-seed-location.patch
 Patch10:	esp-to-boot-flag.patch
 Patch11:	kpmcore4-api-1.patch
-Patch12:	calamares-bug1286.patch
+# (tpg) https://github.com/calamares/calamares/issues/1286
+Patch12:	0000-CMake-Calamares-doesn-t-want-p-in-automoc.patch
+Patch13:	0001-CMake-fix-find-boost.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
@@ -177,8 +179,8 @@ rm -f src/modules/*/*.conf.default-settings
 	-G Ninja
 
 if grep -q "No Python support" CMakeFiles/CMakeOutput.log; then
-	echo "Python support is disabled."
-	echo "Probably boost-python libraries weren't detected."
+	printf '%\n' "Python support is disabled."
+	printf '%s\n' "Probably boost-python libraries weren't detected."
 	exit 1
 fi
 

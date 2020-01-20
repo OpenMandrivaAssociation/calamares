@@ -1,0 +1,26 @@
+From 1bc8a28eac026f1e3140681f6339f9b00deb4154 Mon Sep 17 00:00:00 2001
+From: Adriaan de Groot <groot@kde.org>
+Date: Tue, 7 Jan 2020 11:20:45 +0100
+Subject: [PATCH] CMake: Calamares doesn't want -p in automoc
+
+FIXES #1286
+---
+ CMakeLists.txt | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2b823ccbe..e547ddb84 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -220,6 +220,8 @@ if( CMAKE_CXX_COMPILER_ID MATCHES "Clang" )
+ 
+     set( CMAKE_SHARED_LINKER_FLAGS "-Wl,--no-undefined" )
+ 
++    # The path prefix is only relevant for CMake 3.16 and later, fixes #1286
++    set( CMAKE_AUTOMOC_PATH_PREFIX OFF )
+     set( CALAMARES_AUTOMOC_OPTIONS "-butils/moc-warnings.h" )
+     set( CALAMARES_AUTOUIC_OPTIONS --include utils/moc-warnings.h )
+ else()
+-- 
+2.25.0
+
