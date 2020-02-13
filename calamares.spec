@@ -60,6 +60,7 @@ Patch6:		0003-disable-lvm.patch
 Patch7:		calamares-3.2.16-random-seed-location.patch
 Patch10:	esp-to-boot-flag.patch
 Patch11:	kpmcore4-api-1.patch
+Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
