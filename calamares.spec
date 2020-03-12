@@ -50,7 +50,6 @@ Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
 # (crazy) patches from Frugalware
-Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
 Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
 Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
