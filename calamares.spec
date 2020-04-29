@@ -5,12 +5,12 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.18
+Version:	3.2.20
 %if "%{git}" != ""
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	3
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -50,7 +50,6 @@ Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
 # (crazy) patches from Frugalware
-Patch3:		0001-Try-to-guess-suggested-hostname-from-dmi.patch
 Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
 Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
@@ -59,8 +58,8 @@ Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 Patch6:		0003-disable-lvm.patch
 Patch7:		calamares-3.2.16-random-seed-location.patch
 Patch10:	esp-to-boot-flag.patch
-Patch11:	kpmcore4-api-1.patch
-Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
+Patch11:	fix-incomplete-type.patch
+#Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
