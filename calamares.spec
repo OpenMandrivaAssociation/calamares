@@ -36,8 +36,6 @@ Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 #  -- until it starts working properly
 Patch6:		0003-disable-lvm.patch
 Patch7:		calamares-3.2.16-random-seed-location.patch
-Patch10:	esp-to-boot-flag.patch
-Patch11:	fix-incomplete-type.patch
 #Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
@@ -57,8 +55,6 @@ BuildRequires:	pkgconfig(libatasmart)
 BuildRequires:	pkgconfig(blkid)
 BuildRequires:	pkgconfig(libparted)
 BuildRequires:	pkgconfig(polkit-qt5-1)
-BuildRequires:	cmake >= 3.0
-BuildRequires:	ninja
 BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
@@ -82,8 +78,6 @@ BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
-Requires(post):	distro-release-OpenMandriva
-Requires(post):	distro-theme-OpenMandriva
 Requires:	coreutils
 Requires:	kpmcore
 Requires:	gawk
