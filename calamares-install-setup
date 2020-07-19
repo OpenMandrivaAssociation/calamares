@@ -1,9 +1,8 @@
 #!/bin/sh
 # tpgxyz@gmail.com
 
-
 errorCatch() {
-    echo "Something went wrong. Exiting in 30 seconds."
+    printf '%s\n' "Something went wrong. Exiting in 30 seconds."
     sleep 30
 # using -i forces reboot in case of using systemd-inhibit
     /bin/systemctl -i reboot
@@ -12,7 +11,7 @@ errorCatch() {
 trap errorCatch ERR SIGHUP SIGINT SIGTERM
 
 if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
-    . /etc/locale.conf
+    source /etc/locale.conf
 
 # ensure plymouth really has stopped
     if pgrep "plymouthd" > /dev/null 2>&1; then
@@ -52,23 +51,23 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 
     if [ "$(pidof openbox)" ]; then
 # setup background
-	if [ -e /usr/share/mdk/backgrounds/default.png ] && [ -f /usr/bin/xli ]; then
-	    /usr/bin/xli -onroot -fullscreen /usr/share/mdk/backgrounds/default.png &
+	if [ -e /usr/share/mdk/backgrounds/default.png ] && [ -f /usr/bin/xloadimage ]; then
+	    /usr/bin/xloadimage -onroot -fullscreen /usr/share/mdk/backgrounds/default.png &
 	fi
 # use systemd-inhibit to be sure installation process won't be killed by users mistake
 	/bin/systemd-inhibit --why="Running calamares" /usr/bin/calamares
 	sleep 2
-	if [[ $? != 0 ]]; then
+	if [ $? != 0 ]; then
 	    errorCatch
 	fi
     else
-	echo "openbox is not running. Rebooting..."
+	printf '%s\n' "openbox is not running. Rebooting..."
 	sleep 5
     fi
 
 # check if we are booted from cd/dvd-rom to eject it
     blkid /dev/sr0 >/dev/null 2>&1
-    if [[ $? -eq 0 ]]; then
+    if [ $? = '0' ]; then
 	eject
 	sleep 30
     fi

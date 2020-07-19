@@ -6,7 +6,7 @@ if grep -q '\bsystemd.unit=calamares.target\b' /proc/cmdline; then
 # (tpg) start x11-server and then calamares
 	/usr/bin/startx /usr/sbin/calamares-install-setup $* -- -ac -dpi 96 vt1 -background none
 	sleep 2
-	if [[ $? != 0 ]]; then
+	if [ $? != '0' ]; then
 	    echo "startx failed to start calamares. Extining in 30 seconds..."
 	    sleep 30
 	    /bin/systemctl -i reboot
