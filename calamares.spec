@@ -41,7 +41,7 @@ Patch4:		0001-locale-fixes.patch
 Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 # (crazy) LVM disabled for now
 #  -- until it starts working properly
-#Patch6:		0003-disable-lvm.patch
+Patch6:		0003-disable-lvm.patch
 Patch7:		calamares-3.2.16-random-seed-location.patch
 #Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
 
