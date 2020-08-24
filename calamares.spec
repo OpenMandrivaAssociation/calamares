@@ -3,6 +3,13 @@
 %define develname %mklibname %{name} -d
 %define git %{nil}
 
+
+## !NO JOKE! STOP TOUCHING THAT PACKAGE ##
+## ANY COMMIT MADE WITHOUT DISCUSS IN DEVEL CHANELS WILL BE REVERTED ##
+## THAT INCLUDES CRAP BUMPS WITHOUT TESTING ###
+
+### STOP IT!! #####
+
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.2.29
