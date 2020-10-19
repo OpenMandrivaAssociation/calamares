@@ -12,7 +12,7 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.31
+Version:	3.2.32.1
 %if "%{git}" != ""
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
@@ -76,7 +76,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 4.0.0
+BuildRequires:	cmake(KPMcore) >= 4.2.0
 BuildRequires:	cmake(AppStreamQt)
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
@@ -86,7 +86,7 @@ BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
 Requires:	coreutils
-Requires:	kpmcore
+Requires:	kpmcore >= 4.2.0
 Requires:	gawk
 Requires:	util-linux
 Requires:	dracut
