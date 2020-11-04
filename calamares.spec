@@ -221,6 +221,7 @@ sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}
 %{_datadir}/calamares/branding/default/*
 %{_datadir}/calamares/qml/calamares/slideshow/*.qml
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
+%{_datadir}/calamares/qml/calamares/slideshow/qmldir.license
 %{_datadir}/applications/calamares.desktop
 %{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
 %{_libdir}/calamares/*
