@@ -66,6 +66,7 @@ BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
 # (crazy): fixme need to sort these after unused plasma*
 # and *terminal gone
+BuildRequires:	cmake(KF5DBusAddons)
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5Crash)
@@ -84,6 +85,7 @@ BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
+BuildRequires:	python3dist(jsonschema)
 Requires:	coreutils
 Requires:	kpmcore >= 4.2.0
 Requires:	gawk
@@ -197,7 +199,7 @@ sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}
 %find_lang %{name} --all-name --with-html
 
 %files -f calamares.lang
-%doc LICENSE AUTHORS
+%doc AUTHORS
 %dir %{_libdir}/calamares
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
