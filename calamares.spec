@@ -12,7 +12,7 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.31
+Version:	3.2.33
 %if "%{git}" != ""
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
@@ -42,7 +42,6 @@ Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 # (crazy) LVM disabled for now
 #  -- until it starts working properly
 Patch6:		0003-disable-lvm.patch
-Patch7:		calamares-3.2.16-random-seed-location.patch
 #Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
 
 BuildRequires:	pkgconfig(Qt5Core)
@@ -67,6 +66,7 @@ BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
 # (crazy): fixme need to sort these after unused plasma*
 # and *terminal gone
+BuildRequires:	cmake(KF5DBusAddons)
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
 BuildRequires:	cmake(KF5Crash)
@@ -76,7 +76,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 4.0.0
+BuildRequires:	cmake(KPMcore) >= 4.2.0
 BuildRequires:	cmake(AppStreamQt)
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
@@ -85,8 +85,10 @@ BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
+BuildRequires:	python3dist(jsonschema)
+BuildRequires:	python3dist(pyyaml)
 Requires:	coreutils
-Requires:	kpmcore
+Requires:	kpmcore >= 4.2.0
 Requires:	gawk
 Requires:	util-linux
 Requires:	dracut
@@ -198,7 +200,7 @@ sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}
 %find_lang %{name} --all-name --with-html
 
 %files -f calamares.lang
-%doc LICENSE AUTHORS
+%doc AUTHORS
 %dir %{_libdir}/calamares
 %dir %{_datadir}/calamares
 %dir %{_datadir}/calamares/branding
@@ -220,6 +222,7 @@ sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}
 %{_datadir}/calamares/branding/default/*
 %{_datadir}/calamares/qml/calamares/slideshow/*.qml
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
+%{_datadir}/calamares/qml/calamares/slideshow/qmldir.license
 %{_datadir}/applications/calamares.desktop
 %{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
 %{_libdir}/calamares/*

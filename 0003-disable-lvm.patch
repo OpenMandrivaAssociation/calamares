@@ -1,26 +1,13 @@
-From 7684d3fae4e0d8b6f87f6eef0fdcf4f8b3c50692 Mon Sep 17 00:00:00 2001
-From: Gabriel Craciunescu <nix.or.die@gmail.com>
-Date: Mon, 15 Apr 2019 19:17:49 +0200
-Subject: [PATCH 3/4] disable-lvm
-
- is not going to work well , crashes and not really done yet
-
----
- src/modules/partition/gui/PartitionPage.cpp | 31 ++++-----------------
- 1 file changed, 5 insertions(+), 26 deletions(-)
-
-diff --git a/src/modules/partition/gui/PartitionPage.cpp b/src/modules/partition/gui/PartitionPage.cpp
-index 22398bddb..806a31147 100644
---- a/src/modules/partition/gui/PartitionPage.cpp
-+++ b/src/modules/partition/gui/PartitionPage.cpp
-@@ -161,29 +161,6 @@ PartitionPage::updateButtons()
-         else if ( device->type() != Device::Type::LVM_Device )
+diff -Naur calamares-3.2.32.1/src/modules/partition/gui/PartitionPage.cpp calamares-3.2.32.1.tpg/src/modules/partition/gui/PartitionPage.cpp
+--- calamares-3.2.32.1/src/modules/partition/gui/PartitionPage.cpp	2020-10-17 14:41:08.000000000 +0000
++++ calamares-3.2.32.1.tpg/src/modules/partition/gui/PartitionPage.cpp	2020-11-03 19:21:10.976785776 +0000
+@@ -170,30 +170,6 @@
          {
              createTable = true;
--
+ 
 -#ifdef WITH_KPMCORE4API
--            if ( device->type() == Device::Type::SoftwareRAID_Device &&
--                 static_cast< SoftwareRAID* >(device)->status() == SoftwareRAID::Status::Inactive )
+-            if ( device->type() == Device::Type::SoftwareRAID_Device
+-                 && static_cast< SoftwareRAID* >( device )->status() == SoftwareRAID::Status::Inactive )
 -            {
 -                createTable = false;
 -                create = false;
@@ -31,7 +18,7 @@ index 22398bddb..806a31147 100644
 -        {
 -            currentDeviceIsVG = true;
 -
--            LvmDevice* lvmDevice = dynamic_cast<LvmDevice*>(m_core->deviceModel()->deviceForIndex( deviceIndex ));
+-            LvmDevice* lvmDevice = dynamic_cast< LvmDevice* >( m_core->deviceModel()->deviceForIndex( deviceIndex ) );
 -
 -            isDeactivable = DeactivateVolumeGroupOperation::isDeactivatable( lvmDevice );
 -            isRemovable = RemoveVolumeGroupOperation::isRemovable( lvmDevice );
@@ -39,11 +26,13 @@ index 22398bddb..806a31147 100644
 -            isVGdeactivated = m_core->isVGdeactivated( lvmDevice );
 -
 -            if ( isVGdeactivated )
+-            {
 -                m_ui->revertButton->setEnabled( true );
+-            }
          }
      }
  
-@@ -191,9 +168,11 @@ PartitionPage::updateButtons()
+@@ -201,9 +177,10 @@
      m_ui->editButton->setEnabled( edit );
      m_ui->deleteButton->setEnabled( del );
      m_ui->newPartitionTableButton->setEnabled( createTable );
@@ -54,10 +43,6 @@ index 22398bddb..806a31147 100644
 +    m_ui->resizeVolumeGroupButton->setEnabled( false );
 +    m_ui->deactivateVolumeGroupButton->setEnabled( false );
 +    m_ui->removeVolumeGroupButton->setEnabled( false );
-+
  }
  
  void
--- 
-2.21.0
-
