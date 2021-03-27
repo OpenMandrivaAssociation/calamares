@@ -12,12 +12,12 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.35.1
+Version:	3.2.39
 %if "%{git}" != ""
 Release:	1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	3
+Release:	1
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
