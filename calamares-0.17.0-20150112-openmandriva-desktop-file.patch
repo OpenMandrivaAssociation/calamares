@@ -1,6 +1,6 @@
-diff -up calamares-3.2.39/calamares.desktop.1~ calamares-3.2.39/calamares.desktop
---- calamares-3.2.39/calamares.desktop.1~	2021-03-27 23:29:42.854613505 +0100
-+++ calamares-3.2.39/calamares.desktop	2021-03-27 23:33:45.390306707 +0100
+diff -up calamares-3.2.39.2/calamares.desktop.1~ calamares-3.2.39.2/calamares.desktop
+--- calamares-3.2.39.2/calamares.desktop.1~	2021-04-12 11:59:07.614567021 +0200
++++ calamares-3.2.39.2/calamares.desktop	2021-04-12 12:01:23.611067360 +0200
 @@ -1,239 +1,184 @@
  [Desktop Entry]
  Type=Application
@@ -187,10 +187,10 @@ diff -up calamares-3.2.39/calamares.desktop.1~ calamares-3.2.39/calamares.deskto
 -Icon[sq]=calamares
  GenericName[sq]=Instalues Sistemi
  Comment[sq]=Calamares — Instalues Sistemi
- Name[fi_FI]=Asenna Järjestelmä
+ Name[fi_FI]=Asenna järjestelmä
 -Icon[fi_FI]=calamares
- GenericName[fi_FI]=Järjestelmän Asennusohjelma
- Comment[fi_FI]=Calamares — Järjestelmän Asentaja
+ GenericName[fi_FI]=Järjestelmän asennusohjelma
+ Comment[fi_FI]=Calamares — Järjestelmän asentaja
  Name[sr@latin]=Instaliraj sistem
  Name[sr]=Инсталирај систем
 -Icon[sr]=calamares
@@ -245,9 +245,9 @@ diff -up calamares-3.2.39/calamares.desktop.1~ calamares-3.2.39/calamares.deskto
 -Icon[tr_TR]=calamares
  GenericName[tr_TR]=Sistem Yükleyici
  Comment[tr_TR]=Calamares — Sistem Yükleyici
-diff -up calamares-3.2.39/calamares.desktop.in.1~ calamares-3.2.39/calamares.desktop.in
---- calamares-3.2.39/calamares.desktop.in.1~	2021-03-27 23:29:42.854613505 +0100
-+++ calamares-3.2.39/calamares.desktop.in	2021-03-27 23:34:36.956451664 +0100
+diff -up calamares-3.2.39.2/calamares.desktop.in.1~ calamares-3.2.39.2/calamares.desktop.in
+--- calamares-3.2.39.2/calamares.desktop.in.1~	2021-04-02 16:32:15.000000000 +0200
++++ calamares-3.2.39.2/calamares.desktop.in	2021-04-12 12:00:22.004476153 +0200
 @@ -1,13 +1,13 @@
  [Desktop Entry]
  Type=Application
