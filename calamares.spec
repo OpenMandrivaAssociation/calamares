@@ -12,12 +12,12 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.39.3
+Version:	3.2.59
 %if "%{git}" != ""
-Release:	2
+Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	1
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -43,6 +43,9 @@ Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 #  -- until it starts working properly
 Patch6:		0003-disable-lvm.patch
 #Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
+
+# (tpg) we are using installed only on x86
+ExclusiveArch:  %{x86_64} %{ix86}
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
@@ -227,7 +230,7 @@ sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}
 %{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
 %{_libdir}/calamares/*
 %{_iconsdir}/hicolor/scalable/apps/*.svg
-%{_mandir}/man8/calamares.8.*
+%doc %{_mandir}/man8/calamares.8.*
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
