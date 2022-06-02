@@ -36,16 +36,11 @@ Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
 # (crazy) patches from Frugalware
-Patch4:		0001-locale-fixes.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
 Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
-# (crazy) LVM disabled for now
-#  -- until it starts working properly
-Patch6:		0003-disable-lvm.patch
-#Patch12:	http://frugalware.eu/cala-luks-sucker1.patch
 
 # (tpg) we are using installed only on x86
-ExclusiveArch:  %{x86_64} %{ix86}
+ExclusiveArch:	%{x86_64} %{ix86}
 
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
@@ -67,8 +62,6 @@ BuildRequires:	pkgconfig(polkit-qt5-1)
 BuildRequires:	cmake(ECM)
 BuildRequires:	qt5-qttools
 BuildRequires:	qt5-linguist
-# (crazy): fixme need to sort these after unused plasma*
-# and *terminal gone
 BuildRequires:	cmake(KF5DBusAddons)
 BuildRequires:	cmake(KF5CoreAddons)
 BuildRequires:	cmake(KF5Config)
@@ -79,7 +72,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 4.2.0
+BuildRequires:	cmake(KPMcore) >= 20.12.3
 BuildRequires:	cmake(AppStreamQt)
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
@@ -151,19 +144,20 @@ rm -f src/modules/*/*.conf.default-settings
 %build
 
 # (crazy):
-# preservefiles fsresizer could be used once we get OEM mode
+# fsresizer could be used once we get OEM mode
 # plasma* one can just set a theme with an external tool right now.
 # the rest cannot be used in OpenMandriva cause these are Gentoo , ArchLinux , Debian/Ubuntu only modules.
 %cmake_qt5 \
 	-DWITH_PYTHONQT="OFF" \
-	-DSKIP_MODULES="plasmalnf preservefiles openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal" \
+	-DWITH_KF5DBus=ON \
+	-DSKIP_MODULES="plasmalnf openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal" \
 	-DBoost_NO_BOOST_CMAKE=ON \
 	-G Ninja
 
 if grep -q "No Python support" CMakeFiles/CMakeOutput.log; then
-	printf '%\n' "Python support is disabled."
-	printf '%s\n' "Probably boost-python libraries weren't detected."
-	exit 1
+    printf '%\n' "Python support is disabled."
+    printf '%s\n' "Probably boost-python libraries weren't detected."
+    exit 1
 fi
 
 %ninja_build
