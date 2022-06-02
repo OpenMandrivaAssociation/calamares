@@ -1,14 +1,14 @@
-diff -Naur calamares-3.2.7/src/modules/services-systemd/main.py calamares-3.2.7-p/src/modules/services-systemd/main.py
---- calamares-3.2.7/src/modules/services-systemd/main.py	2019-04-27 20:12:03.000000000 +0200
-+++ calamares-3.2.7-p/src/modules/services-systemd/main.py	2019-05-05 20:29:14.883410685 +0200
-@@ -72,12 +72,22 @@
+diff -Naur calamares-3.2.59/src/modules/services-systemd/main.py calamares-3.2.59.tpg/src/modules/services-systemd/main.py
+--- calamares-3.2.59/src/modules/services-systemd/main.py	2022-05-29 15:04:24.000000000 +0000
++++ calamares-3.2.59.tpg/src/modules/services-systemd/main.py	2022-06-02 12:04:16.635738137 +0000
+@@ -63,14 +63,22 @@
                      description = _("Cannot enable systemd service <code>{name!s}</code>.")
                  elif command == "enable" and suffix == ".target":
                      description = _("Cannot enable systemd target <code>{name!s}</code>.")
 +                elif command == "enable" and suffix == ".socket":
 +                    description = _("Cannot enable systemd socket <code>{name!s}</code>.")
-+                elif command == "enable" and suffix == ".timer":
-+                    description = _("Cannot enable systemd timer <code>{name!s}</code>.")
+                 elif command == "enable" and suffix == ".timer":
+                     description = _("Cannot enable systemd timer <code>{name!s}</code>.")
                  elif command == "disable" and suffix == ".service":
 -                    description = _("Cannot enable systemd service <code>{name!s}</code>.")
 +                    description = _("Cannot disable systemd service <code>{name!s}</code>.")
@@ -25,15 +25,11 @@ diff -Naur calamares-3.2.7/src/modules/services-systemd/main.py calamares-3.2.7-
                  else:
                      description = _("Unknown systemd commands <code>{command!s}</code> and <code>{suffix!s}</code> for unit {name!s}.")
  
-@@ -106,10 +116,26 @@
+@@ -103,10 +111,22 @@
      if r is not None:
          return r
  
 +    r = systemctl(cfg.get("sockets", []), "enable", ".socket")
-+    if r is not None:
-+        return r
-+
-+    r = systemctl(cfg.get("timers", []), "enable", ".timer")
 +    if r is not None:
 +        return r
 +
@@ -52,7 +48,7 @@ diff -Naur calamares-3.2.7/src/modules/services-systemd/main.py calamares-3.2.7-
      r = systemctl(cfg.get("disable-targets", []), "disable", ".target")
      if r is not None:
          return r
-@@ -118,4 +144,8 @@
+@@ -115,4 +135,8 @@
      if r is not None:
          return r
  
