@@ -17,7 +17,7 @@ Version:	3.2.59
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	1
+Release:	2
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -149,7 +149,7 @@ rm -f src/modules/*/*.conf.default-settings
 # the rest cannot be used in OpenMandriva cause these are Gentoo , ArchLinux , Debian/Ubuntu only modules.
 %cmake_qt5 \
 	-DWITH_PYTHONQT="OFF" \
-	-DWITH_KF5DBus=ON \
+	-DWITH_KF5DBus="OFF" \
 	-DSKIP_MODULES="plasmalnf openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal" \
 	-DBoost_NO_BOOST_CMAKE=ON \
 	-G Ninja
