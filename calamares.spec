@@ -17,7 +17,7 @@ Version:	3.2.60
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	2
+Release:	3
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -191,7 +191,7 @@ install -m 644 %{SOURCE99} %{buildroot}%{_iconsdir}/hicolor/scalable/apps/openma
 ln -s %{_iconsdir}/hicolor/scalable/apps/openmandriva-install.svg %{buildroot}%{_iconsdir}/hicolor/scalable/apps/%{name}.svg
 
 #(crazy) we want debug.log
-sed -i -e 's|/usr/bin/calamares|/usr/bin/calamares -d|g' %{buildroot}%{_datadir}/applications/calamares.desktop
+sed -i -e 's|pkexec calamares|pkexec calamares -d|g' %{buildroot}%{_datadir}/applications/calamares.desktop
 
 %find_lang %{name} --all-name --with-html
 
