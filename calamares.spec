@@ -39,9 +39,6 @@ Patch2:		calamares-libparted-detection.patch
 # (crazy) we do some strange things in iso repo , here a way to undo
 Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
 
-# (tpg) we are using installed only on x86
-ExclusiveArch:	%{x86_64} %{ix86}
-
 BuildRequires:	pkgconfig(Qt5Core)
 BuildRequires:	pkgconfig(Qt5DBus)
 BuildRequires:	pkgconfig(Qt5Xml)
