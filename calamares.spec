@@ -17,7 +17,7 @@ Version:	3.2.62
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	11
+Release:	12
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -87,6 +87,8 @@ Requires:	util-linux
 Requires:	dracut
 Requires:	grub2
 Requires:	distro-release-installer
+# The slideshow part uses QML and will fail silently without it
+Requires:	qt5-qtdeclarative
 %ifarch %{x86_64}
 # EFI currently only supported on x86_64
 Requires:	grub2-efi
