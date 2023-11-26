@@ -1,0 +1,57 @@
+From 0e2fa42b60ae0f14e4ca2607fd686eaa5b6f06f6 Mon Sep 17 00:00:00 2001
+From: demmm <anke62@gmail.com>
+Date: Sun, 19 Nov 2023 15:40:29 +0100
+Subject: [PATCH] [CMake] use KPMCore version to select Qt6 with
+ https://invent.kde.org/system/kpmcore/-/commit/2588d1e796442409a8f95f1777b4f1d89086028a
+ KPMCore is Qt6 only, so any version from 24.01.75 on is Qt6, no need to check
+ for Qt version this way add missing NO_CONFIG to summaryq
+
+---
+ CMakeModules/KPMcoreHelper.cmake    | 21 +++++++++++----------
+ src/modules/summaryq/CMakeLists.txt |  1 +
+ 2 files changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/CMakeModules/KPMcoreHelper.cmake b/CMakeModules/KPMcoreHelper.cmake
+index ce1071160c..36172e85be 100644
+--- a/CMakeModules/KPMcoreHelper.cmake
++++ b/CMakeModules/KPMcoreHelper.cmake
+@@ -15,18 +15,19 @@ if(NOT TARGET calapmcore)
+     find_package(${kfname}I18n CONFIG)
+     find_package(${kfname}WidgetsAddons CONFIG)
+ 
+-    if(NOT WITH_QT6)
+-        # TODO: Qt6 how to detect the version of Qt that KPMCore needs?
++    if( WITH_QT6)
++        find_package(KPMcore 24.01.75)
++    else()
+         find_package(KPMcore 20.04.0)
+-        set_package_properties(
+-            KPMcore
+-            PROPERTIES
+-            URL "https://invent.kde.org/kde/kpmcore"
+-            DESCRIPTION "KDE Partitioning library"
+-            TYPE RECOMMENDED
+-            PURPOSE "For disk partitioning support"
+-        )
+     endif()
++    set_package_properties(
++        KPMcore
++        PROPERTIES
++        URL "https://invent.kde.org/kde/kpmcore"
++        DESCRIPTION "KDE Partitioning library"
++        TYPE RECOMMENDED
++        PURPOSE "For disk partitioning support"
++    )
+ 
+     # Create an internal Calamares interface to KPMcore
+     # and give it a nice alias name. If kpmcore is not found,
+diff --git a/src/modules/summaryq/CMakeLists.txt b/src/modules/summaryq/CMakeLists.txt
+index 9ec8327fa9..e63640597b 100644
+--- a/src/modules/summaryq/CMakeLists.txt
++++ b/src/modules/summaryq/CMakeLists.txt
+@@ -23,4 +23,5 @@ calamares_add_plugin(summaryq
+     LINK_PRIVATE_LIBRARIES
+         calamaresui
+     SHARED_LIB
++    NO_CONFIG
+ )
