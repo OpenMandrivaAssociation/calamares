@@ -1,0 +1,12 @@
+diff -up calamares-3.3.0-alpha6/src/qml/calamares/slideshow/Presentation.qml.omv~ calamares-3.3.0-alpha6/src/qml/calamares/slideshow/Presentation.qml
+--- calamares-3.3.0-alpha6/src/qml/calamares/slideshow/Presentation.qml.omv~	2023-12-11 14:11:57.783666013 +0100
++++ calamares-3.3.0-alpha6/src/qml/calamares/slideshow/Presentation.qml	2023-12-11 14:12:24.056945512 +0100
+@@ -196,7 +196,7 @@ Item {
+                 Text {
+                     id: notesText
+ 
+-                    property real padding: 16;
++                    //property real padding: 16;
+ 
+                     x: padding
+                     y: padding

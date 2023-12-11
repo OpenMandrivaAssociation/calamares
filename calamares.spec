@@ -13,13 +13,12 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.3.0
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}2
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}3
 %if 0%{?git:1}
 Source0:	https://github.com/calamares/calamares/archive/refs/heads/calamares.tar.gz
 %else
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}%{?beta:-%{beta}}/calamares-%{version}%{?beta:-%{beta}}.tar.gz
 %endif
-Patch0:		https://github.com/calamares/calamares/commit/0e2fa42b60ae0f14e4ca2607fd686eaa5b6f06f6.patch
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -30,10 +29,12 @@ Source5:	%{name}-post-script
 Source50:	49-nopasswd_calamares.rules
 Source51:	%{name}-live.sudo
 Source99:	openmandriva-install.svg
+Patch0:		https://github.com/calamares/calamares/commit/0e2fa42b60ae0f14e4ca2607fd686eaa5b6f06f6.patch
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
 Patch3:		calamares-3.3.0-alpha6-mountoptions.patch
+Patch4:		calamares-3.3.0-alpha6-fix-slideshow.patch
 # (crazy) patches from Frugalware
 # (crazy) we do some strange things in iso repo , here a way to undo
 # FIXME This may need porting; the code it touches has been rewritten in 3.3.0
