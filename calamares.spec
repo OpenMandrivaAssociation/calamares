@@ -69,7 +69,7 @@ BuildRequires:	cmake(KF5IconThemes)
 BuildRequires:	cmake(KF5KIO)
 BuildRequires:	cmake(KF5Service)
 BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 20.12.3
+BuildRequires:	cmake(KPMcore) < 24.0.0
 BuildRequires:	cmake(AppStreamQt) < 1.0.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
