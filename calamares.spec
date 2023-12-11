@@ -1,8 +1,8 @@
 %define major 3
-%define libname %mklibname %{name} %{major}
+%define oldlibname %mklibname %{name} 3
+%define libname %mklibname %{name}
 %define develname %mklibname %{name} -d
-%define git %{nil}
-
+%define beta alpha6
 
 ## !NO JOKE! STOP TOUCHING THAT PACKAGE ##
 ## ANY COMMIT MADE WITHOUT DISCUSS IN DEVEL CHANELS WILL BE REVERTED ##
@@ -12,16 +12,14 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.2.62
-%if "%{git}" != ""
-Release:	0.%{git}.1
-Source0:	calamares-%{version}-%{git}.tar.xz
+Version:	3.3.0
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}1
+%if 0%{?git:1}
+Source0:	https://github.com/calamares/calamares/archive/refs/heads/calamares.tar.gz
 %else
-Release:	12
-# git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
-#Source0:	calamares-%{version}-%{calamdate}.tar.xz
-Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:	https://github.com/calamares/calamares/releases/download/v%{version}%{?beta:-%{beta}}/calamares-%{version}%{?beta:-%{beta}}.tar.gz
 %endif
+Patch0:		https://github.com/calamares/calamares/commit/0e2fa42b60ae0f14e4ca2607fd686eaa5b6f06f6.patch
 Group:		System/Configuration/Other
 License:	GPLv3+
 URL:		http://calamares.io/
@@ -37,40 +35,39 @@ Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
 # (crazy) patches from Frugalware
 # (crazy) we do some strange things in iso repo , here a way to undo
-Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
+# FIXME This may need porting; the code it touches has been rewritten in 3.3.0
+#Patch5:	0001-services-systemd-support-sockets-timers-and-unmask.patch
 
-BuildRequires:	pkgconfig(Qt5Core)
-BuildRequires:	pkgconfig(Qt5DBus)
-BuildRequires:	pkgconfig(Qt5Xml)
-BuildRequires:	pkgconfig(Qt5Network)
-BuildRequires:	pkgconfig(Qt5Gui)
-BuildRequires:	pkgconfig(Qt5Widgets)
-BuildRequires:	pkgconfig(Qt5WebEngine)
-BuildRequires:	pkgconfig(Qt5WebEngineWidgets)
-BuildRequires:	pkgconfig(Qt5Test)
-BuildRequires:	pkgconfig(Qt5Concurrent)
-BuildRequires:	pkgconfig(Qt5Svg)
-BuildRequires:	pkgconfig(Qt5Quick)
-BuildRequires:	pkgconfig(Qt5QuickWidgets)
+BuildRequires:	cmake(Qt6)
+BuildRequires:	cmake(Qt6Core)
+BuildRequires:	cmake(Qt6Concurrent)
+BuildRequires:	cmake(Qt6DBus)
+BuildRequires:	cmake(Qt6Xml)
+BuildRequires:	cmake(Qt6Network)
+BuildRequires:	cmake(Qt6Gui)
+BuildRequires:	cmake(Qt6Widgets)
+BuildRequires:	cmake(Qt6WebEngineCore)
+BuildRequires:	cmake(Qt6WebEngineWidgets)
+BuildRequires:	cmake(Qt6Test)
+BuildRequires:	cmake(Qt6Svg)
+BuildRequires:	cmake(Qt6Quick)
+BuildRequires:	cmake(Qt6QuickWidgets)
+BuildRequires:	cmake(Qt6LinguistTools)
 BuildRequires:	pkgconfig(libatasmart)
 BuildRequires:	pkgconfig(blkid)
 BuildRequires:	pkgconfig(libparted)
-BuildRequires:	pkgconfig(polkit-qt5-1)
+BuildRequires:	pkgconfig(polkit-qt6-1)
 BuildRequires:	cmake(ECM)
-BuildRequires:	qt5-qttools
-BuildRequires:	qt5-linguist
-BuildRequires:	cmake(KF5DBusAddons)
-BuildRequires:	cmake(KF5CoreAddons)
-BuildRequires:	cmake(KF5Config)
-BuildRequires:	cmake(KF5Crash)
-BuildRequires:	cmake(KF5Solid)
-BuildRequires:	cmake(KF5I18n)
-BuildRequires:	cmake(KF5IconThemes)
-BuildRequires:	cmake(KF5KIO)
-BuildRequires:	cmake(KF5Service)
-BuildRequires:	cmake(KF5Parts)
-BuildRequires:	cmake(KPMcore) >= 20.12.3
-BuildRequires:	cmake(AppStreamQt) < 1.0.0
+BuildRequires:	cmake(KF6Config)
+BuildRequires:	cmake(KF6CoreAddons)
+BuildRequires:	cmake(KF6Crash)
+BuildRequires:	cmake(KF6I18n)
+BuildRequires:	cmake(KF6WidgetsAddons)
+BuildRequires:	cmake(KF6KIO)
+BuildRequires:	cmake(KF6Service)
+BuildRequires:	cmake(KF6Parts)
+BuildRequires:	cmake(KPMcore) >= 24.01.75
+BuildRequires:	cmake(AppStreamQt) >= 1.0.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
@@ -78,19 +75,22 @@ BuildRequires:	boost-python-devel
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
-BuildRequires:	python3dist(jsonschema)
-BuildRequires:	python3dist(pyyaml)
+BuildRequires:	python%{pyver}dist(jsonschema)
+BuildRequires:	python%{pyver}dist(pyyaml)
+# cmake needs to find the tools to get their
+# location into the binary
+BuildRequires:	squashfs-tools
 Requires:	coreutils
-Requires:	kpmcore >= 4.2.0
+Requires:	plasma6-kpmcore
 Requires:	gawk
 Requires:	util-linux
 Requires:	dracut
 Requires:	grub2
 Requires:	distro-release-installer
 # The slideshow part uses QML and will fail silently without it
-Requires:	qt5-qtdeclarative
-%ifarch %{x86_64}
-# EFI currently only supported on x86_64
+Requires:	qt6-qtdeclarative
+%ifarch %{x86_64} %{aarch64}
+# EFI currently only supported on x86_64 and aarch64
 Requires:	grub2-efi
 %endif
 Requires:	console-setup
@@ -109,7 +109,7 @@ Requires:	dnf
 Requires:	squashfs-tools
 Requires:	dmidecode
 # (tpg) needed for webview module
-Requires:	qt5-qtwebengine
+Requires:	qt6-qtwebengine
 
 %description
 Calamares is a distribution-independent installer framework,
@@ -121,6 +121,7 @@ program based on Qt 5.
 Summary:	Calamares runtime libraries
 Group:		System/Libraries
 Requires:	%{name} = %{EVRD}
+%rename %{oldlibname}
 
 %description -n %{libname}
 Library for %{name}.
@@ -135,7 +136,7 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}%{?beta:-%{beta}}
 
 #delete backup files
 rm -f src/modules/*/*.conf.default-settings
@@ -146,7 +147,9 @@ rm -f src/modules/*/*.conf.default-settings
 # fsresizer could be used once we get OEM mode
 # plasma* one can just set a theme with an external tool right now.
 # the rest cannot be used in OpenMandriva cause these are Gentoo , ArchLinux , Debian/Ubuntu only modules.
-%cmake_qt5 \
+%cmake \
+	-DWITH_QT6:BOOL=ON \
+	-DKDE_INSTALL_USE_QT_SYS_PATHS:BOOL=ON \
 	-DWITH_PYTHONQT="OFF" \
 	-DWITH_KF5DBus="OFF" \
 	-DSKIP_MODULES="plasmalnf openrcdmcryptcfg fsresizer luksopenswaphookcfg tracking services-openrc dummycpp dummyprocess dummypython dummypythonqt initcpio initcpiocfg initramfs initramfscfg interactiveterminal" \

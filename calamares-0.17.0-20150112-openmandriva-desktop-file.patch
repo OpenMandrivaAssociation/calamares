@@ -1,7 +1,7 @@
-diff -up calamares-3.2.61/calamares.desktop.1~ calamares-3.2.61/calamares.desktop
---- calamares-3.2.61/calamares.desktop.1~	2022-08-24 21:38:31.000000000 +0200
-+++ calamares-3.2.61/calamares.desktop	2022-08-29 16:28:40.512625225 +0200
-@@ -1,247 +1,190 @@
+diff -up calamares-3.3.0-alpha6/calamares.desktop.1~ calamares-3.3.0-alpha6/calamares.desktop
+--- calamares-3.3.0-alpha6/calamares.desktop.1~	2023-11-26 16:47:11.864000258 +0100
++++ calamares-3.3.0-alpha6/calamares.desktop	2023-11-26 16:53:17.713307295 +0100
+@@ -1,243 +1,187 @@
  [Desktop Entry]
  Type=Application
  Version=1.0
@@ -109,13 +109,10 @@ diff -up calamares-3.2.61/calamares.desktop.1~ calamares-3.2.61/calamares.deskto
 -Icon[fi_FI]=calamares
  GenericName[fi_FI]=Järjestelmän asennusohjelma
  Comment[fi_FI]=Calamares — Järjestelmän asentaja
--Name[fr]=Installer le système
+ Name[fr]=Installer le système
 -Icon[fr]=calamares
--GenericName[fr]=Installateur système
--Comment[fr]=Calamares - Installateur système
-+Name[fr]=Installer OpenMandriva Lx
-+GenericName[fr]=Installer OpenMandriva Lx
-+Comment[fr]=Installer OpenMandriva Lx
+ GenericName[fr]=Installateur système
+ Comment[fr]=Calamares - Installateur système
  Name[fur]=Instale il sisteme
 -Icon[fur]=calamares
  GenericName[fur]=Program di instalazion dal sisteme
@@ -152,13 +149,10 @@ diff -up calamares-3.2.61/calamares.desktop.1~ calamares-3.2.61/calamares.deskto
 -Icon[is]=calamares
  GenericName[is]=Kerfis uppsetning
  Comment[is]=Calamares — Kerfis uppsetning
--Name[it_IT]=Installa il sistema
+ Name[it_IT]=Installa il sistema
 -Icon[it_IT]=calamares
--GenericName[it_IT]=Programma d'installazione del sistema
--Comment[it_IT]=Calamares — Programma d'installazione del sistema
-+Name[it_IT]=Installa OpenMandriva Lx
-+GenericName[it_IT]=Installa OpenMandriva Lx
-+Comment[it_IT]=Installa OpenMandriva Lx
+ GenericName[it_IT]=Programma d'installazione del sistema
+ Comment[it_IT]=Calamares — Programma d'installazione del sistema
  Name[ja]=システムをインストール
 -Icon[ja]=calamares
  GenericName[ja]=システムインストーラー
@@ -246,10 +240,6 @@ diff -up calamares-3.2.61/calamares.desktop.1~ calamares-3.2.61/calamares.deskto
 -Icon[uk]=calamares
  GenericName[uk]=Встановлювач системи
  Comment[uk]=Calamares - Встановлювач системи
- Name[uz]=O'rnatish
--Icon[uz]=calamares
- GenericName[uz]=Sistema o'rnatuvchisi
- Comment[uz]=Calamares — Sistema o'rnatuvchisi
  Name[vi]=Cài đặt hệ thống
 -Icon[vi]=calamares
  GenericName[vi]=Bộ cài đặt hệ thống
@@ -262,9 +252,9 @@ diff -up calamares-3.2.61/calamares.desktop.1~ calamares-3.2.61/calamares.deskto
 -Icon[zh_TW]=calamares
  GenericName[zh_TW]=系統安裝程式
  Comment[zh_TW]=Calamares ── 系統安裝程式
-diff -up calamares-3.2.61/calamares.desktop.in.1~ calamares-3.2.61/calamares.desktop.in
---- calamares-3.2.61/calamares.desktop.in.1~	2022-08-24 21:38:31.000000000 +0200
-+++ calamares-3.2.61/calamares.desktop.in	2022-08-29 16:25:14.031302638 +0200
+diff -up calamares-3.3.0-alpha6/calamares.desktop.in.1~ calamares-3.3.0-alpha6/calamares.desktop.in
+--- calamares-3.3.0-alpha6/calamares.desktop.in.1~	2023-11-16 23:23:58.000000000 +0100
++++ calamares-3.3.0-alpha6/calamares.desktop.in	2023-11-26 16:47:11.864000258 +0100
 @@ -1,13 +1,13 @@
  [Desktop Entry]
  Type=Application
