@@ -1,0 +1,12 @@
+diff -up calamares-3.3.0-alpha6/src/modules/mount/main.py.omv~ calamares-3.3.0-alpha6/src/modules/mount/main.py
+--- calamares-3.3.0-alpha6/src/modules/mount/main.py.omv~	2023-12-11 12:01:36.865502018 +0100
++++ calamares-3.3.0-alpha6/src/modules/mount/main.py	2023-12-11 12:02:24.517997557 +0100
+@@ -86,7 +86,7 @@ def get_mount_options(filesystem, mount_
+ 
+     # Extra mounts can optionally have "options" set, in this case, they override other all other settings
+     if "options" in partition:
+-        return ",".join(partition["options"])
++        return partition["options"]
+ 
+     # If there are no mount options defined then we use the defaults
+     if mount_options is None:

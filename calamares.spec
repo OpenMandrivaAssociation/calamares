@@ -13,7 +13,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.3.0
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}1
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}2
 %if 0%{?git:1}
 Source0:	https://github.com/calamares/calamares/archive/refs/heads/calamares.tar.gz
 %else
@@ -33,6 +33,7 @@ Source99:	openmandriva-install.svg
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
+Patch3:		calamares-3.3.0-alpha6-mountoptions.patch
 # (crazy) patches from Frugalware
 # (crazy) we do some strange things in iso repo , here a way to undo
 # FIXME This may need porting; the code it touches has been rewritten in 3.3.0
