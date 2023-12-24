@@ -80,6 +80,7 @@ BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
 BuildRequires:	python3dist(jsonschema)
 BuildRequires:	python3dist(pyyaml)
+BuildRequires:	gettext
 Requires:	coreutils
 Requires:	kpmcore >= 4.2.0
 Requires:	gawk
