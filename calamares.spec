@@ -80,6 +80,7 @@ BuildRequires:	python%{pyver}dist(pyyaml)
 # cmake needs to find the tools to get their
 # location into the binary
 BuildRequires:	squashfs-tools
+BuildRequires:	gettext
 Requires:	coreutils
 Requires:	plasma6-kpmcore
 Requires:	gawk
