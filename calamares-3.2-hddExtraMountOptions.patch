@@ -1,0 +1,52 @@
+diff -up calamares-3.2.62/src/modules/fstab/main.py.omv~ calamares-3.2.62/src/modules/fstab/main.py
+--- calamares-3.2.62/src/modules/fstab/main.py.omv~	2024-01-14 16:15:41.135247233 +0100
++++ calamares-3.2.62/src/modules/fstab/main.py	2024-01-14 16:16:46.127833072 +0100
+@@ -105,15 +105,17 @@ class FstabGenerator(object):
+     :param root_mount_point:
+     :param mount_options:
+     :param ssd_extra_mount_options:
++    :param hdd_extra_mount_options:
+     :param crypttab_options:
+     :param tmp_options:
+     """
+     def __init__(self, partitions, root_mount_point, mount_options,
+-                 ssd_extra_mount_options, crypttab_options, tmp_options):
++                 ssd_extra_mount_options, hdd_extra_mount_options, crypttab_options, tmp_options):
+         self.partitions = partitions
+         self.root_mount_point = root_mount_point
+         self.mount_options = mount_options
+         self.ssd_extra_mount_options = ssd_extra_mount_options
++        self.hdd_extra_mount_options = hdd_extra_mount_options
+         self.crypttab_options = crypttab_options
+         self.tmp_options = tmp_options
+         self.ssd_disks = set()
+@@ -276,9 +278,11 @@ class FstabGenerator(object):
+ 
+         if is_ssd:
+             extra = self.ssd_extra_mount_options.get(filesystem)
++        else:
++            extra = self.hdd_extra_mount_options.get(filesystem)
+ 
+-            if extra:
+-                options += "," + extra
++        if extra:
++            options += "," + extra
+ 
+         if mount_point == "/" and filesystem != "btrfs":
+             check = 1
+@@ -419,6 +423,7 @@ def run():
+     libcalamares.job.setprogress(0.1)
+     mount_options = conf.get("mountOptions", {})
+     ssd_extra_mount_options = conf.get("ssdExtraMountOptions", {})
++    hdd_extra_mount_options = conf.get("hddExtraMountOptions", {})
+     crypttab_options = conf.get("crypttabOptions", "luks")
+     tmp_options = conf.get("tmpOptions", {})
+ 
+@@ -434,6 +439,7 @@ def run():
+                                root_mount_point,
+                                mount_options,
+                                ssd_extra_mount_options,
++                               hdd_extra_mount_options,
+                                crypttab_options,
+                                tmp_options)
+ 

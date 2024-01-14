@@ -17,7 +17,7 @@ Version:	3.2.62
 Release:	0.%{git}.1
 Source0:	calamares-%{version}-%{git}.tar.xz
 %else
-Release:	13
+Release:	14
 # git archive --format=tar --prefix=calamares-1.1.0-$(date +%Y%m%d)/ HEAD | xz -vf > calamares-1.1.0-$(date +%Y%m%d).tar.xz
 #Source0:	calamares-%{version}-%{calamdate}.tar.xz
 Source0:	https://github.com/calamares/calamares/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -35,6 +35,7 @@ Source99:	openmandriva-install.svg
 Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 # (crazy) why we need this?
 Patch2:		calamares-libparted-detection.patch
+Patch3:		calamares-3.2-hddExtraMountOptions.patch
 # (crazy) patches from Frugalware
 # (crazy) we do some strange things in iso repo , here a way to undo
 Patch5:		0001-services-systemd-support-sockets-timers-and-unmask.patch
