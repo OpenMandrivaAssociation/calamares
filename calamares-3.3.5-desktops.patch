@@ -1,0 +1,24 @@
+diff -up calamares-3.3.5/src/modules/displaymanager/main.py.omv~ calamares-3.3.5/src/modules/displaymanager/main.py
+--- calamares-3.3.5/src/modules/displaymanager/main.py.omv~	2024-03-12 17:24:57.590314091 +0100
++++ calamares-3.3.5/src/modules/displaymanager/main.py	2024-03-12 17:29:49.637708857 +0100
+@@ -163,9 +163,12 @@ class DesktopEnvironment:
+ # /usr/local/bin) then the DE is assumed to be installed
+ # and to use that .desktop filename.
+ desktop_environments = [
++    DesktopEnvironment('/usr/bin/startplasma-x11', 'plasmax11'), # KDE Plasma 6.x on X11
++    DesktopEnvironment('/usr/bin/startplasma-wayland', 'plasma'), # KDE Plasma 6.x on Wayland
+     DesktopEnvironment('/usr/bin/startplasma-x11', 'plasma'),  # KDE Plasma 5.17+
+     DesktopEnvironment('/usr/bin/startkde', 'plasma'),  # KDE Plasma 5
+     DesktopEnvironment('/usr/bin/startkde', 'kde-plasma'),  # KDE Plasma 4
++    DesktopEnvironment('/usr/bin/lxqt-session', 'lxqt'),
+     DesktopEnvironment(
+         '/usr/bin/budgie-desktop', 'budgie-desktop'  # Budgie v10
+         ),
+@@ -178,7 +181,6 @@ desktop_environments = [
+     DesktopEnvironment('/usr/bin/enlightenment_start', 'enlightenment'),
+     DesktopEnvironment('/usr/bin/lxsession', 'LXDE'),
+     DesktopEnvironment('/usr/bin/startlxde', 'LXDE'),
+-    DesktopEnvironment('/usr/bin/lxqt-session', 'lxqt'),
+     DesktopEnvironment('/usr/bin/pekwm', 'pekwm'),
+     DesktopEnvironment('/usr/bin/pantheon-session', 'pantheon'),
+     DesktopEnvironment('/usr/bin/startdde', 'deepin'),
