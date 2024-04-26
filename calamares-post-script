@@ -52,6 +52,20 @@ wipe_vbox()
     fi
 }
 
+wipe_spice()
+{
+    local dmifile
+    dmifile=$(cat /sys/class/dmi/id/sys_vendor)
+    [ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
+
+    if [ "$dmifile" != 'QEMU' ]; then
+	printf '%s\n' "We are not on QEmu, removing spice-vdagent"
+	dnf --disablerepo="*" -C -y remove spice-vdagent
+    else
+	printf '%s\n' "Looks like a QEmu VM, keeping spice packages."
+    fi
+}
+
 iso_stuff()
 {
     local i
@@ -85,3 +99,4 @@ iso_stuff()
 wipe_locale
 iso_stuff
 wipe_vbox
+wipe_spice
