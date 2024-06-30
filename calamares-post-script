@@ -5,95 +5,111 @@
 
 wipe_locale()
 {
-    local lang list nosed engb
-    lang=$(grep ^LANG= /etc/locale.conf | sed 's/.*=//g' | sed 's/_.*//g')
-    [ -z "$lang" ] && printf '%s\n' "Error: Cannot find locale settings" && exit 1
-    case $lang in
-	    C*) nosed=1 ;;
-	    *) nosed=0 ;;
-    esac
+	local lang list nosed engb
+	lang=$(grep ^LANG= /etc/locale.conf | sed 's/.*=//g' | sed 's/_.*//g')
+	[ -z "$lang" ] && printf '%s\n' "Error: Cannot find locale settings" && exit 1
+	case $lang in
+		C*) nosed=1 ;;
+		*) nosed=0 ;;
+	esac
 
 ## let -en* stuff always be there , some apps may just have stubs
 ## or incomplete translation and that always has an failback to en_*
-    list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1}' | rev | cut -d. -f2- |rev | grep -v locales-en |grep -v locales-extra-charsets)
+	list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1}' | rev | cut -d. -f2- |rev | grep -v locales-en |grep -v locales-extra-charsets)
 
 # (crazy) disable for now , myspell build changes and now -en packages
 # provides en_GB so we cannot remove anymore like this
 
 #	if [ "$lang" != 'en' ]; then
-#	    engb=(libreoffice-l10n-en_GB myspell-en_GB firefox-en_GB)
-#	    list=(${list[@]} ${engb[@]})
+#		engb=(libreoffice-l10n-en_GB myspell-en_GB firefox-en_GB)
+#		list=(${list[@]} ${engb[@]})
 #	fi
 
 ## now simple run remove
-    if [[ -n ${list[@]} ]]; then
-	printf '%s\n' "Removing not needed language packages.."
-	if [ $nosed -eq 0 ]; then
-	    dnf --disablerepo="*" -C -y remove ${list[@]/locales-$lang}
+	if [[ -n ${list[@]} ]]; then
+		printf '%s\n' "Removing not needed language packages.."
+		if [ $nosed -eq 0 ]; then
+			dnf --disablerepo="*" -C -y remove ${list[@]/locales-$lang}
+		else
+			dnf --disablerepo="*" -C -y remove  ${list[@]}
+		fi
 	else
-	    dnf --disablerepo="*" -C -y remove  ${list[@]}
+		printf '%s\n' "Nothing to do.."
 	fi
-    else
-	printf '%s\n' "Nothing to do.."
-    fi
 }
 
 wipe_vbox()
 {
-    local dmifile
-    dmifile=$(cat /sys/class/dmi/id/product_name)
-    [ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
+	local dmifile
+	dmifile=$(cat /sys/class/dmi/id/product_name)
+	[ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
 
-    if [ "$dmifile" != 'VirtualBox' ]; then
-	printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
-	dnf --disablerepo="*" -C -y remove  virtualbox-guest-additions
-    else
-	printf '%s\n' "Looks like a VirtualBox VM, keeping virtualbox packages."
-    fi
+	if [ "$dmifile" != 'VirtualBox' ]; then
+		printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
+		dnf --disablerepo="*" -C -y remove  virtualbox-guest-additions
+	else
+		printf '%s\n' "Looks like a VirtualBox VM, keeping virtualbox packages."
+	fi
 }
 
 wipe_spice()
 {
-    local dmifile
-    dmifile=$(cat /sys/class/dmi/id/sys_vendor)
-    [ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
+	local dmifile
+	dmifile=$(cat /sys/class/dmi/id/sys_vendor)
+	[ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
 
-    if [ "$dmifile" != 'QEMU' ]; then
-	printf '%s\n' "We are not on QEmu, removing spice-vdagent"
-	dnf --disablerepo="*" -C -y remove spice-vdagent
-    else
-	printf '%s\n' "Looks like a QEmu VM, keeping spice packages."
-    fi
+	if [ "$dmifile" != 'QEMU' ]; then
+		printf '%s\n' "We are not on QEmu, removing spice-vdagent"
+		dnf --disablerepo="*" -C -y remove spice-vdagent
+	else
+		printf '%s\n' "Looks like a QEmu VM, keeping spice packages."
+	fi
 }
 
 iso_stuff()
 {
-    local i
-    printf '%s\n' "Cleaning up.."
+	local i
+	printf '%s\n' "Cleaning up.."
 ## for unknow reson firewalld has somewho some script error
 ## and a file '1' is installed into rootfs..
-    [ -e /1 ] && rm -rf /1
+	[ -e /1 ] && rm -rf /1
 
 ## /root/tmp ?
-    [ -d /root/tmp ] && rm -rf /root/tmp
+	[ -d /root/tmp ] && rm -rf /root/tmp
 
 ## /live
-    [ -d /live ] && rm -rf /live
+	[ -d /live ] && rm -rf /live
 
 # remove sshd config for live iso
-[ -f /etc/ssh/sshd_config.d/50-live-iso.conf ] && rm -rf /etc/ssh/sshd_config.d/50-live-iso.conf
+	[ -f /etc/ssh/sshd_config.d/50-live-iso.conf ] && rm -rf /etc/ssh/sshd_config.d/50-live-iso.conf
+
+## Make sure we default to the right session and not "fallback" (which comes
+## before plasma in the alphabet)
+	if [ -e /etc/sddm.conf ]; then
+		if ! grep -q DefaultSession /etc/sddm.conf; then
+			if [ -e /usr/share/xsessions/plasmax11.desktop ]; then
+				sed -i -e '/\[General\]/aDefaultSession=plasmax11' /etc/sddm.conf
+			elif [ -e /usr/share/wayland-sessions/plasma.desktop -o -e /usr/share/xsessions/plasma.desktop ]; then
+				sed -i -e '/\[General\]/aDefaultSession=plasma' /etc/sddm.conf
+			elif [ -e /usr/share/wayland-sessions/plasmawayland.desktop ]; then
+				sed -i -e '/\[General\]/aDefaultSession=plasmawayland' /etc/sddm.conf
+			elif [ -e /usr/share/xsessions/lxqt.desktop -o -e /usr/share/wayland-sessions/lxqt.desktop ]; then
+				sed -i -e '/\[General\]/aDefaultSession=lxqt' /etc/sddm.conf
+			fi
+		fi
+	fi
 
 ## clean .bak .rpmsave files .. strange to have
 ## an fresh installed system with the on it
-    for i in $(ls /etc/*.{bak,rpmsave}); do
-	rm -rf "$i"
-    done
+	for i in $(ls /etc/*.{bak,rpmsave}); do
+		rm -rf "$i"
+	done
 
 # game requested for Live session
-    dnf --disablerepo="*" -C -y remove kpat
-    chown -R rpm:rpm /var/lib/rpm
-    rm -rf /var/lib/rpm/.dbenv.lock
-    rm -rf /var/lib/rpm/.rpm.lock
+	dnf --disablerepo="*" -C -y remove kpat
+	chown -R rpm:rpm /var/lib/rpm
+	rm -rf /var/lib/rpm/.dbenv.lock
+	rm -rf /var/lib/rpm/.rpm.lock
 }
 
 wipe_locale
