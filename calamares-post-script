@@ -42,13 +42,13 @@ wipe_vbox()
 {
 	local dmifile
 	dmifile=$(cat /sys/class/dmi/id/product_name)
-	[ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
+	[ -z "$dmifile" ] && printf '%s\n' "Warning: DMI product_name entry empty?"
 
-	if [ "$dmifile" != 'VirtualBox' ]; then
+	if [ "$dmifile" = 'VirtualBox' ]; then
+		printf '%s\n' "Looks like a VirtualBox VM, keeping virtualbox packages."
+	else
 		printf '%s\n' "We are not on VirtualBox , removing virtualbox-guest-additions"
 		dnf --disablerepo="*" -C -y remove  virtualbox-guest-additions
-	else
-		printf '%s\n' "Looks like a VirtualBox VM, keeping virtualbox packages."
 	fi
 }
 
@@ -56,13 +56,13 @@ wipe_spice()
 {
 	local dmifile
 	dmifile=$(cat /sys/class/dmi/id/sys_vendor)
-	[ -z "$dmifile" ] && printf '%s\n' "Error: DMI entry empty?" && exit 1
+	[ -z "$dmifile" ] && printf '%s\n' "Warning: DMI sys_vendor entry empty"
 
-	if [ "$dmifile" != 'QEMU' ]; then
+	if [ "$dmifile" = 'QEMU' ]; then
+		printf '%s\n' "Looks like a QEmu VM, keeping spice packages."
+	else
 		printf '%s\n' "We are not on QEmu, removing spice-vdagent"
 		dnf --disablerepo="*" -C -y remove spice-vdagent
-	else
-		printf '%s\n' "Looks like a QEmu VM, keeping spice packages."
 	fi
 }
 
@@ -70,8 +70,9 @@ iso_stuff()
 {
 	local i
 	printf '%s\n' "Cleaning up.."
-## for unknow reson firewalld has somewho some script error
+## for unknown reson firewalld has somehow some script error
 ## and a file '1' is installed into rootfs..
+## Might be a 2>/1 instead of 2>&1 somewhere?
 	[ -e /1 ] && rm -rf /1
 
 ## /root/tmp ?
