@@ -21,7 +21,7 @@ Source0:	https://github.com/calamares/calamares/releases/download/v%{version}%{?
 %endif
 Group:		System/Configuration/Other
 License:	GPLv3+
-URL:		http://calamares.io/
+URL:		https://calamares.io/
 Source2:	%{name}.rpmlintrc
 Source3:	%{name}-locale-setup
 Source4:	%{name}-locale.service
