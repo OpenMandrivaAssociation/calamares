@@ -12,8 +12,8 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.3.9
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}3
+Version:	3.3.13
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}1
 %if 0%{?git:1}
 Source0:	https://github.com/calamares/calamares/archive/refs/heads/calamares.tar.gz
 %else
