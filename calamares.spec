@@ -117,7 +117,7 @@ Requires:	qt6-qtwebengine
 Calamares is a distribution-independent installer framework,
 designed to install from a live CD/DVD/USB environment to
 a hard disk. It includes a graphical installation
-program based on Qt 5.
+program based on Qt.
 
 %package -n %{libname}
 Summary:	Calamares runtime libraries
