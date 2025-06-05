@@ -15,7 +15,7 @@ wipe_locale()
 
 ## let -en* stuff always be there , some apps may just have stubs
 ## or incomplete translation and that always has an failback to en_*
-	list=$(dnf -C -q list installed | grep ^locales- | awk '{print $1}' | rev | cut -d. -f2- |rev | grep -v locales-en |grep -v locales-extra-charsets)
+	list=$(dnf -C -q list --installed | grep ^locales- | awk '{print $1}' | rev | cut -d. -f2- |rev | grep -v locales-en |grep -v locales-extra-charsets)
 
 # (crazy) disable for now , myspell build changes and now -en packages
 # provides en_GB so we cannot remove anymore like this
