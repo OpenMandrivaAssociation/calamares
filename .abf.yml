@@ -1,3 +1,4 @@
 sources:
+  49-nopasswd_calamares.rules: b8a3ad1bed958dc035a5ea2e97f53d14114c6b0e
+  calamares-3.4.0.tar.gz: d913a7ac7d80f170c62d8d608dc25f0800290cd8
   openmandriva-install.svg: a64c8fd2b0e11766cfdcc0c345664b99c4b108b7
-  calamares-3.3.14.tar.gz: 93a8361af033196164fa288573ce2d05f00ef29a

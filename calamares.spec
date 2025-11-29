@@ -12,12 +12,12 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.3.14
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}2
+Version:	3.4.0
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}1
 %if 0%{?git:1}
-Source0:	https://github.com/calamares/calamares/archive/refs/heads/calamares.tar.gz
+Source0:	https://codeberg.org/calamares/calamares/archive/refs/heads/calamares.tar.gz
 %else
-Source0:	https://github.com/calamares/calamares/releases/download/v%{version}%{?beta:-%{beta}}/calamares-%{version}%{?beta:-%{beta}}.tar.gz
+Source0:	https://codeberg.org/calamares/calamares/releases/download/v%{version}%{?beta:-%{beta}}/calamares-%{version}%{?beta:-%{beta}}.tar.gz
 %endif
 Group:		System/Configuration/Other
 License:	GPLv3+
@@ -224,7 +224,7 @@ sed -i -e 's|pkexec calamares|pkexec calamares -d|g' %{buildroot}%{_datadir}/app
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
 %{_datadir}/calamares/qml/calamares/slideshow/qmldir.license
 %{_datadir}/applications/calamares.desktop
-%{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
+%{_datadir}/polkit-1/actions/io.calamares.calamares.policy
 %{_libdir}/calamares/*
 %{_iconsdir}/hicolor/scalable/apps/*.svg
 %doc %{_mandir}/man8/calamares.8.*
