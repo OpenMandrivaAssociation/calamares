@@ -12,15 +12,16 @@
 
 Summary:	Distribution-independent installer framework
 Name:		calamares
-Version:	3.3.14
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}2
+Version:	3.4.0
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}1
 %if 0%{?git:1}
-Source0:	https://github.com/calamares/calamares/archive/refs/heads/calamares.tar.gz
+Source0:	https://codeberg.org/Calamares/calamares/archive/calamares.tar.gz
 %else
-Source0:	https://github.com/calamares/calamares/releases/download/v%{version}%{?beta:-%{beta}}/calamares-%{version}%{?beta:-%{beta}}.tar.gz
+Source0:	https://codeberg.org/Calamares/calamares/archive/v%{version}.tar.gz
 %endif
 Group:		System/Configuration/Other
 License:	GPLv3+
+# https://calamares.codeberg.page/
 URL:		https://calamares.io/
 Source2:	%{name}.rpmlintrc
 Source3:	%{name}-locale-setup
@@ -138,7 +139,7 @@ Requires:	cmake
 Development files and headers for %{name}.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}%{?beta:-%{beta}}
+%autosetup -p1 -n %{name}
 
 #delete backup files
 rm -f src/modules/*/*.conf.default-settings
@@ -224,10 +225,10 @@ sed -i -e 's|pkexec calamares|pkexec calamares -d|g' %{buildroot}%{_datadir}/app
 %{_datadir}/calamares/qml/calamares//slideshow/qmldir
 %{_datadir}/calamares/qml/calamares/slideshow/qmldir.license
 %{_datadir}/applications/calamares.desktop
-%{_datadir}/polkit-1/actions/com.github.calamares.calamares.policy
+%{_datadir}/polkit-1/actions/io.calamares.calamares.policy
 %{_libdir}/calamares/*
 %{_iconsdir}/hicolor/scalable/apps/*.svg
-%doc %{_mandir}/man8/calamares.8.*
+%doc %{_mandir}/man8/calamares.8*
 
 %files -n %{libname}
 %{_libdir}/libcalamares.so.%{major}*
