@@ -13,7 +13,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.4.3
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}1
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}2
 %if 0%{?git:1}
 Source0:	https://codeberg.org/Calamares/calamares/archive/calamares.tar.gz
 %else
@@ -102,7 +102,6 @@ Requires:	console-setup
 # x11 stuff
 Requires:	setxkbmap
 Requires:	xkbcomp
-Requires:	xloadimage
 Requires:	NetworkManager
 Requires:	os-prober
 Requires:	gawk
