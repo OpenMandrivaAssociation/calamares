@@ -1,0 +1,154 @@
+--- calamares-3.4.3/src/calamares/CMakeLists.txt	2026-09-09 22:31:23.000000000 +0200
++++ calamares-3.4.3/src/calamares/CMakeLists.txt	2026-09-15 01:26:51.109035181 +0200
+@@ -9,6 +9,7 @@ set(calamaresSources
+     CalamaresApplication.cpp
+     CalamaresWindow.cpp
+     DebugWindow.cpp
++    UrlOpener.cpp
+     VariantModel.cpp
+     progresstree/ProgressTreeDelegate.cpp
+     progresstree/ProgressTreeView.cpp
+--- calamares-3.4.3/src/calamares/main.cpp	2026-09-09 22:31:23.000000000 +0200
++++ calamares-3.4.3/src/calamares/main.cpp	2026-09-15 01:26:51.122389191 +0200
+@@ -9,6 +9,7 @@
+  */
+ 
+ #include "CalamaresApplication.h"
++#include "UrlOpener.h"
+ 
+ #include "Settings.h"
+ #include "utils/Dirs.h"
+@@ -111,6 +112,7 @@ main( int argc, char* argv[] )
+     QApplication::setAttribute( Qt::AA_EnableHighDpiScaling );
+ #endif
+     CalamaresApplication a( argc, argv );
++    installUrlOpener();
+ 
+     KAboutData aboutData( "calamares",
+                           "Calamares",
+--- calamares-3.4.3/src/calamares/UrlOpener.h.omv~	1970-01-01 00:00:00.000000000 +0000
++++ calamares-3.4.3/src/calamares/UrlOpener.h	2026-09-15 01:30:44.241634794 +0200
+@@ -0,0 +1,36 @@
++/* === This file is part of Calamares - <https://calamares.io> ===
++ *
++ *   SPDX-FileCopyrightText: 2026 OpenMandriva
++ *   SPDX-License-Identifier: GPL-3.0-or-later
++ *
++ *   Calamares is Free Software: see the License-Identifier above.
++ *
++ */
++
++#ifndef CALAMARES_URLOPENER_H
++#define CALAMARES_URLOPENER_H
++
++#include <QObject>
++#include <QUrl>
++
++/** @brief Open http(s)/mailto links as the live user, not as root.
++ *
++ * Calamares runs as root so partitioning works. QDesktopServices would then
++ * start the desktop browser as root; Chromium-based browsers refuse that
++ * without --no-sandbox. Intercept those schemes and xdg-open them after
++ * setuid back to live (uid 1000, gid 1002).
++ */
++class UrlOpener : public QObject
++{
++    Q_OBJECT
++
++public:
++    explicit UrlOpener( QObject* parent = nullptr );
++
++public slots:
++    void openUrl( const QUrl& url );
++};
++
++void installUrlOpener();
++
++#endif
+--- calamares-3.4.3/src/calamares/UrlOpener.cpp.omv~	1970-01-01 00:00:00.000000000 +0000
++++ calamares-3.4.3/src/calamares/UrlOpener.cpp	2026-09-15 01:30:44.250930863 +0200
+@@ -0,0 +1,84 @@
++/* === This file is part of Calamares - <https://calamares.io> ===
++ *
++ *   SPDX-FileCopyrightText: 2026 OpenMandriva
++ *   SPDX-License-Identifier: GPL-3.0-or-later
++ *
++ *   Calamares is Free Software: see the License-Identifier above.
++ *
++ */
++
++#include "UrlOpener.h"
++
++#include "utils/Logger.h"
++
++#include <QApplication>
++#include <QDesktopServices>
++#include <QProcess>
++#include <QUrl>
++
++#include <grp.h>
++#include <unistd.h>
++
++#include <cstdlib>
++
++// OpenMandriva live ISO account (see 49-nopasswd_calamares.rules)
++static constexpr uid_t liveUid = 1000;
++static constexpr gid_t liveGid = 1002;
++
++UrlOpener::UrlOpener( QObject* parent )
++    : QObject( parent )
++{
++}
++
++void
++UrlOpener::openUrl( const QUrl& url )
++{
++    const QString encoded = QString::fromUtf8( url.toEncoded() );
++
++    if ( geteuid() != 0 )
++    {
++        if ( !QProcess::startDetached( QStringLiteral( "/usr/bin/xdg-open" ), { encoded } ) )
++        {
++            cWarning() << "xdg-open failed for" << url;
++        }
++        return;
++    }
++
++    QProcess process;
++    process.setProgram( QStringLiteral( "/usr/bin/xdg-open" ) );
++    process.setArguments( { encoded } );
++    process.setChildProcessModifier(
++        []()
++        {
++            if ( ::initgroups( "live", liveGid ) != 0 || ::setgid( liveGid ) != 0 || ::setuid( liveUid ) != 0 )
++            {
++                _exit( 127 );
++            }
++            ::setenv( "HOME", "/home/live", 1 );
++            ::setenv( "USER", "live", 1 );
++            ::setenv( "LOGNAME", "live", 1 );
++            ::setenv( "XDG_RUNTIME_DIR", "/run/user/1000", 1 );
++            ::setenv( "DBUS_SESSION_BUS_ADDRESS", "unix:path=/run/user/1000/bus", 1 );
++            ::unsetenv( "XDG_CONFIG_HOME" );
++            ::unsetenv( "XDG_CACHE_HOME" );
++            ::unsetenv( "XDG_DATA_HOME" );
++            ::unsetenv( "XDG_STATE_HOME" );
++        } );
++
++    const bool ok = process.startDetached();
++    cDebug() << "Opening URL" << url << "as live (1000:1002) via xdg-open, success?" << ok;
++    if ( !ok )
++    {
++        cWarning() << "xdg-open as live failed for" << url;
++    }
++}
++
++void
++installUrlOpener()
++{
++    auto* opener = new UrlOpener( qApp );
++    for ( const char* scheme : { "http", "https", "mailto" } )
++    {
++        QDesktopServices::setUrlHandler( QString::fromLatin1( scheme ), opener, "openUrl" );
++    }
++}

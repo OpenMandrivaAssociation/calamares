@@ -13,7 +13,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.4.3
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}2
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}3
 %if 0%{?git:1}
 Source0:	https://codeberg.org/Calamares/calamares/archive/calamares.tar.gz
 %else
@@ -35,8 +35,9 @@ Patch1:		calamares-0.17.0-20150112-openmandriva-desktop-file.patch
 Patch2:		calamares-libparted-detection.patch
 # Detect Plasma 6 on X11, prefer LXQt over Gcruft
 Patch3:		calamares-3.3.5-desktops.patch
-# QtWebEngine/Chromium refuses to start as root without --no-sandbox
-Patch4:		calamares-3.4.3-disable-webengine-sandbox-as-root.patch
+# Welcome/license links start the desktop browser as root; Chromium
+# then dies on --no-sandbox. setuid back to live (1000:1002) first.
+Patch4:		calamares-3.4.3-open-urls-as-user.patch
 # (crazy) patches from Frugalware
 # (crazy) we do some strange things in iso repo , here a way to undo
 # FIXME This may need porting; the code it touches has been rewritten in 3.3.0
