@@ -2,6 +2,7 @@
 %define oldlibname %mklibname %{name} 3
 %define libname %mklibname %{name}
 %define develname %mklibname %{name} -d
+%global pyvernum %(echo %{pyver}|sed -e 's,\\.,,g')
 #define beta alpha6
 
 ## !NO JOKE! STOP TOUCHING THAT PACKAGE ##
@@ -13,7 +14,7 @@
 Summary:	Distribution-independent installer framework
 Name:		calamares
 Version:	3.4.3
-Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}3
+Release:	%{?beta:0.%{beta}.}%{?git:0.%{git}.}4
 %if 0%{?git:1}
 Source0:	https://codeberg.org/Calamares/calamares/archive/calamares.tar.gz
 %else
@@ -76,7 +77,7 @@ BuildRequires:	cmake(AppStreamQt) >= 1.0.0
 BuildRequires:	yaml-cpp-devel
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	boost-devel >= 1.54.0
-BuildRequires:	boost-python-devel
+BuildRequires:	%mklibname -d boost_python%{pyvernum}
 BuildRequires:	pkgconfig(libcrypto)
 BuildRequires:	pkgconfig(pwquality)
 BuildRequires:	systemd-macros
